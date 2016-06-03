@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_centerHorizontal="true"
+    android:background="#fff"
+    android:gravity="center"
+    android:layout_height="match_parent">
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="Username"
+        android:id="@+id/username"/>
+    <EditText
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:hint="Password"
+        android:id="@+id/password"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Email must be a valid format"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:layout_height="match_parent"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/verifyUsernameImage"
+            android:background="@drawable/check"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:text="Password must be 6 characters or longer"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="15dp"
+            android:gravity="center"
+            android:textStyle="italic"
+            android:layout_height="match_parent"
+            />
+        <ImageView
+            android:layout_width="30dp"
+            android:id="@+id/verifyPasswordImage"
+            android:background="@drawable/check"
+            android:layout_height="30dp" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/btnSignIn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/colorPrimary"
+        style="@style/AppTheme.NoActionBar"
+        android:text="Sign in"
+        android:textColor="@android:color/white"
+        android:textSize="15sp"
+        android:visibility="visible"
+
+        />
+
+
+</LinearLayout>

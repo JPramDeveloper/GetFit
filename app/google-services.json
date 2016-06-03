@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "48425457082",
+    "firebase_url": "https://fitnessapp-1cb48.firebaseio.com",
+    "project_id": "fitnessapp-1cb48",
+    "storage_bucket": "fitnessapp-1cb48.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48425457082:android:54ebfbde8f2a2534",
+        "android_client_info": {
+          "package_name": "me.danielhartman.startingstrength"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48425457082-dgsloa3gcgis7lfbk3r99mmjt6o2ik7l.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDy4q13Ymcj3Dku3eDPXswk34zGd0peXt0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

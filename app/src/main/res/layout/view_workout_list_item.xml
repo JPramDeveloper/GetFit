@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:background="@color/colorPrimary"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:id="@+id/body"
+                android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/workoutName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="bottom"
+                android:textStyle="bold"
+                android:padding="5dp"
+                android:textColor="#000"
+                android:text="Workout Name"
+                android:textSize="22sp"
+                android:tag="Hover"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="# of Routines"
+                android:textColor="#fff"
+                android:textSize="20sp"
+                android:id="@+id/numberOfRoutines"
+                android:layout_below="@id/workoutName"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:background="#fff"
+                android:padding="5dp"
+                android:id="@+id/workoutNotes"
+                android:text="No Notes Available"
+                android:layout_below="@id/numberOfRoutines"
+                android:layout_height="50dp" />
+
+            </LinearLayout>
+
+

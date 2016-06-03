@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#Fff"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/workoutDay"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textColor="#000"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:hint="@string/routineNumber"
+        android:textSize="@dimen/addplanEditTextSize"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/exerciseNameEditText"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/workoutDay"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:textStyle="italic"
+        android:hint="Exercise Name"
+        android:textSize="@dimen/addplanEditTextSize" />
+
+    <LinearLayout
+        android:id="@+id/setsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/exerciseNameEditText"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/numberOfSetsTV"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:text="# of Sets:     1"
+            android:textSize="@dimen/addplanEditTextSize" />
+
+        <Button
+            android:id="@+id/setsUpButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginRight="5dp"
+            android:textAlignment="center"
+            android:background="@drawable/plus"
+            android:textSize="22sp" />
+
+        <Button
+            android:id="@+id/setsDownButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:background="@drawable/minus"
+            android:textSize="20sp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/repsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@+id/setsLayout"
+        android:layout_centerHorizontal="true"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/numberOfRepsTv"
+            android:layout_width="140dp"
+            android:layout_height="match_parent"
+            android:gravity="bottom"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:text="# of Reps:    1"
+            android:textSize="@dimen/addplanEditTextSize" />
+
+        <Button
+            android:id="@+id/repsUpButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginRight="5dp"
+            android:gravity="center"
+            android:background="@drawable/plus"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/repsDownButton"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:gravity="center"
+            android:background="@drawable/minus"
+            android:textSize="20sp" />
+
+
+    </LinearLayout>
+    <EditText
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:background="@drawable/edittextbg"
+        android:layout_below="@id/repsLayout"
+        android:id="@+id/notes"
+        android:layout_margin="10dp"
+        android:hint="Add Notes"
+        android:textStyle="italic"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        />
+
+
+
+    <LinearLayout
+        android:id="@+id/buttonContainer"
+
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/notes"
+        android:layout_marginTop="2dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/goBackButton"
+            android:layout_width="150dp"
+            android:textSize="@dimen/buttonMakePlan"
+            android:layout_height="50dp"
+            android:background="#fff"
+            android:gravity="center"
+            android:text="Previous Day" />
+
+        <Button
+            android:id="@+id/goToNextDayButton"
+            android:layout_width="150dp"
+            android:textSize="@dimen/buttonMakePlan"
+            android:background="@drawable/leftborder"
+            android:layout_height="50dp"
+            android:text="Go To Next Day" />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/saveButton"
+        android:layout_width="300dp"
+        android:layout_height="50dp"
+        android:textSize="@dimen/buttonMakePlan"
+        android:gravity="center"
+        android:background="@drawable/bordertop"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/buttonContainer"
+        android:text="Save Exercise" />
+
+    <Button
+        android:id="@+id/createWorkoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="@dimen/buttonMakePlan"
+        android:layout_alignParentBottom="true"
+        android:background="@color/prettyBlue"
+
+        android:layout_centerHorizontal="true"
+        android:text="Create Workout" />
+</RelativeLayout>

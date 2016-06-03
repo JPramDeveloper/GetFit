@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/sliderOne"
+            android:title="Start Workout" />
+        <item android:id="@+id/sliderTwo"
+            android:title="My Workouts" />
+
+        <item android:id="@+id/sliderFour"
+            android:title="Create Workout" />
+        <item android:id="@+id/settings"
+            android:title="Settings"/>
+    </group>
+
+
+
+</menu>

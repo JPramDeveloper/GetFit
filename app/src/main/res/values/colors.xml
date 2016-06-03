@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="edit_text_background">#fff</color>
+    <color name="edit_text_background_container">#536299</color>
+    <color name="activeSelector">#aad4ffff</color>
+    <color name="default_header_color">#445566</color>
+    <color name="prettyBlue">#8eabff</color>
+
+
+    <color name="colorPrimary">#2196F3</color>
+    <color name="colorPrimaryDark">#0D47A1</color>
+    <color name="colorPrimaryLightt">#B3E5FC</color>
+    <color name="colorAccent">#FF9800</color>
+    <color name="colorPrimaryText">#212121</color>
+    <color name="colorSecondaryText">#727272</color>
+    <color name="colorIcons">#FFFFFF</color>
+    <color name="colorDivider">#B6B6B6</color>
+
+
+</resources>

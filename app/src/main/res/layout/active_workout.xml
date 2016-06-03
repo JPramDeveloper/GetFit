@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="#fff"
+    android:layout_height="wrap_content">
+    <Spinner
+        android:layout_width="250dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/exerciseSpinner"
+        android:layout_margin="15dp"
+        android:layout_marginBottom="10dp"
+        android:layout_height="50dp"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:text=" Recommended: 4 sets of 5 reps"
+        android:layout_height="40dp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:layout_below="@id/exerciseSpinner"
+        android:textSize="20sp"
+        android:id="@+id/recommendedSetsAndReps"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:layout_width="180dp"
+        android:text="Weight"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="5dp"
+        android:textStyle="bold"
+        android:layout_below="@id/recommendedSetsAndReps"
+        android:textSize="18sp"
+        android:id="@+id/weightHelperText"
+
+        android:layout_height="30dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:text="Reps"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="5dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:layout_toRightOf="@id/weightHelperText"
+        android:layout_alignBaseline="@+id/weightHelperText"
+        android:id="@+id/repsHelperText"
+        android:layout_height="30dp" />
+    <ImageView
+        android:layout_width="320dp"
+        android:id="@+id/divider1"
+        android:layout_marginBottom="10dp"
+        android:layout_height="5dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/weightHelperText"
+        android:background="@color/prettyBlue"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:id="@+id/weightLinearLayout"
+        android:layout_below="@id/divider1"
+        android:layout_height="40dp">
+
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/weightMinus"
+            android:background="@drawable/minus"/>
+        <EditText
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:inputType="numberDecimal"
+            android:id="@+id/weightValue"
+            android:textAlignment="center"
+            android:text="100.0"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="10dp"
+            android:id="@+id/weightPlus"
+            android:background="@drawable/plus"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/repsMinus"
+            android:background="@drawable/minus"/>
+        <EditText
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:id="@+id/repsValue"
+            android:textAlignment="center"
+            android:text="5"/>
+        <Button
+            android:layout_width="40dp"
+            android:layout_height="match_parent"
+            android:id="@+id/repsPlus"
+            android:background="@drawable/plus"/>
+    </LinearLayout>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_below="@id/weightLinearLayout"
+    android:layout_margin="20dp"
+    android:gravity="center"
+    android:id="@+id/buttonLinearLayout"
+    android:layout_height="50dp">
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="18dp"
+        android:text="Complete"
+        android:background="#28A428"
+        android:id="@+id/workoutSaveButton"
+       />
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="50dp"
+        android:textSize="18dp"
+        android:layout_marginLeft="30dp"
+        android:text="Failed"
+        android:background="#D24747"
+        android:id="@+id/workoutFailButton"
+        />
+</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_below="@+id/buttonLinearLayout"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:text="Workout Notes"
+            android:layout_height="150dp"
+            android:id="@+id/exerciseNotes"
+            android:textSize="20sp"
+            android:layout_margin="10dp"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
