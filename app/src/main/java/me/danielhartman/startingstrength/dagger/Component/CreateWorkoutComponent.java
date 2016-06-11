@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import dagger.Component;
 import me.danielhartman.startingstrength.Ui.AccountManagement.CreateAccount_Fragment;
 import me.danielhartman.startingstrength.Ui.AccountManagement.Login_Fragment;
+import me.danielhartman.startingstrength.Ui.CreateWorkout.CreateWorkoutFragment;
 import me.danielhartman.startingstrength.Ui.CreateWorkout.CreateWorkoutName;
 import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewPlan_Fragment;
 import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewWorkout_Fragment;
@@ -16,5 +17,6 @@ import me.danielhartman.startingstrength.dagger.Module.ViewWorkoutModule;
 public interface CreateWorkoutComponent {
 
     void inject(CreateWorkoutName fragment);
+    void inject(CreateWorkoutFragment fragment);
 
 }

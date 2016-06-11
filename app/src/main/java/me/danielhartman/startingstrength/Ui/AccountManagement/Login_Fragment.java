@@ -61,10 +61,7 @@ public class Login_Fragment extends Fragment implements LoginCallback, FirebaseU
     }
 
     public void replaceFragment(Fragment fragment, Integer view){
-        FragmentManager  fragmentManager = getActivity().getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(view,fragment,null)
-                .commit();
+     getActivity().getSupportFragmentManager().beginTransaction().replace(view, fragment).commit();
     }
 
     @Override

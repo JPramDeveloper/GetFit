@@ -4,8 +4,6 @@ package me.danielhartman.startingstrength.Ui;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +30,11 @@ public class MainMenu_Fragment extends Fragment {
     }
     @OnClick(R.id.startWorkout)
     public void startWorkout(){
-        nextFragmentForMain(new CreateWorkoutName(),R.id.container);
+        replaceFragment(new CreateWorkoutName(),R.id.container);
     }
     @OnClick(R.id.viewWorkouts)
     public void viewWorkoutsOnClick(){
-        nextFragmentForMain(new Login_Fragment(),R.id.container);
+        replaceFragment(new Login_Fragment(),R.id.container);
     }
     @OnClick(R.id.createWorkout)
     public void workoutManager(){
@@ -45,17 +43,10 @@ public class MainMenu_Fragment extends Fragment {
     }
 
     @OnClick(R.id.graphMenuButton)
-    public void graphButtonClick(){
+    public void graphButtonClick(){}
 
-        
-    }
-
-    public void nextFragmentForMain(Fragment fragment, Integer view){
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(view,fragment,null);
-        fragmentTransaction.addToBackStack("menu");
-        fragmentTransaction.commit();
+    public void replaceFragment(Fragment fragment, Integer view){
+    getActivity().getSupportFragmentManager().beginTransaction().replace(view,fragment).addToBackStack(null).commit();
     }
 
 
