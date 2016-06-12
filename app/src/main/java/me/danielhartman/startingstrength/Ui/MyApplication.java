@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui;
+package me.danielhartman.startingstrength.ui;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -9,8 +9,8 @@ import me.danielhartman.startingstrength.Model.Exercise;
 import me.danielhartman.startingstrength.Model.Plan;
 import me.danielhartman.startingstrength.Model.Session;
 import me.danielhartman.startingstrength.Model.Workout;
-import me.danielhartman.startingstrength.Util.NonPublic;
 import me.danielhartman.startingstrength.dagger.Component.DaggerViewWorkoutComponent;
+import me.danielhartman.startingstrength.util.NonPublic;
 import me.danielhartman.startingstrength.dagger.Component.ViewWorkoutComponent;
 
 

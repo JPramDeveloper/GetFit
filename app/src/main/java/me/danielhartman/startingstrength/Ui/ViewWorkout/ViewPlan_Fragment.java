@@ -1,15 +1,13 @@
-package me.danielhartman.startingstrength.Ui.ViewWorkout;
+package me.danielhartman.startingstrength.ui.viewWorkout;
 
 
 import com.parse.ParseObject;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import me.danielhartman.startingstrength.Ui.MyApplication;
+import me.danielhartman.startingstrength.ui.MyApplication;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.Network.ViewWorkoutNetworkCalls;
 import me.danielhartman.startingstrength.Interfaces.ViewWorkoutCallback;
@@ -28,7 +26,6 @@ import me.danielhartman.startingstrength.Model.Plan;
 import me.danielhartman.startingstrength.Model.Workout;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.adapter.ViewPlanAdapter;
-import me.danielhartman.startingstrength.adapter.ViewWorkoutAdapter;
 import me.danielhartman.startingstrength.adapter.util.SimpleSectionedRecyclerViewAdapter;
 
 public class ViewPlan_Fragment extends Fragment implements ViewWorkoutCallback, WorkoutSelector {

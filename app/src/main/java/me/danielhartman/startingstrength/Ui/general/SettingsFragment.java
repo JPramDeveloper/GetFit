@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.General;
+package me.danielhartman.startingstrength.ui.general;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,9 +14,9 @@ import com.parse.ParseUser;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewWorkout_Activity;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkout_Activity;
 
-public class settings_frag extends Fragment {
+public class SettingsFragment extends Fragment {
     private View rootView;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.settings_fragment, container, false);

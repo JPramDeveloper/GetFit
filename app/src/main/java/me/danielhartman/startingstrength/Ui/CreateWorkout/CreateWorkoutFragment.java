@@ -1,19 +1,17 @@
-package me.danielhartman.startingstrength.Ui.CreateWorkout;
+package me.danielhartman.startingstrength.ui.createWorkout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.MainActivity;
+import me.danielhartman.startingstrength.ui.MainActivity;
 
 public class CreateWorkoutFragment extends Fragment {
     private View rootView;

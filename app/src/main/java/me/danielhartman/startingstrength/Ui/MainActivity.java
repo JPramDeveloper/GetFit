@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui;
+package me.danielhartman.startingstrength.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -6,7 +6,6 @@ import android.os.Bundle;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.Component.CreateWorkoutComponent;
 import me.danielhartman.startingstrength.dagger.Component.DaggerCreateWorkoutComponent;
-import me.danielhartman.startingstrength.dagger.Component.DaggerViewWorkoutComponent;
 
 public class MainActivity extends AppCompatActivity {
 

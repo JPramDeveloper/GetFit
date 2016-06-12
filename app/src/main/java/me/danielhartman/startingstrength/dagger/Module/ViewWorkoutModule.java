@@ -7,9 +7,7 @@ import dagger.Provides;
 import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
 import me.danielhartman.startingstrength.Network.ViewWorkoutNetworkCalls;
 
-/**
- * Created by danielhartman on 5/5/16.
- */
+
 @Module
 public class ViewWorkoutModule {
 

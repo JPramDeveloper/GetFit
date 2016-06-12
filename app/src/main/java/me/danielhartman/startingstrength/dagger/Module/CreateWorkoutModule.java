@@ -4,9 +4,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
-import me.danielhartman.startingstrength.Network.ViewWorkoutNetworkCalls;
-import me.danielhartman.startingstrength.Ui.CreateWorkout.CreateWorkoutPresenter;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 
 @Module
 public class CreateWorkoutModule {

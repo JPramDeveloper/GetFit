@@ -15,6 +15,6 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_recycler_fab">recycler_fab</string>
     <string name="title_activity_fabactivity">fabactivity</string>
-    <string name="please_enter_a_workout_name">Please Enter A Workout Name</string>
+    <string name="please_enter_a_workout_name">Please enter a workout name</string>
     <string name="continueText">continue</string>
 </resources>

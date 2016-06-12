@@ -3,10 +3,10 @@ package me.danielhartman.startingstrength.dagger.Component;
 import javax.inject.Singleton;
 
 import dagger.Component;
-import me.danielhartman.startingstrength.Ui.AccountManagement.CreateAccount_Fragment;
-import me.danielhartman.startingstrength.Ui.AccountManagement.Login_Fragment;
-import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewPlan_Fragment;
-import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewWorkout_Fragment;
+import me.danielhartman.startingstrength.ui.accountManagement.CreateAccountFragment;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginFragment;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewPlan_Fragment;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkout_Fragment;
 import me.danielhartman.startingstrength.dagger.Module.ViewWorkoutModule;
 
 @Singleton
@@ -15,7 +15,7 @@ public interface ViewWorkoutComponent {
 
     void inject(ViewWorkout_Fragment fragment);
     void inject(ViewPlan_Fragment fragment);
-    void inject(Login_Fragment fragment);
-    void inject(CreateAccount_Fragment fragment);
+    void inject(LoginFragment fragment);
+    void inject(CreateAccountFragment fragment);
 
 }

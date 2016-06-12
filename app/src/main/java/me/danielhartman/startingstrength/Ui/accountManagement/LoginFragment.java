@@ -1,11 +1,9 @@
-package me.danielhartman.startingstrength.Ui.AccountManagement;
+package me.danielhartman.startingstrength.ui.accountManagement;
 
 import com.google.firebase.auth.FirebaseUser;
 
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,17 +12,17 @@ import android.widget.Toast;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.FirebaseUserCallback;
 import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.MyApplication;
-import me.danielhartman.startingstrength.Ui.MainMenu_Fragment;
+import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.ui.MainMenu_Fragment;
 
-public class Login_Fragment extends Fragment implements LoginCallback, FirebaseUserCallback {
+public class LoginFragment extends Fragment implements LoginCallback, FirebaseUserCallback {
 
     @Inject
     LoginNetworkCalls mLoginNetworkCalls;
@@ -34,8 +32,8 @@ public class Login_Fragment extends Fragment implements LoginCallback, FirebaseU
     private LoginCallback mLoginCallback;
     private FirebaseUserCallback mFirebaseUserCallback;
 
-    @Bind(R.id.userName)EditText userName;
-    @Bind(R.id.password)EditText password;
+    @BindView(R.id.userName) EditText userName;
+    @BindView(R.id.password) EditText password;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.login_frag, container, false);
         ButterKnife.bind(this, rootView);
@@ -57,7 +55,10 @@ public class Login_Fragment extends Fragment implements LoginCallback, FirebaseU
     }
     @OnClick(R.id.newAccount)
     public void clickCreateAccount(){
-       replaceFragment(new CreateAccount_Fragment(), R.id.container);
+       getActivity().getSupportFragmentManager().beginTransaction()
+               .replace(R.id.container,new CreateAccountFragment())
+               .addToBackStack(null)
+               .commit();
     }
 
     public void replaceFragment(Fragment fragment, Integer view){

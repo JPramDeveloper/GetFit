@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:gravity="center"
     android:layout_height="match_parent">
+
     <TextView
         android:id="@+id/testText"
         android:textColor="#000"
@@ -11,8 +12,7 @@
         android:textSize="20sp"
         android:layout_margin="15dp"
         android:gravity="center"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:text = "@string/please_enter_a_workout_name"/>
+        android:text="@string/please_enter_a_workout_name" />
     <EditText
         android:id="@+id/workout_name_create_workout"
         android:layout_width="250dp"
@@ -22,6 +22,7 @@
         android:id="@+id/create_workout_name_continue"
         android:layout_width="200dp"
         android:layout_margin="15dp"
+        android:textSize="18sp"
         android:text="@string/continueText"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_height="60dp" />

@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.CreateWorkout;
+package me.danielhartman.startingstrength.ui.createWorkout;
 
 
 public class CreateWorkoutPresenter {
