@@ -1,10 +1,14 @@
 package me.danielhartman.startingstrength.ui.createWorkout;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AutoCompleteTextView;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -34,6 +38,21 @@ public class CreateWorkoutFragment extends Fragment {
     public void onResume() {
         super.onResume();
         Toast.makeText(getActivity().getApplicationContext(), mPresenter.getTestText(), Toast.LENGTH_SHORT).show();
+        createExerciseDialog();
+    }
+
+    public void createExerciseDialog(){
+       AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+       final View dialogView = getActivity().getLayoutInflater().inflate(R.layout.alert_dialogue,null);
+       dialog.setView(dialogView);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView)(dialogView).findViewById(R.id.alertExerciseName);
+        dialog.setPositiveButton("Done", (d, which)-> {
+           d.cancel();
+       });
+        dialog.setNegativeButton("cancel", (d, which) ->{
+           d.cancel();
+        });
+       dialog.create().show();
     }
 }
 

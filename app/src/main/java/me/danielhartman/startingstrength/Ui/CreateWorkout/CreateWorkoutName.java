@@ -20,9 +20,6 @@ public class CreateWorkoutName extends Fragment{
     private View rootView;
     private Fragment mFragment;
 
-    @BindView(R.id.testText)
-    TextView mTest;
-
     @Inject
     public CreateWorkoutPresenter mPresenter;
 
@@ -44,4 +41,6 @@ public class CreateWorkoutName extends Fragment{
     public void onClickContinue(){
         getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.container,new CreateWorkoutFragment()).commit();
     }
+
+
 }

@@ -1,62 +1,41 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_gravity="center"
+    android:paddingLeft="25dp"
+    android:paddingTop="10dp"
     android:layout_height="wrap_content">
 
 
-    <EditText
-        android:id="@+id/alertBox"
-        android:inputType="text"
-        android:layout_width="match_parent"
-        android:layout_gravity="center"
+    <AutoCompleteTextView
+        android:id="@+id/alertExerciseName"
+        android:layout_width="200dp"
+        android:textSize="24sp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:hint="Leg Day"
-        android:gravity="center"
-        android:layout_marginLeft="4dp"
-        android:layout_marginRight="4dp"
-        android:layout_marginBottom="4dp"/><EditText
-    android:inputType="text"
-    android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Leg Day"
-    android:gravity="center"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"/><EditText
-    android:inputType="text"
-    android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Leg Day"
-    android:gravity="center"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"/><EditText
-    android:inputType="text"
-    android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Leg Day"
-    android:gravity="center"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"/><EditText
-    android:inputType="text"
-    android:layout_width="match_parent"
-    android:layout_gravity="center"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="16dp"
-    android:hint="Leg Day"
-    android:gravity="center"
-    android:layout_marginLeft="4dp"
-    android:layout_marginRight="4dp"
-    android:layout_marginBottom="4dp"/>
+        android:hint="Exercise Name"
+      />
+
+        <TextView
+            android:id="@+id/setsText"
+            android:layout_width="wrap_content"
+            android:text="Sets: "
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/alertExerciseName"
+            android:textSize="24sp"
+            android:layout_height="50dp" />
+        <EditText
+            android:layout_width="35dp"
+            android:layout_height="50dp"
+            android:textSize="24sp"
+            android:inputType="number"
+            android:gravity="center"
+            android:hint="1"
+            android:layout_toRightOf="@id/setsText"
+            android:layout_alignBottom="@id/setsText"/>
 
 
-</LinearLayout>
+
+    </RelativeLayout>
+
+
+
