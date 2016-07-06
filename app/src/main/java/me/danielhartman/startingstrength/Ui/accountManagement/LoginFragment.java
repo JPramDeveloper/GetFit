@@ -19,7 +19,7 @@ import me.danielhartman.startingstrength.Interfaces.FirebaseUserCallback;
 import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.MyApplication;
 import me.danielhartman.startingstrength.ui.MainMenu_Fragment;
 
 public class LoginFragment extends Fragment implements LoginCallback, FirebaseUserCallback {

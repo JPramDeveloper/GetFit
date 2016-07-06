@@ -22,7 +22,7 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.MyApplication;
 import rx.Observable;
 
 

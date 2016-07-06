@@ -17,7 +17,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.MyApplication;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.Network.ViewWorkoutNetworkCalls;
 import me.danielhartman.startingstrength.Interfaces.ViewWorkoutCallback;
@@ -27,6 +27,8 @@ import me.danielhartman.startingstrength.Model.Workout;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.adapter.ViewPlanAdapter;
 import me.danielhartman.startingstrength.adapter.util.SimpleSectionedRecyclerViewAdapter;
+import me.danielhartman.startingstrength.dagger.Component.DaggerCreateWorkoutComponent;
+import me.danielhartman.startingstrength.util.DaggerHolder;
 
 public class ViewPlan_Fragment extends Fragment implements ViewWorkoutCallback, WorkoutSelector {
 
@@ -44,7 +46,7 @@ public class ViewPlan_Fragment extends Fragment implements ViewWorkoutCallback, 
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         ButterKnife.bind(this, rootView);
 
-        ((MyApplication)(getActivity().getApplication())).getViewWorkoutComponent().inject(this);
+       DaggerHolder.getInstance().getComponent().inject(this);
         mFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
         if(getArguments()!=null) {

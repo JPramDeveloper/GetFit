@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.ui;
+package me.danielhartman.startingstrength;
 
 import com.parse.Parse;
 import com.parse.ParseObject;
@@ -10,6 +10,7 @@ import me.danielhartman.startingstrength.Model.Plan;
 import me.danielhartman.startingstrength.Model.Session;
 import me.danielhartman.startingstrength.Model.Workout;
 import me.danielhartman.startingstrength.dagger.Component.DaggerViewWorkoutComponent;
+import me.danielhartman.startingstrength.util.DaggerHolder;
 import me.danielhartman.startingstrength.util.NonPublic;
 import me.danielhartman.startingstrength.dagger.Component.ViewWorkoutComponent;
 
@@ -27,6 +28,7 @@ import me.danielhartman.startingstrength.dagger.Component.ViewWorkoutComponent;
             Parse.initialize(this, NonPublic.PARESE_KEY1, NonPublic.PARESE_KEY2);
 
             mViewWorkoutComponent = DaggerViewWorkoutComponent.builder().build();
+            DaggerHolder.getInstance().setComponent(mViewWorkoutComponent);
         }
 
     public ViewWorkoutComponent getViewWorkoutComponent() {

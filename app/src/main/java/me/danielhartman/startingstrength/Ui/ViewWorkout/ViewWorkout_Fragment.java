@@ -20,7 +20,7 @@ import me.danielhartman.startingstrength.Interfaces.ViewWorkoutCallback;
 import me.danielhartman.startingstrength.Interfaces.WorkoutSelector;
 import me.danielhartman.startingstrength.Model.Workout;
 import butterknife.ButterKnife;
-import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.MyApplication;
 import me.danielhartman.startingstrength.adapter.ViewWorkoutAdapter;
 import me.danielhartman.startingstrength.R;
 
@@ -40,7 +40,6 @@ public class ViewWorkout_Fragment extends Fragment implements ViewWorkoutCallbac
         recyclerView = (RecyclerView) rootView.findViewById(R.id.recycler_view);
         ButterKnife.bind(this, rootView);
 
-        ((MyApplication)(getActivity().getApplication())).getViewWorkoutComponent().inject(this);
         mFragment = getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
 
         mViewWorkoutNetworkCalls.fetchWorkouts((ViewWorkoutCallback)mFragment);

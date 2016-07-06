@@ -19,16 +19,7 @@ public class LoginNetworkCalls {
     public LoginNetworkCalls() {
     }
 
-    public void loginUser(String username, String password) {
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            public void done(ParseUser user, ParseException e) {
-                if (user != null) {
-                } else {
-                    e.printStackTrace();
-                }
-            }
-        });
-    }
+
     public FirebaseAuth getmFirebaseAuth(){
         if (mFirebaseAuth!=null){
             return mFirebaseAuth;
@@ -36,10 +27,6 @@ public class LoginNetworkCalls {
             mFirebaseAuth=FirebaseAuth.getInstance();
             return mFirebaseAuth;
         }
-    }
-
-    public ParseUser getCurrentUser() {
-        return ParseUser.getCurrentUser();
     }
 
     public void getFirebaseUser(FirebaseUserCallback mCallback) {
