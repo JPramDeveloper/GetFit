@@ -3,6 +3,7 @@ package me.danielhartman.startingstrength.ui.createWorkout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class CreateWorkoutName extends Fragment{
+    private static final String TAG = CreateWorkoutName.class.getSimpleName();
     private View rootView;
 
     @BindView(R.id.workoutNameEditText)
@@ -36,5 +38,7 @@ public class CreateWorkoutName extends Fragment{
     @OnClick(R.id.createWorkoutButton)
     public void onButtonClick() {
         mPresenter.getWorkout().setName(workoutName.getText().toString());
+        Log.d(TAG, "onButtonClick: ");
+        mPresenter.commitWorkoutToFirebase();
     }
 }

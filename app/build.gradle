@@ -55,6 +55,8 @@ dependencies {
 
     compile 'com.google.firebase:firebase-auth:' + firebaseVersion
     compile 'com.google.android.gms:play-services-auth:' + firebaseVersion
+    compile 'com.google.firebase:firebase-database:' + firebaseVersion
+
 }
 apply plugin: 'com.google.gms.google-services'
 
