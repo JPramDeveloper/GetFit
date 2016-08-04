@@ -3,8 +3,8 @@ apply plugin: 'com.android.application' //or apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 24
+    buildToolsVersion "24.0.1"
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -26,30 +26,35 @@ android {
         }
     }
 }
+def supportLibVersion = "24.1.1"
+def firebaseVersion   = "9.4.0"
+def rxJava            = "1.1.6"
+def rxAndroid         = "1.2.1"
+def rxBinding         = "0.4.0"
+def butterknife       = "8.0.1"
+def dagger2           = "2.2"
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile fileTree(dir: 'libs', include: 'Parse-*.jar')
+    compile 'com.android.support:appcompat-v7:' + supportLibVersion
+    compile'com.android.support:recyclerview-v7:' + supportLibVersion
+    compile 'com.android.support:design:' + supportLibVersion
 
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile'com.android.support:recyclerview-v7:23.4.0'
-    compile 'com.android.support:design:23.4.0'
-    compile 'com.jakewharton:butterknife:8.0.1'
-    apt 'com.jakewharton:butterknife-compiler:8.0.1'
-    compile'com.parse.bolts:bolts-android:1.+'
-    compile 'com.android.support:cardview-v7:23.+'
-    compile 'com.android.support:design:23.4.0'
-    compile 'io.reactivex:rxandroid:1.0.1'
-    compile 'io.reactivex:rxjava:1.0.14'
-    compile 'com.jakewharton.rxbinding:rxbinding:0.2.0'
-    compile 'com.jjoe64:graphview:4.0.1'
-    compile 'joda-time:joda-time:2.8.2'
-    apt 'com.google.dagger:dagger-compiler:2.2'
-    compile 'com.google.dagger:dagger:2.2'
+    compile 'com.jakewharton:butterknife:' + butterknife
+    apt 'com.jakewharton:butterknife-compiler:' + butterknife
+
+    compile 'com.android.support:cardview-v7:' + supportLibVersion
+    compile 'com.android.support:design:' + supportLibVersion
+
+    compile 'io.reactivex:rxandroid:' + rxAndroid
+    compile 'io.reactivex:rxjava:' + rxJava
+    compile 'com.jakewharton.rxbinding:rxbinding:' + rxBinding
+
+    apt 'com.google.dagger:dagger-compiler:' + dagger2
+    compile 'com.google.dagger:dagger:' + dagger2
     provided 'javax.annotation:jsr250-api:1.0'
 
-    compile 'com.google.firebase:firebase-auth:9.0.0'
-    compile 'com.google.android.gms:play-services-auth:9.0.0'
+    compile 'com.google.firebase:firebase-auth:' + firebaseVersion
+    compile 'com.google.android.gms:play-services-auth:' + firebaseVersion
 }
 apply plugin: 'com.google.gms.google-services'
 

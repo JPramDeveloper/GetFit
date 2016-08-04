@@ -12,13 +12,13 @@
         android:id="@+id/startWorkout"
         android:textSize="18sp"
         style="?android:attr/borderlessButtonStyle"
-        android:text="Start a Workout"/>
+        android:text="Create a workout"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="18sp"
         style="?android:attr/borderlessButtonStyle"
-        android:text="View My Workouts"
+        android:text="Login"
         android:id="@+id/viewWorkouts"/>
 
     <Button
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         style="?android:attr/borderlessButtonStyle"
-        android:text="Create a workout"
+        android:text="Not yet Implemented"
         android:id="@+id/createWorkout"/>
     <Button
         android:layout_width="wrap_content"
