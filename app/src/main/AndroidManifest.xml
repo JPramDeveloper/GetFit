@@ -15,14 +15,16 @@
             android:name=".Ui.ViewWorkout.ViewWorkout_Activity"
             android:label="View Workout"
             android:parentActivityName=".Ui.MainActivity"
-            android:theme="@style/AppTheme">
-
-        </activity>
-        <activity android:name=".Ui.MainActivity">
+            android:theme="@style/AppTheme"></activity>
+        <activity android:name=".Ui.MainActivity" />
+        <activity android:name=".Ui.AccountManagement.AccountActivity">
             <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".Ui.CreateWorkout.CreateWorkout_Activity"></activity>
     </application>
 
 </manifest>

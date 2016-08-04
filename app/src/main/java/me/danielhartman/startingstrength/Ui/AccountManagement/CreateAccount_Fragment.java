@@ -1,27 +1,17 @@
 package me.danielhartman.startingstrength.Ui.AccountManagement;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
-import com.parse.LogInCallback;
-import com.parse.ParseException;
-import com.parse.ParseUser;
-import com.parse.SignUpCallback;
 
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.inject.Inject;
@@ -30,7 +20,6 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
-import me.danielhartman.startingstrength.Network.LoginNetworkCalls;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.Ui.MyApplication;
 import rx.Observable;
@@ -40,7 +29,7 @@ import rx.Observable;
  */
 public class CreateAccount_Fragment extends Fragment implements LoginCallback {
     @Inject
-    LoginNetworkCalls mLoginNetworkCalls;
+    LoginPresenter mLoginPresenter;
     @Bind(R.id.username) EditText username;
     @Bind(R.id.password) EditText password;
     @Bind(R.id.verifyUsernameImage) ImageView verifyUsernameImage;
@@ -70,7 +59,7 @@ public class CreateAccount_Fragment extends Fragment implements LoginCallback {
 
     @OnClick(R.id.btnSignIn)
     public void signUpUser(){
-        mLoginNetworkCalls.createAccount(username.getText().toString(),password.getText().toString(), mLoginCallback);
+        mLoginPresenter.createAccount(username.getText().toString(),password.getText().toString(), mLoginCallback);
     }
 
     public void checkInputs(){
@@ -89,9 +78,8 @@ public class CreateAccount_Fragment extends Fragment implements LoginCallback {
                 .map(b -> b ? R.drawable.check : R.drawable.cancel)
                 .subscribe(resource -> verifyPasswordImage.setBackgroundResource(resource));
         Observable<Boolean> buttonEnabled = Observable.combineLatest(userNameValid, passwordValid, (a, b) -> a & b);
-
         buttonEnabled.distinctUntilChanged()
-                .map(validInput -> validInput ? getView().VISIBLE : getView().INVISIBLE)
+                .map(validInput -> validInput ? View.VISIBLE : View.INVISIBLE)
                 .subscribe(visibility -> mSignInButton.setVisibility(visibility));
         buttonEnabled.distinctUntilChanged()
                 .subscribe(buttonStatus -> mSignInButton.setEnabled(buttonStatus));
@@ -105,7 +93,7 @@ public class CreateAccount_Fragment extends Fragment implements LoginCallback {
     }
 
     @Override
-    public void failedLogin() {
+    public void failedLogin(String message) {
         Toast.makeText(getActivity().getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
 
     }

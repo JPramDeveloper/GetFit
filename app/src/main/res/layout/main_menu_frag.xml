@@ -33,8 +33,8 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         style="?android:attr/borderlessButtonStyle"
-        android:text="View Graph"
-        android:id="@+id/graphMenuButton"/>
+        android:text="Logout"
+        android:id="@+id/logoutMenuButton"/>
 
 
 
