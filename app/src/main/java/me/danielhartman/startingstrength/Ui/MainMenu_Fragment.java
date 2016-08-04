@@ -1,7 +1,6 @@
-package me.danielhartman.startingstrength.Ui;
+package me.danielhartman.startingstrength.ui;
 
 
-import android.accounts.Account;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +10,13 @@ import android.view.ViewGroup;
 
 import javax.inject.Inject;
 
-import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.AccountManagement.AccountActivity;
-import me.danielhartman.startingstrength.Ui.AccountManagement.LoginPresenter;
-import me.danielhartman.startingstrength.Ui.CreateWorkout.CreateWorkoutName;
-import me.danielhartman.startingstrength.Ui.ViewWorkout.ViewWorkout_Activity;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
+import me.danielhartman.startingstrength.R;
+import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkout_Activity;
+import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class MainMenu_Fragment extends Fragment {

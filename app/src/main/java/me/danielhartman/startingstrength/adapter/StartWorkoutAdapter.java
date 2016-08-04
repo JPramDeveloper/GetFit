@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import me.danielhartman.startingstrength.Model.Exercise;
+import me.danielhartman.startingstrength.model.Exercise;
 import me.danielhartman.startingstrength.R;
 
 /**

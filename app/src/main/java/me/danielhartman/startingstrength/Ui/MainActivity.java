@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui;
+package me.danielhartman.startingstrength.ui;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.AccountManagement;
+package me.danielhartman.startingstrength.ui.accountManagement;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -16,25 +16,25 @@ import java.util.regex.Pattern;
 
 import javax.inject.Inject;
 
-import butterknife.Bind;
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.MyApplication;
+import me.danielhartman.startingstrength.ui.MyApplication;
 import rx.Observable;
 
 /**
  * Created by dphart9 on 10/12/2015.
  */
-public class CreateAccount_Fragment extends Fragment implements LoginCallback {
+public class CreateAccountFragment extends Fragment implements LoginCallback {
     @Inject
     LoginPresenter mLoginPresenter;
-    @Bind(R.id.username) EditText username;
-    @Bind(R.id.password) EditText password;
-    @Bind(R.id.verifyUsernameImage) ImageView verifyUsernameImage;
-    @Bind(R.id.verifyPasswordImage) ImageView verifyPasswordImage;
-    @Bind(R.id.btnSignIn) Button mSignInButton;
+    @BindView(R.id.username) EditText username;
+    @BindView(R.id.password) EditText password;
+    @BindView(R.id.verifyUsernameImage) ImageView verifyUsernameImage;
+    @BindView(R.id.verifyPasswordImage) ImageView verifyPasswordImage;
+    @BindView(R.id.btnSignIn) Button mSignInButton;
 
     private LoginCallback mLoginCallback;
     private View rootView;

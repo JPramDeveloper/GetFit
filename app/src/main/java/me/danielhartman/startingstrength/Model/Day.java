@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Model;
+package me.danielhartman.startingstrength.model;
 
 
 import java.util.List;

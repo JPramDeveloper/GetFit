@@ -1,9 +1,9 @@
-package me.danielhartman.startingstrength.Ui;
+package me.danielhartman.startingstrength.ui;
 import android.app.Application;
 
-import me.danielhartman.startingstrength.dagger.Component.ApplicationComponent;
-import me.danielhartman.startingstrength.dagger.Component.DaggerApplicationComponent;
+import me.danielhartman.startingstrength.dagger.component.ApplicationComponent;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.dagger.component.DaggerApplicationComponent;
 
 public class MyApplication extends Application {
     private ApplicationComponent mApplicationComponent;

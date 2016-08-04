@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".Ui.ViewWorkoutNew.recycler_fab_frag"
+    tools:context=".ui.ViewWorkoutNew.recycler_fab_frag"
     tools:showIn="@layout/activity_recycler_fab">
     <TextView
         android:layout_width="match_parent"

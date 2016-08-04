@@ -1,6 +1,6 @@
 package me.danielhartman.startingstrength.dagger;
 
-import me.danielhartman.startingstrength.dagger.Component.ApplicationComponent;
+import me.danielhartman.startingstrength.dagger.component.ApplicationComponent;
 
 public class DaggerHolder {
     private static DaggerHolder sInstance = new DaggerHolder();

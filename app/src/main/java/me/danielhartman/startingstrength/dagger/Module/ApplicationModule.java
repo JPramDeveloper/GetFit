@@ -1,11 +1,11 @@
-package me.danielhartman.startingstrength.dagger.Module;
+package me.danielhartman.startingstrength.dagger.module;
 
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.danielhartman.startingstrength.Ui.AccountManagement.LoginPresenter;
-import me.danielhartman.startingstrength.Ui.CreateWorkout.CreateWorkoutPresenter;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 
 @Module
 public class ApplicationModule {

@@ -1,9 +1,7 @@
-package me.danielhartman.startingstrength.Model;
+package me.danielhartman.startingstrength.model;
 
 
 
-import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 

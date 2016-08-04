@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.ViewWorkout;
+package me.danielhartman.startingstrength.ui.viewWorkout;
 
 
 
@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import butterknife.ButterKnife;
-import me.danielhartman.startingstrength.Model.Workout;
+import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 

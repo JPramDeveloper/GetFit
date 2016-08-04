@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.AccountManagement;
+package me.danielhartman.startingstrength.ui.accountManagement;
 
 
 import com.google.firebase.auth.FirebaseAuth;

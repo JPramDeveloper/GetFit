@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Ui.ViewWorkout;
+package me.danielhartman.startingstrength.ui.viewWorkout;
 
 
 

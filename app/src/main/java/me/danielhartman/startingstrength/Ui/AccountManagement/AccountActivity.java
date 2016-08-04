@@ -1,12 +1,9 @@
-package me.danielhartman.startingstrength.Ui.AccountManagement;
+package me.danielhartman.startingstrength.ui.accountManagement;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
-import javax.inject.Inject;
-
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.Ui.MainMenu_Fragment;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 

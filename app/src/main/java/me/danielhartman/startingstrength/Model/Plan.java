@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.Model;
+package me.danielhartman.startingstrength.model;
 
 
 public class Plan {
