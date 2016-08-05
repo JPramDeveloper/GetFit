@@ -19,6 +19,7 @@ public class CreateWorkoutPresenter {
     private static final String TAG = CreateWorkoutPresenter.class.getSimpleName() ;
     private Workout workout;
     private int currentDay;
+    private CreateDayAdapter adapter;
 
     public Workout getWorkout(){
         if (workout==null){
@@ -72,6 +73,46 @@ public class CreateWorkoutPresenter {
         list.add(e);
     }
 
+    public CreateDayAdapter getAdapter() {
+        return adapter;
+    }
 
+    public void setAdapter(CreateDayAdapter adapter) {
+        this.adapter = adapter;
+    }
+    public void updateData(){
+        if (adapter!=null){
+            adapter.setData(getSetsForGivenDay(getCurrentDay()));
+        }
+    }
+    public List<Set> getSetsForGivenDay(int day){
+        List<Set> list = new ArrayList<>();
+        for (Exercise e : getExercisesForDay(day)){
+           for (Set s :  e.getSets()){
+               list.add(s);
+           }
+        }
+        return list;
+    }
+    public Exercise createExercise(String name, String weight, String reps){
+        Exercise exercise = new Exercise();
+        exercise.setName(name);
+        exercise.setSets(new ArrayList<>());
 
+        Set set = new Set();
+        set.setExerciseName(name);
+        set.setReps(reps);
+        set.setWeight(weight);
+        exercise.getSets().add(set);
+
+        return exercise;
+    }
+    public void addExerciseToDay(String name, String weight, String reps){
+        getExercisesForDay(getCurrentDay()).add(createExercise(name, weight, reps));
+        updateData();
+    }
+
+    public void setWorkout(Workout workout) {
+        this.workout = workout;
+    }
 }

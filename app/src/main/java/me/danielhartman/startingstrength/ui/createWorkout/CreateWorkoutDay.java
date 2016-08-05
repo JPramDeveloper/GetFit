@@ -9,6 +9,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -17,6 +20,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.model.Exercise;
+import me.danielhartman.startingstrength.model.Set;
 
 public class CreateWorkoutDay extends Fragment{
     private static final String TAG = CreateWorkoutDay.class.getSimpleName();
@@ -24,6 +29,7 @@ public class CreateWorkoutDay extends Fragment{
 
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
+    FrameLayout mExerciseFrame;
 
     @Inject
     public CreateWorkoutPresenter mPresenter;
@@ -35,21 +41,30 @@ public class CreateWorkoutDay extends Fragment{
         rootView = inflater.inflate(R.layout.create_workout_day, container, false);
         ButterKnife.bind(this, rootView);
         DaggerHolder.getInstance().component().inject(this);
+        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
+        mExerciseFrame.setVisibility(View.GONE);
         populateRecycler();
         return rootView;
     }
 
     public void populateRecycler(){
-        adapter = new CreateDayAdapter(mPresenter.getExercisesForDay(mPresenter.getCurrentDay()));
-        mRecyclerView.setAdapter(adapter);
+        mPresenter.setAdapter(new CreateDayAdapter(mPresenter.getSetsForGivenDay(mPresenter.getCurrentDay())));
+        mRecyclerView.setAdapter(mPresenter.getAdapter());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplication()));
+    }
+
+    @OnClick(R.id.addExercise)
+    public void addExerciseOnClick() {
+        mExerciseFrame.setVisibility(View.VISIBLE);
     }
 
     @OnClick(R.id.finishDaysButton)
     public void finishDaysButtonClick(){
-        mPresenter.addExerciseToDay("TestText");
-        adapter.setData(mPresenter.getExercisesForDay(mPresenter.getCurrentDay()));
     }
+    public void setNewData(List<Set> list){
+        adapter.setData(list);
+    }
+
 
 
 

@@ -45,7 +45,6 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
         mLoginCallback = (LoginCallback)getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
         ButterKnife.bind(this, rootView);
         return rootView;
-
     }
 
     @Override

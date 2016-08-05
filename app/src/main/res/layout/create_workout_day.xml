@@ -27,6 +27,12 @@
         android:text="Finish"
         android:layout_height="match_parent"
         android:layout_weight="1"/>
+    <Button
+        android:layout_width="0dp"
+        android:id="@+id/addExercise"
+        android:text="Add Exercise"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
     </LinearLayout>
 
 </RelativeLayout>

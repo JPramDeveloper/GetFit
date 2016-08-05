@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:gravity="center"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/addExerciseName"
+        android:layout_width="250dp"
+        android:hint="Exercise Name"
+        android:layout_height="wrap_content" />
+    <EditText
+        android:id="@+id/addExerciseWeight"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:hint="Weight"
+        android:inputType="numberDecimal"/>
+    <EditText
+        android:id="@+id/addExerciseReps"
+        android:layout_width="250dp"
+        android:hint="Reps"
+        android:layout_height="wrap_content" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/addSetButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="add Set"/>
+        <Button
+            android:id="@+id/finishExerciseButton"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Done"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -12,12 +12,13 @@ import java.util.List;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
+import me.danielhartman.startingstrength.model.Set;
 
 public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.ViewHolder>{
 
-    List<Exercise> mData;
+    List<Set> mData;
 
-    public CreateDayAdapter(List<Exercise> mData) {
+    public CreateDayAdapter(List<Set> mData) {
         this.mData = mData;
     }
 
@@ -32,8 +33,8 @@ public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.View
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Exercise e = mData.get(position);
-        holder.text.setText(e.getName());
+        Set set = mData.get(position);
+        holder.text.setText(set.getExerciseName());
     }
 
     @Override
@@ -49,8 +50,11 @@ public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.View
             text = (TextView)itemView.findViewById(R.id.dayText);
         }
     }
-    public void setData(List<Exercise> list){
+    public void setData(List<Set> list){
         mData = list;
         notifyDataSetChanged();
+    }
+    public List<Set> getData() {
+        return mData;
     }
 }
