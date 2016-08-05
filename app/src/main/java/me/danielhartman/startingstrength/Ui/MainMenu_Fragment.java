@@ -15,8 +15,6 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
-import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
-import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkout_Activity;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
@@ -47,8 +45,7 @@ public class MainMenu_Fragment extends Fragment {
 
     @OnClick(R.id.createWorkout)
     public void workoutManager(){
-        Intent i = new Intent(getActivity().getApplicationContext(),ViewWorkout_Activity.class);
-        startActivity(i);
+
     }
 
     @OnClick(R.id.logoutMenuButton)
