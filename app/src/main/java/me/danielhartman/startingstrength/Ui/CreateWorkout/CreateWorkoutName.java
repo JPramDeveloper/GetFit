@@ -39,6 +39,8 @@ public class CreateWorkoutName extends Fragment{
     public void onButtonClick() {
         mPresenter.getWorkout().setName(workoutName.getText().toString());
         Log.d(TAG, "onButtonClick: ");
-        mPresenter.commitWorkoutToFirebase();
+        getActivity().getSupportFragmentManager().beginTransaction()
+                .replace(R.id.container, new CreateWorkoutDay())
+                .commit();
     }
 }
