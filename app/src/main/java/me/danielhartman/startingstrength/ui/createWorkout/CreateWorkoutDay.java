@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 
@@ -26,10 +27,12 @@ import me.danielhartman.startingstrength.model.Set;
 public class CreateWorkoutDay extends Fragment{
     private static final String TAG = CreateWorkoutDay.class.getSimpleName();
     private View rootView;
-
+    @BindView(R.id.addExercise)
+    Button addExerciseButton;
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     FrameLayout mExerciseFrame;
+    Boolean isAddExerciseDisplayed;
 
     @Inject
     public CreateWorkoutPresenter mPresenter;
@@ -43,6 +46,7 @@ public class CreateWorkoutDay extends Fragment{
         DaggerHolder.getInstance().component().inject(this);
         mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
         mExerciseFrame.setVisibility(View.GONE);
+        isAddExerciseDisplayed = false;
         populateRecycler();
         return rootView;
     }
@@ -55,14 +59,28 @@ public class CreateWorkoutDay extends Fragment{
 
     @OnClick(R.id.addExercise)
     public void addExerciseOnClick() {
-        mExerciseFrame.setVisibility(View.VISIBLE);
+        if (isAddExerciseDisplayed){
+            mExerciseFrame.setVisibility(View.GONE);
+            addExerciseButton.setText("Add Exercise");
+            isAddExerciseDisplayed = false;
+        }else {
+            mExerciseFrame.setVisibility(View.VISIBLE);
+            addExerciseButton.setText("Hide");
+            isAddExerciseDisplayed = true;
+        }
     }
 
     @OnClick(R.id.finishDaysButton)
     public void finishDaysButtonClick(){
+        mPresenter.commitWorkoutToFirebase();
     }
     public void setNewData(List<Set> list){
         adapter.setData(list);
+    }
+    @OnClick(R.id.createDayButton)
+    public void createDayOnClick(){
+        mPresenter.goToNextDay();
+        mPresenter.getAdapter().setData(mPresenter.getSetsForGivenDay(mPresenter.getCurrentDay()));
     }
 
 

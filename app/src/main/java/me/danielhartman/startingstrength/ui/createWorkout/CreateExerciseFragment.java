@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 
 import javax.inject.Inject;
 
@@ -31,16 +32,25 @@ public class CreateExerciseFragment extends Fragment {
 
     private CreateDayAdapter adapter;
 
+    private FrameLayout mExerciseFrame;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.add_exercise_layout, container, false);
         ButterKnife.bind(this, rootView);
         DaggerHolder.getInstance().component().inject(this);
+        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
         return rootView;
     }
     @OnClick(R.id.addSetButton)
     public void addSetButtonClick(){
         mPresenter.addExerciseToDay(exerciseName.getText().toString(),exerciseWeight.getText().toString(),
                 exerciseReps.getText().toString());
+    }
+    @OnClick(R.id.finishExerciseButton)
+    public void finishOnClick(){
+        exerciseName.setText("");
+        exerciseReps.setText("");
+        exerciseWeight.setText("");
     }
 }

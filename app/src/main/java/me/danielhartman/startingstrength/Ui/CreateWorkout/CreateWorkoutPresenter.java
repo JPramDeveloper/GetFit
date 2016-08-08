@@ -48,6 +48,7 @@ public class CreateWorkoutPresenter {
     }
     public int goToNextDay(){
         currentDay += 1;
+        initNextDay();
         return currentDay;
     }
     public List<Exercise> getExercisesForDay(int day){
@@ -56,6 +57,12 @@ public class CreateWorkoutPresenter {
     public int addDay(){
         workout.getDays().add(new Day());
         return workout.getDays().size();
+    }
+    public void initNextDay(){
+        if (workout.getDays().size()< currentDay +1){
+            workout.getDays().add(new Day());
+            workout.getDays().get(getCurrentDay()).setExercises(new ArrayList<>());
+        }
     }
     public Workout initializeWorkout(){
         workout = new Workout();
@@ -92,12 +99,11 @@ public class CreateWorkoutPresenter {
                list.add(s);
            }
         }
+        Log.d(TAG, "getSetsForGivenDay: returning size : " + list.size());
         return list;
     }
     public Exercise createExercise(String name, String weight, String reps){
-        Exercise exercise = new Exercise();
-        exercise.setName(name);
-        exercise.setSets(new ArrayList<>());
+        Exercise exercise = makeExercise(name);
 
         Set set = new Set();
         set.setExerciseName(name);
@@ -108,11 +114,28 @@ public class CreateWorkoutPresenter {
         return exercise;
     }
     public void addExerciseToDay(String name, String weight, String reps){
-        getExercisesForDay(getCurrentDay()).add(createExercise(name, weight, reps));
+        createExercise(name, weight, reps);
         updateData();
     }
 
     public void setWorkout(Workout workout) {
         this.workout = workout;
+    }
+
+    public Exercise makeExercise(String exerciseName){
+
+        for (Exercise e : getExercisesForDay(getCurrentDay())){
+            if (e.getName().equalsIgnoreCase(exerciseName)){
+                Log.d(TAG, "makeExercise: Returning Exercise");
+                return e;
+            }
+        }
+        Exercise newExercise = new Exercise();
+        newExercise.setName(exerciseName);
+        newExercise.setSets(new ArrayList<>());
+        Log.d(TAG, "makeExercise: returning new exercise");
+        getExercisesForDay(getCurrentDay()).add(newExercise);
+        return newExercise;
+
     }
 }
