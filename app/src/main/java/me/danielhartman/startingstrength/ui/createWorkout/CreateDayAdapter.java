@@ -24,11 +24,23 @@ public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.View
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.create_day_row, parent, false);
+        View v;
+        switch (viewType){
+            case 0:
+                v = LayoutInflater.from(parent.getContext())
+                    .inflate(R.layout.create_day_row, parent, false);
+            default:
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.create_day_row, parent, false);
 
-        ViewHolder vh = new ViewHolder(v);
+        }
+        CreateDayAdapter.ViewHolder vh = new ViewHolder(v);
         return vh;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return super.getItemViewType(position);
     }
 
     @Override
@@ -46,6 +58,14 @@ public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.View
         TextView text;
 
         public ViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView)itemView.findViewById(R.id.dayText);
+        }
+    }
+    public class ViewHolder2 extends RecyclerView.ViewHolder {
+        TextView text;
+
+        public ViewHolder2(View itemView) {
             super(itemView);
             text = (TextView)itemView.findViewById(R.id.dayText);
         }

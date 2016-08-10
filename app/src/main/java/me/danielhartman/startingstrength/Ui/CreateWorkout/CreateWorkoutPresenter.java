@@ -13,6 +13,7 @@ import java.util.List;
 import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
 import me.danielhartman.startingstrength.model.Set;
+import me.danielhartman.startingstrength.model.SetTitle;
 import me.danielhartman.startingstrength.model.Workout;
 
 public class CreateWorkoutPresenter {
@@ -20,6 +21,15 @@ public class CreateWorkoutPresenter {
     private Workout workout;
     private int currentDay;
     private CreateDayAdapter adapter;
+    private Boolean isAddFrameDisplayed;
+
+    public Boolean getAddFrameDisplayed() {
+        return isAddFrameDisplayed;
+    }
+
+    public void setAddFrameDisplayed(Boolean addFrameDisplayed) {
+        isAddFrameDisplayed = addFrameDisplayed;
+    }
 
     public Workout getWorkout(){
         if (workout==null){
@@ -89,6 +99,7 @@ public class CreateWorkoutPresenter {
     }
     public void updateData(){
         if (adapter!=null){
+            getSetsForGivenDay(getCurrentDay()).add(new SetTitle());
             adapter.setData(getSetsForGivenDay(getCurrentDay()));
         }
     }

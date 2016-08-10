@@ -32,7 +32,6 @@ public class CreateWorkoutDay extends Fragment{
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
     FrameLayout mExerciseFrame;
-    Boolean isAddExerciseDisplayed;
 
     @Inject
     public CreateWorkoutPresenter mPresenter;
@@ -46,7 +45,7 @@ public class CreateWorkoutDay extends Fragment{
         DaggerHolder.getInstance().component().inject(this);
         mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
         mExerciseFrame.setVisibility(View.GONE);
-        isAddExerciseDisplayed = false;
+        mPresenter.setAddFrameDisplayed(false);
         populateRecycler();
         return rootView;
     }
@@ -59,14 +58,14 @@ public class CreateWorkoutDay extends Fragment{
 
     @OnClick(R.id.addExercise)
     public void addExerciseOnClick() {
-        if (isAddExerciseDisplayed){
+        if (mPresenter.getAddFrameDisplayed()){
             mExerciseFrame.setVisibility(View.GONE);
             addExerciseButton.setText("Add Exercise");
-            isAddExerciseDisplayed = false;
+            mPresenter.setAddFrameDisplayed(false);
         }else {
             mExerciseFrame.setVisibility(View.VISIBLE);
             addExerciseButton.setText("Hide");
-            isAddExerciseDisplayed = true;
+            mPresenter.setAddFrameDisplayed(true);
         }
     }
 
