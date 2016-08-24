@@ -44,7 +44,7 @@ public class CreateWorkoutPresenter {
     public void commitWorkoutToFirebase(String userId) {
         if (workout != null) {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            String key = database.child(Schema.WORKOUT_TOP_LEVEL).push().getKey();
+            String key = database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).push().getKey();
             database.child(Schema.WORKOUT_TOP_LEVEL).child(key).setValue(workout);
             database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).child(key).setValue(key, (databaseError, databaseReference) -> {
                 if (databaseError != null) {
