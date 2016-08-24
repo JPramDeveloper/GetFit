@@ -18,14 +18,12 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.ui.MainMenu_Fragment;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
-public class Login_Fragment extends Fragment implements LoginCallback {
+public class Login_Fragment extends Fragment{
 
     @Inject
     LoginPresenter mLoginPresenter;
 
     private View rootView;
-
-    private LoginCallback mLoginCallback;
 
     @BindView(R.id.userName)EditText userName;
     @BindView(R.id.password)EditText password;
@@ -33,42 +31,19 @@ public class Login_Fragment extends Fragment implements LoginCallback {
         rootView = inflater.inflate(R.layout.login_frag, container, false);
         ButterKnife.bind(this, rootView);
         DaggerHolder.getInstance().component().inject(this);
-        mLoginCallback = (LoginCallback)(getActivity().getSupportFragmentManager().findFragmentById(R.id.container));
-        mLoginPresenter.attachUserListener(mLoginCallback);
         return rootView;
     }
-
 
     @OnClick(R.id.login)
     public void clickLogin(){
         mLoginPresenter.signIn(userName.getText().toString(),password.getText().toString());
-
     }
+
     @OnClick(R.id.newAccount)
     public void clickCreateAccount(){
-       replaceFragment(new CreateAccountFragment(), R.id.container);
-    }
-
-    public void replaceFragment(Fragment fragment, Integer view){
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(view,fragment,null)
+                .replace(R.id.container,new CreateAccountFragment(),null)
                 .commit();
-    }
-
-    @Override
-    public void successfulLogin() {
-        Toast.makeText(getActivity().getApplicationContext(), "Login was successful", Toast.LENGTH_LONG).show();
-        replaceFragment(new MainMenu_Fragment(), R.id.container);
-    }
-
-    @Override
-    public void failedLogin(String message) {
-    }
-
-    @Override
-    public void onDestroyView() {
-        mLoginPresenter.detatchUserListener();
-        super.onDestroyView();
     }
 }

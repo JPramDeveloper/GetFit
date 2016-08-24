@@ -27,16 +27,16 @@ android {
     }
 }
 def supportLibVersion = "24.1.1"
-def firebaseVersion   = "9.4.0"
-def rxJava            = "1.1.6"
-def rxAndroid         = "1.2.1"
-def rxBinding         = "0.4.0"
-def butterknife       = "8.0.1"
-def dagger2           = "2.2"
+def firebaseVersion = "9.4.0"
+def rxJava = "1.1.6"
+def rxAndroid = "1.2.1"
+def rxBinding = "0.4.0"
+def butterknife = "8.0.1"
+def dagger2 = "2.2"
 
 dependencies {
     compile 'com.android.support:appcompat-v7:' + supportLibVersion
-    compile 'com.android.support:recyclerview-v7:'+ supportLibVersion
+    compile 'com.android.support:recyclerview-v7:' + supportLibVersion
     compile 'com.android.support:design:' + supportLibVersion
 
     compile 'com.jakewharton:butterknife:' + butterknife
@@ -57,6 +57,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:' + firebaseVersion
     compile 'com.google.firebase:firebase-database:' + firebaseVersion
 
+    compile 'com.android.support:support-v4:24.1.1'
 }
 apply plugin: 'com.google.gms.google-services'
 

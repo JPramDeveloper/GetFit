@@ -10,43 +10,48 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.danielhartman.startingstrength.R;
-import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
-import me.danielhartman.startingstrength.model.Set;
 
-public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.ViewHolder>{
+public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    List<Set> mData;
+    List<Object> mData;
 
-    public CreateDayAdapter(List<Set> mData) {
+    public CreateDayAdapter(List<Object> mData) {
         this.mData = mData;
     }
 
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
         switch (viewType){
             case 0:
                 v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.create_day_row, parent, false);
+                    .inflate(R.layout.create_day_row_title, parent, false);
+                RecyclerView.ViewHolder vh = new TitleViewHolder(v);
+                return vh;
             default:
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.create_day_row, parent, false);
-
+               RecyclerView.ViewHolder vh2 = new SetViewHolder(v);
+                return vh2;
         }
-        CreateDayAdapter.ViewHolder vh = new ViewHolder(v);
-        return vh;
     }
 
     @Override
     public int getItemViewType(int position) {
-        return super.getItemViewType(position);
-    }
+        if(mData.get(position)instanceof Exercise){
+            return 0;
+        }
+        return 1;
+                }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
-        Set set = mData.get(position);
-        holder.text.setText(set.getExerciseName());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        if (holder.getItemViewType()==0){
+            Exercise exercise =  (Exercise)mData.get(position);
+            TitleViewHolder vh2 = (TitleViewHolder)holder;
+            vh2.text.setText(exercise.getName());
+        }
     }
 
     @Override
@@ -54,27 +59,28 @@ public class CreateDayAdapter extends RecyclerView.Adapter<CreateDayAdapter.View
         return mData.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class SetViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
-        public ViewHolder(View itemView) {
+        public SetViewHolder(View itemView) {
             super(itemView);
             text = (TextView)itemView.findViewById(R.id.dayText);
         }
     }
-    public class ViewHolder2 extends RecyclerView.ViewHolder {
+    public class TitleViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
-        public ViewHolder2(View itemView) {
+        public TitleViewHolder(View itemView) {
             super(itemView);
-            text = (TextView)itemView.findViewById(R.id.dayText);
+            text = (TextView)itemView.findViewById(R.id.ExerciseNameRowTitle);
         }
+
     }
-    public void setData(List<Set> list){
+    public void setData(List<Object> list){
         mData = list;
         notifyDataSetChanged();
     }
-    public List<Set> getData() {
+    public List<Object> getData() {
         return mData;
     }
 }

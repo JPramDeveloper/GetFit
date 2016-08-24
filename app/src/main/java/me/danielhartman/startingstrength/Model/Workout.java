@@ -39,4 +39,7 @@ public class Workout {
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
+
+    public Workout() {
+    }
 }

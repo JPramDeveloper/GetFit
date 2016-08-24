@@ -17,6 +17,7 @@ import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutActivity;
 
 public class MainMenu_Fragment extends Fragment {
     private View rootView;
@@ -39,7 +40,7 @@ public class MainMenu_Fragment extends Fragment {
 
     @OnClick(R.id.viewWorkouts)
     public void viewWorkoutsOnClick(){
-        Intent i = new Intent(getActivity().getApplicationContext(), AccountActivity.class);
+        Intent  i = new Intent(getActivity().getApplicationContext(),ViewWorkoutActivity.class);
         startActivity(i);
     }
 

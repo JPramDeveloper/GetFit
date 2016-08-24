@@ -19,9 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.createWorkout.CreateWorkoutActivity"
-            android:windowSoftInputMode="adjustPan">
-        </activity>
+        <activity
+            android:name=".ui.createWorkout.CreateWorkoutActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ui.viewWorkout.ViewWorkoutActivity"></activity>
     </application>
 
 </manifest>

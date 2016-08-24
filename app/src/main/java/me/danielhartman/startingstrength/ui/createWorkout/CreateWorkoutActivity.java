@@ -25,7 +25,16 @@ public class CreateWorkoutActivity extends AppCompatActivity {
         mExerciseFrame.setVisibility(View.GONE);
     }
 
-    public FrameLayout getmExerciseFrame() {
+    public FrameLayout getExerciseFrame() {
         return mExerciseFrame;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (mExerciseFrame.getVisibility()==View.GONE) {
+            super.onBackPressed();
+        }else{
+            ((CreateWorkoutDay)getSupportFragmentManager().findFragmentById(R.id.container)).setCreateExerciseInvisible();
+        }
     }
 }

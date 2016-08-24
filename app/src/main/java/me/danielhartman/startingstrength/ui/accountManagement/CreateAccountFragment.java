@@ -82,7 +82,6 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
                 .subscribe(visibility -> mSignInButton.setVisibility(visibility));
         buttonEnabled.distinctUntilChanged()
                 .subscribe(buttonStatus -> mSignInButton.setEnabled(buttonStatus));
-
     }
 
     @Override

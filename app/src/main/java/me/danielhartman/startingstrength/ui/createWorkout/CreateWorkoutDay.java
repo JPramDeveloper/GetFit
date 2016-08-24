@@ -4,15 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,8 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
-import me.danielhartman.startingstrength.model.Exercise;
-import me.danielhartman.startingstrength.model.Set;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 
 public class CreateWorkoutDay extends Fragment{
     private static final String TAG = CreateWorkoutDay.class.getSimpleName();
@@ -34,6 +29,9 @@ public class CreateWorkoutDay extends Fragment{
     FrameLayout mExerciseFrame;
 
     @Inject
+    public LoginPresenter loginPresenter;
+
+    @Inject
     public CreateWorkoutPresenter mPresenter;
 
     private CreateDayAdapter adapter;
@@ -43,7 +41,7 @@ public class CreateWorkoutDay extends Fragment{
         rootView = inflater.inflate(R.layout.create_workout_day, container, false);
         ButterKnife.bind(this, rootView);
         DaggerHolder.getInstance().component().inject(this);
-        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
+        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getExerciseFrame();
         mExerciseFrame.setVisibility(View.GONE);
         mPresenter.setAddFrameDisplayed(false);
         populateRecycler();
@@ -59,28 +57,41 @@ public class CreateWorkoutDay extends Fragment{
     @OnClick(R.id.addExercise)
     public void addExerciseOnClick() {
         if (mPresenter.getAddFrameDisplayed()){
-            mExerciseFrame.setVisibility(View.GONE);
-            addExerciseButton.setText("Add Exercise");
-            mPresenter.setAddFrameDisplayed(false);
+           setCreateExerciseInvisible();
         }else {
-            mExerciseFrame.setVisibility(View.VISIBLE);
-            addExerciseButton.setText("Hide");
-            mPresenter.setAddFrameDisplayed(true);
+            setCreateExerciseVisible();
         }
     }
 
     @OnClick(R.id.finishDaysButton)
     public void finishDaysButtonClick(){
-        mPresenter.commitWorkoutToFirebase();
+        String userId = loginPresenter.getUser().getUid();
+        mPresenter.commitWorkoutToFirebase( userId);
     }
-    public void setNewData(List<Set> list){
-        adapter.setData(list);
-    }
+
     @OnClick(R.id.createDayButton)
     public void createDayOnClick(){
         mPresenter.goToNextDay();
-        mPresenter.getAdapter().setData(mPresenter.getSetsForGivenDay(mPresenter.getCurrentDay()));
+        mPresenter.viewExercisesForToday();
     }
+    public void setCreateExerciseVisible(){
+        mExerciseFrame.setVisibility(View.VISIBLE);
+        addExerciseButton.setText("Hide");
+        mPresenter.setAddFrameDisplayed(true);
+    }
+    public void setCreateExerciseInvisible(){
+        mExerciseFrame.setVisibility(View.GONE);
+        addExerciseButton.setText("Add Exercise");
+        mPresenter.setAddFrameDisplayed(false);
+    }
+
+    @OnClick(R.id.previousDayButton)
+    public void onPreviousDayClicked(){
+        mPresenter.goToPreviousDay();
+        mPresenter.viewExercisesForToday();
+    }
+
+
 
 
 

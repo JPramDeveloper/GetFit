@@ -39,7 +39,7 @@ public class CreateExerciseFragment extends Fragment {
         rootView = inflater.inflate(R.layout.add_exercise_layout, container, false);
         ButterKnife.bind(this, rootView);
         DaggerHolder.getInstance().component().inject(this);
-        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getmExerciseFrame();
+        mExerciseFrame = ((CreateWorkoutActivity)getActivity()).getExerciseFrame();
         return rootView;
     }
     @OnClick(R.id.addSetButton)

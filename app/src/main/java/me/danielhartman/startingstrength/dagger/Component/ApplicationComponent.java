@@ -11,6 +11,7 @@ import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutDay;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
 import me.danielhartman.startingstrength.ui.MainMenu_Fragment;
 import me.danielhartman.startingstrength.dagger.module.ApplicationModule;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutFragment;
 
 @Singleton
 @Component(modules = { ApplicationModule.class})
@@ -23,5 +24,6 @@ public interface ApplicationComponent {
     void inject(MainMenu_Fragment fragment);
     void inject(CreateWorkoutDay fragment);
     void inject(CreateExerciseFragment fragment);
+    void inject(ViewWorkoutFragment fragment);
 
 }
