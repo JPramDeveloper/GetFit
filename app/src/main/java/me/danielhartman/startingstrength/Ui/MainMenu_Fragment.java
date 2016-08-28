@@ -17,12 +17,18 @@ import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutActivity;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutPresenter;
 
 public class MainMenu_Fragment extends Fragment {
     private View rootView;
     @Inject
     LoginPresenter loginPresenter;
+    @Inject
+    ViewWorkoutPresenter viewWorkoutPresenter;
+    @Inject
+    CreateWorkoutPresenter createWorkoutPresenter;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.main_menu_frag, container, false);
@@ -30,6 +36,14 @@ public class MainMenu_Fragment extends Fragment {
         ButterKnife.bind(this, rootView);
         getActivity().setTitle("Main Menu");
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (loginPresenter.getUser()==null){
+            getActivity().finish();
+        }
     }
 
     @OnClick(R.id.startWorkout)
@@ -55,13 +69,4 @@ public class MainMenu_Fragment extends Fragment {
         Intent i = new Intent(getActivity().getApplicationContext(), AccountActivity.class);
         startActivity(i);
     }
-
-    public void replaceFragment(Fragment fragment, Integer view){
-      getFragmentManager().beginTransaction()
-        .replace(view,fragment,null)
-        .addToBackStack("menu")
-        .commit();
-    }
-
-
 }

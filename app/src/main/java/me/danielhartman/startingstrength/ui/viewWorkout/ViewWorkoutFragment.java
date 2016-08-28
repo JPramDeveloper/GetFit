@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -19,8 +17,6 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class ViewWorkoutFragment extends Fragment {
-
-    ViewWorkoutAdapter adapter;
 
     View v;
 
@@ -35,23 +31,24 @@ public class ViewWorkoutFragment extends Fragment {
         v = inflater.inflate(R.layout.view_workout_fragment, container, false);
         ButterKnife.bind(this, v);
         DaggerHolder.getInstance().component().inject(this);
-        presenter.getWorkoutIds();
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        presenter.attachListner();
         recyclerViewSetup();
     }
 
     public void recyclerViewSetup(){
-        adapter = new ViewWorkoutAdapter(new ArrayList<>());
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(presenter.getAdapter());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }
 
-
-
-
+    @Override
+    public void onPause() {
+        presenter.detatchListener();
+        super.onPause();
+    }
 }

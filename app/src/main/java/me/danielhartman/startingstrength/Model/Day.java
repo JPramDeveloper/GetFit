@@ -8,6 +8,13 @@ public class Day {
     List<Exercise> exercises;
     String description;
 
+    public Day(String name) {
+        this.name = name;
+    }
+
+    public Day() {
+    }
+
     public String getName() {
         return name;
     }

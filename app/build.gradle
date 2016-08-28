@@ -2,6 +2,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'com.android.application' //or apply plugin: 'java'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'com.neenbedankt.android-apt'
+apply plugin: 'com.getkeepsafe.dexcount'
+
 android {
     compileSdkVersion 24
     buildToolsVersion "24.0.1"
@@ -26,13 +28,14 @@ android {
         }
     }
 }
-def supportLibVersion = "24.1.1"
+def supportLibVersion = "24.2.0"
 def firebaseVersion = "9.4.0"
 def rxJava = "1.1.6"
 def rxAndroid = "1.2.1"
 def rxBinding = "0.4.0"
 def butterknife = "8.0.1"
 def dagger2 = "2.2"
+def picasso = "2.5.2"
 
 dependencies {
     compile 'com.android.support:appcompat-v7:' + supportLibVersion
@@ -53,11 +56,15 @@ dependencies {
     compile 'com.google.dagger:dagger:' + dagger2
     provided 'javax.annotation:jsr250-api:1.0'
 
+    compile 'com.squareup.picasso:picasso:' + picasso
+
     compile 'com.google.firebase:firebase-auth:' + firebaseVersion
     compile 'com.google.android.gms:play-services-auth:' + firebaseVersion
     compile 'com.google.firebase:firebase-database:' + firebaseVersion
+    compile 'com.google.firebase:firebase-crash:' + firebaseVersion
+    compile 'com.google.firebase:firebase-storage:' + firebaseVersion
 
-    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:support-v4:' + supportLibVersion
 }
 apply plugin: 'com.google.gms.google-services'
 

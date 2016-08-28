@@ -10,7 +10,9 @@ import android.widget.TextView;
 import java.util.List;
 
 import me.danielhartman.startingstrength.R;
+import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
+import me.danielhartman.startingstrength.model.Set;
 
 public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -27,23 +29,36 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case 0:
                 v = LayoutInflater.from(parent.getContext())
                     .inflate(R.layout.create_day_row_title, parent, false);
-                RecyclerView.ViewHolder vh = new TitleViewHolder(v);
-                return vh;
-            default:
+                RecyclerView.ViewHolder titleViewHolder = new TitleViewHolder(v);
+                return titleViewHolder;
+            case 1:
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.create_day_row, parent, false);
-               RecyclerView.ViewHolder vh2 = new SetViewHolder(v);
-                return vh2;
+                RecyclerView.ViewHolder setViewHolder = new SetViewHolder(v);
+                return setViewHolder;
+            case 2:
+                v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.create_day_title, parent, false);
+                RecyclerView.ViewHolder dayViewHolder = new DayViewHolder(v);
+                return dayViewHolder;
+            default:
+                return null;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(mData.get(position)instanceof Exercise){
+        if (mData.get(position) instanceof Exercise) {
             return 0;
+        } else if (mData.get(position) instanceof Set) {
+            return 1;
+        } else if (mData.get(position) instanceof Day) {
+            return 2;
+        } else {
+            return -1;
         }
-        return 1;
-                }
+    }
+
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
@@ -51,6 +66,19 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             Exercise exercise =  (Exercise)mData.get(position);
             TitleViewHolder vh2 = (TitleViewHolder)holder;
             vh2.text.setText(exercise.getName());
+        }else if (holder.getItemViewType()==1){
+            Set s =  (Set)mData.get(position);
+            SetViewHolder setVH = (SetViewHolder)holder;
+            StringBuilder sb =  new StringBuilder()
+                    .append(String.valueOf(s.getReps()))
+                    .append(" Reps at " )
+                    .append(s.getWeight())
+                    .append(" lbs");
+            setVH.text.setText(sb.toString());
+        }else if (holder.getItemViewType() == 2){
+            Day d = (Day)mData.get(position);
+            DayViewHolder dayVH = (DayViewHolder)holder;
+            dayVH.text.setText(d.getName());
         }
     }
 
@@ -71,6 +99,15 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         TextView text;
 
         public TitleViewHolder(View itemView) {
+            super(itemView);
+            text = (TextView)itemView.findViewById(R.id.ExerciseNameRowTitle);
+        }
+
+    }
+    public class DayViewHolder extends RecyclerView.ViewHolder {
+        TextView text;
+
+        public DayViewHolder(View itemView) {
             super(itemView);
             text = (TextView)itemView.findViewById(R.id.ExerciseNameRowTitle);
         }

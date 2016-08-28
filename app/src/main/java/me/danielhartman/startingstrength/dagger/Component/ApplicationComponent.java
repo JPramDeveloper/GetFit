@@ -6,6 +6,7 @@ import dagger.Component;
 import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.CreateAccountFragment;
 import me.danielhartman.startingstrength.ui.accountManagement.Login_Fragment;
+import me.danielhartman.startingstrength.ui.createWorkout.AddImageActivity;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateExerciseFragment;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutDay;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
@@ -25,5 +26,6 @@ public interface ApplicationComponent {
     void inject(CreateWorkoutDay fragment);
     void inject(CreateExerciseFragment fragment);
     void inject(ViewWorkoutFragment fragment);
+    void inject(AddImageActivity fragment);
 
 }

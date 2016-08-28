@@ -23,15 +23,42 @@ public class ViewWorkoutPresenter {
     DatabaseReference mDatabase;
     List<Workout> workoutResults = new ArrayList<>();
     LoginPresenter loginPresenter;
+    ViewWorkoutAdapter adapter;
+    ChildEventListener listener;
 
     public ViewWorkoutPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        adapter= new ViewWorkoutAdapter();
+    }
+    public void clear(){
+        mDatabase.removeEventListener(listener);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        workoutResults = new ArrayList<>();
+        adapter = null;
     }
 
-    public void getWorkoutIds() {
+    public ViewWorkoutAdapter getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(ViewWorkoutAdapter adapter) {
+        this.adapter = adapter;
+    }
+
+    public void attachListner() {
+        workoutResults = new ArrayList<>();
+        createListener();
         mDatabase.child(Schema.USERS).child(loginPresenter.getUser().getUid())
-                .child(Schema.WORKOUT).addChildEventListener(new ChildEventListener() {
+                .child(Schema.WORKOUT).addChildEventListener(listener);
+    }
+    public void detatchListener(){
+        mDatabase.removeEventListener(listener);
+    }
+
+
+    public ChildEventListener createListener(){
+        listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 Log.d(TAG, "onChildAdded: " + dataSnapshot.getKey());
@@ -57,7 +84,8 @@ public class ViewWorkoutPresenter {
             public void onCancelled(DatabaseError databaseError) {
 
             }
-        });
+        };
+        return listener;
     }
     public void getWorkouts(String key){
         mDatabase.child(Schema.WORKOUT_TOP_LEVEL).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -66,13 +94,13 @@ public class ViewWorkoutPresenter {
                 Workout w = dataSnapshot.getValue(Workout.class);
                 workoutResults.add(w);
                 Log.d(TAG, "onDataChange: Workout Size = " + String.valueOf(workoutResults.size()));
+                adapter.setData(workoutResults);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                Log.d(TAG, "onCancelled: ");
             }
         });
-
     }
 }

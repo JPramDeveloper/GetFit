@@ -37,6 +37,7 @@ public class CreateWorkoutName extends Fragment{
 
     @OnClick(R.id.createWorkoutButton)
     public void onButtonClick() {
+        mPresenter.setWorkout(null);
         mPresenter.getWorkout().setName(workoutName.getText().toString());
         Log.d(TAG, "onButtonClick: ");
         getActivity().getSupportFragmentManager().beginTransaction()

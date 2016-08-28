@@ -14,12 +14,12 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    CreateWorkoutPresenter getWorkoutPresenter(){
-        return new CreateWorkoutPresenter();
+    CreateWorkoutPresenter getWorkoutPresenter(LoginPresenter loginPresenter){
+        return new CreateWorkoutPresenter(loginPresenter);
     }
     @Provides
     @Singleton
-    LoginPresenter getLoginNetworkCalls(){
+    LoginPresenter getLoginPresenter(){
         return new LoginPresenter();
     }
     @Provides

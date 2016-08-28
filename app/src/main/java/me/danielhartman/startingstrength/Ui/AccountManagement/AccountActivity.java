@@ -34,6 +34,7 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback{
 
     @Override
     public void successfulLogin() {
+        Log.d(TAG, "successfulLogin: ");
        startActivity(new Intent(this, MainActivity.class));
     }
 

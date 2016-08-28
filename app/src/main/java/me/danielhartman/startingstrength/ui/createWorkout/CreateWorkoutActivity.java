@@ -37,4 +37,6 @@ public class CreateWorkoutActivity extends AppCompatActivity {
             ((CreateWorkoutDay)getSupportFragmentManager().findFragmentById(R.id.container)).setCreateExerciseInvisible();
         }
     }
+
+
 }
