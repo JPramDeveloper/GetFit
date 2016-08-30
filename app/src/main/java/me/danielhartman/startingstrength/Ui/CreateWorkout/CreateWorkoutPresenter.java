@@ -34,13 +34,17 @@ public class CreateWorkoutPresenter {
     private static final String TAG = CreateWorkoutPresenter.class.getSimpleName();
     private Workout workout;
     private int currentDay = 0;
-    private CreateDayAdapter adapter;
     private Boolean isAddFrameDisplayed;
     private String key;
     private LoginPresenter loginPresenter;
+    private CreateDayAdapter currentDayAdapter;
 
     public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
+    }
+
+    public void setCurrentDayAdapter(CreateDayAdapter currentDayAdapter) {
+        this.currentDayAdapter = currentDayAdapter;
     }
 
     public Boolean getAddFrameDisplayed() {
@@ -88,40 +92,19 @@ public class CreateWorkoutPresenter {
         return getWorkout().getDays().get(day).getExercises();
     }
 
-    public int addDay() {
-        workout.getDays().add(new Day("Day " + String.valueOf(currentDay + 1)));
+    public int addDay(int day) {
+        workout.getDays().add(new Day("Day " + String.valueOf(day + 1)));
         return workout.getDays().size();
-    }
-
-    public void initNextDay() {
-        if (workout.getDays().size() < currentDay + 1) {
-            workout.getDays().add(new Day("Day " + String.valueOf(currentDay + 1)));
-            workout.getDays().get(getCurrentDay()).setExercises(new ArrayList<>());
-        }
     }
 
     public Workout initializeWorkout() {
         workout = new Workout();
         workout.setDays(new ArrayList<>());
-        addDay();
-        workout.getDays().get(0).setExercises(new ArrayList<>());
-        return workout;
-    }
-
-    public CreateDayAdapter getAdapter() {
-        return adapter;
-    }
-
-    public void setAdapter(CreateDayAdapter adapter) {
-        this.adapter = adapter;
-    }
-
-    public void updateData() {
-        if (adapter != null) {
-            adapter.setData(getSetsForGivenDay(getCurrentDay()));
-        } else {
-            Log.e(TAG, "updateData: NO ADAPTER SET");
+        for (int i = 0; i<=6;i++){
+            addDay(i);
+            workout.getDays().get(i).setExercises(new ArrayList<>());
         }
+        return workout;
     }
 
     public List<Object> getSetsForGivenDay(int day) {
@@ -149,7 +132,7 @@ public class CreateWorkoutPresenter {
 
     public void addExerciseToDay(String name, String weight, String reps) {
         createExercise(name, weight, reps);
-        updateData();
+        currentDayAdapter.setData(getSetsForGivenDay(currentDay));
     }
 
     public Exercise makeExercise(String exerciseName) {
@@ -175,26 +158,8 @@ public class CreateWorkoutPresenter {
         return newExercise;
     }
 
-    public int goToPreviousDay() {
-        if (currentDay > 0) {
-            currentDay -= 1;
-        }
-        return currentDay;
-    }
-
-    public int goToNextDay() {
-        currentDay += 1;
-        initNextDay();
-        return currentDay;
-    }
-
     public String getDayTitle(){
         return getWorkout().getDays().get(getCurrentDay()).getName();
-    }
-
-    public void viewExercisesForToday() {
-        Log.d(TAG, "Displaying Exercises for index: " + String.valueOf(currentDay));
-        adapter.setData(getSetsForGivenDay(getCurrentDay()));
     }
 
     public void uploadImage(Context context, Uri uri) throws FileNotFoundException {
@@ -222,5 +187,9 @@ public class CreateWorkoutPresenter {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setCurrentDay(int index) {
+        currentDay = index;
     }
 }
