@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -28,8 +29,6 @@ import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.util.Schema;
 
-import static android.support.v4.app.ActivityCompat.startActivityForResult;
-
 public class CreateWorkoutPresenter {
     private static final String TAG = CreateWorkoutPresenter.class.getSimpleName();
     private Workout workout;
@@ -38,6 +37,15 @@ public class CreateWorkoutPresenter {
     private String key;
     private LoginPresenter loginPresenter;
     private CreateDayAdapter currentDayAdapter;
+    private boolean isFirstRun;
+
+    public boolean isFirstRun() {
+        return isFirstRun;
+    }
+
+    public void setFirstRun(boolean firstRun) {
+        isFirstRun = firstRun;
+    }
 
     public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
@@ -181,12 +189,25 @@ public class CreateWorkoutPresenter {
     }
 
     public void commitToFirebase(Context context, Uri uri, CreateWorkoutCallback callback) {
+       workout= pruneUnusedDays(workout);
         commitWorkoutToFirebase(callback);
         try {
             uploadImage(context, uri);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public Workout pruneUnusedDays(Workout workout) {
+        Workout w = workout;
+        List<Day> daysWithExercises = new ArrayList<>();
+        for (Day day : w.getDays()){
+            if (day.getExercises().size()>=1){
+                daysWithExercises.add(day);
+            }
+        }
+        w.setDays(daysWithExercises);
+        return w;
     }
 
     public void setCurrentDay(int index) {

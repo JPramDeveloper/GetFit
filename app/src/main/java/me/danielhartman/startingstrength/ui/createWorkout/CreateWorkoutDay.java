@@ -33,12 +33,8 @@ public class CreateWorkoutDay extends Fragment{
 
     private View rootView;
 
-    @BindView(R.id.addExercise)
-    Button addExerciseButton;
-
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
-
 
     FrameLayout mExerciseFrame;
 
@@ -59,6 +55,10 @@ public class CreateWorkoutDay extends Fragment{
         Bundle b = getArguments();
         if (b!=null){
             adapter.setData(mPresenter.getSetsForGivenDay(b.getInt(BUNDLED_DAY)));
+            if (b.getInt(BUNDLED_DAY)==0 && mPresenter.isFirstRun()){
+                mPresenter.setCurrentDayAdapter(getAdapter());
+                mPresenter.setFirstRun(false);
+            }
         }
 
         populateRecycler();
@@ -83,36 +83,6 @@ public class CreateWorkoutDay extends Fragment{
         return adapter;
     }
 
-    @OnClick(R.id.addExercise)
-    public void addExerciseOnClick() {
-        if (mPresenter.getAddFrameDisplayed()){
-           setCreateExerciseInvisible();
-        }else {
-            setCreateExerciseVisible();
-        }
-    }
-//    public void updateDay(){
-////        title.setText(mPresenter.getDayTitle());
-//        mPresenter.viewExercisesForToday();
-//    }
-
-    public void setCreateExerciseVisible(){
-        mExerciseFrame.setVisibility(View.VISIBLE);
-        addExerciseButton.setText("Hide");
-        mPresenter.setAddFrameDisplayed(true);
-    }
-
-    public void setCreateExerciseInvisible(){
-        mExerciseFrame.setVisibility(View.GONE);
-        addExerciseButton.setText("Add Exercise");
-        mPresenter.setAddFrameDisplayed(false);
-    }
-
-    @OnClick(R.id.nextDayButton)
-    public void nextDayButton(){
-        Intent i = new Intent(getActivity().getApplicationContext(),AddImageActivity.class);
-        startActivity(i);
-    }
 }
 
 

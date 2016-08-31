@@ -24,6 +24,7 @@
             android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.viewWorkout.ViewWorkoutActivity"/>
         <activity android:name=".ui.createWorkout.AddImageActivity"/>
+        <activity android:name=".ui.createWorkout.CreateWorkoutName"/>
 
     </application>
 

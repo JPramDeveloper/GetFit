@@ -1,13 +1,18 @@
 package me.danielhartman.startingstrength.ui.createWorkout;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.InflateException;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+
+import java.util.zip.Inflater;
 
 import javax.inject.Inject;
 
@@ -17,7 +22,7 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
-public class CreateWorkoutName extends Fragment{
+public class CreateWorkoutName extends Activity{
     private static final String TAG = CreateWorkoutName.class.getSimpleName();
     private View rootView;
 
@@ -28,11 +33,11 @@ public class CreateWorkoutName extends Fragment{
     public CreateWorkoutPresenter mPresenter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.create_workout_name, container, false);
-        ButterKnife.bind(this, rootView);
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.create_workout_name);
         DaggerHolder.getInstance().component().inject(this);
-        return rootView;
+        ButterKnife.bind(this);
     }
 
     @OnClick(R.id.createWorkoutButton)
@@ -40,8 +45,8 @@ public class CreateWorkoutName extends Fragment{
         mPresenter.setWorkout(null);
         mPresenter.getWorkout().setName(workoutName.getText().toString());
         Log.d(TAG, "onButtonClick: ");
-        getActivity().getSupportFragmentManager().beginTransaction()
-                .replace(R.id.container, new CreateWorkoutDay())
-                .commit();
+        Intent i = new Intent(this, CreateWorkoutActivity.class);
+        startActivity(i);
+
     }
 }
