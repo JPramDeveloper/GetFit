@@ -14,7 +14,7 @@ import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
 import me.danielhartman.startingstrength.model.Set;
 
-public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     List<Object> mData;
 
@@ -25,10 +25,10 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v;
-        switch (viewType){
+        switch (viewType) {
             case 0:
                 v = LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.create_day_row_title, parent, false);
+                        .inflate(R.layout.create_day_row_title, parent, false);
                 RecyclerView.ViewHolder titleViewHolder = new TitleViewHolder(v);
                 return titleViewHolder;
             case 1:
@@ -62,22 +62,22 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder.getItemViewType()==0){
-            Exercise exercise =  (Exercise)mData.get(position);
-            TitleViewHolder vh2 = (TitleViewHolder)holder;
+        if (holder.getItemViewType() == 0) {
+            Exercise exercise = (Exercise) mData.get(position);
+            TitleViewHolder vh2 = (TitleViewHolder) holder;
             vh2.text.setText(exercise.getName());
-        }else if (holder.getItemViewType()==1){
-            Set s =  (Set)mData.get(position);
-            SetViewHolder setVH = (SetViewHolder)holder;
-            StringBuilder sb =  new StringBuilder()
+        } else if (holder.getItemViewType() == 1) {
+            Set s = (Set) mData.get(position);
+            SetViewHolder setVH = (SetViewHolder) holder;
+            StringBuilder sb = new StringBuilder()
                     .append(String.valueOf(s.getReps()))
-                    .append(" Reps at " )
+                    .append(" Reps at ")
                     .append(s.getWeight())
                     .append(" lbs");
             setVH.text.setText(sb.toString());
-        }else if (holder.getItemViewType() == 2){
-            Day d = (Day)mData.get(position);
-            DayViewHolder dayVH = (DayViewHolder)holder;
+        } else if (holder.getItemViewType() == 2) {
+            Day d = (Day) mData.get(position);
+            DayViewHolder dayVH = (DayViewHolder) holder;
             dayVH.text.setText(d.getName());
         }
     }
@@ -87,37 +87,41 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         return mData.size();
     }
 
+    public List<Object> getData() {
+        return mData;
+    }
+
+    public void setData(List<Object> list) {
+        mData = list;
+        notifyDataSetChanged();
+    }
+
     public class SetViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
         public SetViewHolder(View itemView) {
             super(itemView);
-            text = (TextView)itemView.findViewById(R.id.dayText);
+            text = (TextView) itemView.findViewById(R.id.dayText);
         }
     }
+
     public class TitleViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
         public TitleViewHolder(View itemView) {
             super(itemView);
-            text = (TextView)itemView.findViewById(R.id.ExerciseNameRowTitle);
+            text = (TextView) itemView.findViewById(R.id.ExerciseNameRowTitle);
         }
 
     }
+
     public class DayViewHolder extends RecyclerView.ViewHolder {
         TextView text;
 
         public DayViewHolder(View itemView) {
             super(itemView);
-            text = (TextView)itemView.findViewById(R.id.ExerciseNameRowTitle);
+            text = (TextView) itemView.findViewById(R.id.ExerciseNameRowTitle);
         }
 
-    }
-    public void setData(List<Object> list){
-        mData = list;
-        notifyDataSetChanged();
-    }
-    public List<Object> getData() {
-        return mData;
     }
 }

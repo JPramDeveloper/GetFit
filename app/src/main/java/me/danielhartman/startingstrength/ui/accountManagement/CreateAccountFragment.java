@@ -30,19 +30,24 @@ import rx.Observable;
 public class CreateAccountFragment extends Fragment implements LoginCallback {
     @Inject
     LoginPresenter mLoginPresenter;
-    @BindView(R.id.username) EditText username;
-    @BindView(R.id.password) EditText password;
-    @BindView(R.id.verifyUsernameImage) ImageView verifyUsernameImage;
-    @BindView(R.id.verifyPasswordImage) ImageView verifyPasswordImage;
-    @BindView(R.id.btnSignIn) Button mSignInButton;
+    @BindView(R.id.username)
+    EditText username;
+    @BindView(R.id.password)
+    EditText password;
+    @BindView(R.id.verifyUsernameImage)
+    ImageView verifyUsernameImage;
+    @BindView(R.id.verifyPasswordImage)
+    ImageView verifyPasswordImage;
+    @BindView(R.id.btnSignIn)
+    Button mSignInButton;
 
     private LoginCallback mLoginCallback;
     private View rootView;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.createaccount_frag, container, false);
-        ((MyApplication)getActivity().getApplication()).getViewWorkoutComponent().inject(this);
-        mLoginCallback = (LoginCallback)getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+        ((MyApplication) getActivity().getApplication()).getViewWorkoutComponent().inject(this);
+        mLoginCallback = (LoginCallback) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -57,21 +62,21 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
     }
 
     @OnClick(R.id.btnSignIn)
-    public void signUpUser(){
-        mLoginPresenter.createAccount(username.getText().toString(),password.getText().toString(), mLoginCallback);
+    public void signUpUser() {
+        mLoginPresenter.createAccount(username.getText().toString(), password.getText().toString(), mLoginCallback);
     }
 
-    public void checkInputs(){
+    public void checkInputs() {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
         Observable<Boolean> userNameValid = RxTextView.textChangeEvents(username)
-                .map(r->r.text())
+                .map(r -> r.text())
                 .map(l -> pattern.matcher(l).matches());
         userNameValid.distinctUntilChanged()
-                .map(b->b? R.drawable.check: R.drawable.cancel)
-                .subscribe(resource-> verifyUsernameImage.setBackgroundResource(resource));
+                .map(b -> b ? R.drawable.check : R.drawable.cancel)
+                .subscribe(resource -> verifyUsernameImage.setBackgroundResource(resource));
         Observable<Boolean> passwordValid = RxTextView.textChangeEvents(password)
-                .map(r->r.text())
+                .map(r -> r.text())
                 .map(l -> l.toString().length() >= 6);
         passwordValid.distinctUntilChanged()
                 .map(b -> b ? R.drawable.check : R.drawable.cancel)
@@ -86,13 +91,13 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
 
     @Override
     public void successfulLogin() {
-        Toast.makeText(getActivity().getApplicationContext(),"Success",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
     @Override
     public void failedLogin(String message) {
-        Toast.makeText(getActivity().getApplicationContext(),"Failed",Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
 
     }
 }

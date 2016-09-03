@@ -1,18 +1,14 @@
 package me.danielhartman.startingstrength.ui.createWorkout;
 
-
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.InflateException;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
-import java.util.zip.Inflater;
+import com.squareup.picasso.Picasso;
 
 import javax.inject.Inject;
 
@@ -22,31 +18,52 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
-public class CreateWorkoutName extends Activity{
+public class CreateWorkoutName extends Activity {
     private static final String TAG = CreateWorkoutName.class.getSimpleName();
-    private View rootView;
+    final int SELECT_PICTURE = 1;
+    Uri imageUri;
+
+    @Inject
+    CreateWorkoutPresenter presenter;
+
+    @BindView(R.id.selectedImage)
+    ImageView selectedImageView;
 
     @BindView(R.id.workoutNameEditText)
     EditText workoutName;
 
-    @Inject
-    public CreateWorkoutPresenter mPresenter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.create_workout_name);
+        setContentView(R.layout.add_image_fragment);
         DaggerHolder.getInstance().component().inject(this);
         ButterKnife.bind(this);
     }
 
+    @OnClick(R.id.findImageButton)
+    public void findImageButtonClick() {
+        Intent intent = new Intent();
+        intent.setType("image/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,
+                "Select Picture"), SELECT_PICTURE);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == SELECT_PICTURE && resultCode == RESULT_OK && null != data) {
+            imageUri = data.getData();
+            Picasso.with(this).load(imageUri).fit().centerInside().into(selectedImageView);
+            presenter.saveUri(imageUri);
+        }
+    }
+
     @OnClick(R.id.createWorkoutButton)
     public void onButtonClick() {
-        mPresenter.setWorkout(null);
-        mPresenter.getWorkout().setName(workoutName.getText().toString());
+        presenter.setWorkout(null);
+        presenter.getWorkout().setName(workoutName.getText().toString());
         Log.d(TAG, "onButtonClick: ");
         Intent i = new Intent(this, CreateWorkoutActivity.class);
         startActivity(i);
-
     }
 }

@@ -1,9 +1,7 @@
 package me.danielhartman.startingstrength.ui;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
-import com.google.firebase.crash.FirebaseCrash;
+import android.support.v7.app.AppCompatActivity;
 
 import me.danielhartman.startingstrength.R;
 

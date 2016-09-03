@@ -4,9 +4,18 @@ import java.util.List;
 
 public class Workout {
     String name;
+    String id;
     List<Day> days;
     String description;
     User createdBy;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getName() {
         return name;

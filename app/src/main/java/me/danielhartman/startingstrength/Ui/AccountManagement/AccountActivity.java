@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -14,7 +13,7 @@ import me.danielhartman.startingstrength.dagger.DaggerHolder;
 import me.danielhartman.startingstrength.ui.MainActivity;
 
 
-public class AccountActivity extends AppCompatActivity implements LoginCallback{
+public class AccountActivity extends AppCompatActivity implements LoginCallback {
 
     private static final String TAG = AccountActivity.class.getSimpleName();
     @Inject
@@ -37,7 +36,7 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback{
         Log.d(TAG, "successfulLogin: ");
         Intent i = new Intent(this, MainActivity.class);
         i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-       startActivity(i);
+        startActivity(i);
     }
 
     @Override

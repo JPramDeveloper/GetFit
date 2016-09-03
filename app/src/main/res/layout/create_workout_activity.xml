@@ -35,9 +35,16 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_marginRight="30dp"
-        android:src="@drawable/ic_add_black_24dp"
+        android:src="@drawable/ic_clear_black_24dp"
         android:layout_marginBottom="30dp"
         android:scaleType="fitXY"
         android:layout_height="56dp" />
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/progressBar"
+        android:layout_width="75dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_height="75dp" />
 
 </RelativeLayout>

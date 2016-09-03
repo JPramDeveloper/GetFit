@@ -6,11 +6,10 @@ import dagger.Component;
 import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.CreateAccountFragment;
 import me.danielhartman.startingstrength.ui.accountManagement.Login_Fragment;
-import me.danielhartman.startingstrength.ui.createWorkout.AddImageActivity;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateExerciseFragment;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutDay;
-import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
 import me.danielhartman.startingstrength.ui.MainMenu_Fragment;
 import me.danielhartman.startingstrength.dagger.module.ApplicationModule;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutFragment;
@@ -22,12 +21,11 @@ public interface ApplicationComponent {
     void inject(Login_Fragment fragment);
     void inject(CreateAccountFragment fragment);
     void inject(AccountActivity activity);
-    void inject(CreateWorkoutName fragment);
     void inject(MainMenu_Fragment fragment);
     void inject(CreateWorkoutDay fragment);
     void inject(CreateExerciseFragment fragment);
     void inject(ViewWorkoutFragment fragment);
-    void inject(AddImageActivity fragment);
+    void inject(CreateWorkoutName fragment);
     void inject(CreateWorkoutActivity activity);
 
 }

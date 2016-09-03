@@ -18,8 +18,6 @@ import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class ViewWorkoutFragment extends Fragment {
 
-    View v;
-
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
@@ -28,7 +26,7 @@ public class ViewWorkoutFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        v = inflater.inflate(R.layout.view_workout_fragment, container, false);
+        View v = inflater.inflate(R.layout.view_workout_fragment, container, false);
         ButterKnife.bind(this, v);
         DaggerHolder.getInstance().component().inject(this);
         return v;
@@ -37,11 +35,12 @@ public class ViewWorkoutFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        presenter.attachListner();
+        presenter.attachListner(getActivity());
         recyclerViewSetup();
     }
 
-    public void recyclerViewSetup(){
+    public void recyclerViewSetup() {
+        presenter.getAdapter().setContext(getActivity().getApplicationContext());
         mRecyclerView.setAdapter(presenter.getAdapter());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }

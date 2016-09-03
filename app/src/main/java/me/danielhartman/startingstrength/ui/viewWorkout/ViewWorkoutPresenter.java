@@ -1,6 +1,8 @@
 package me.danielhartman.startingstrength.ui.viewWorkout;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -13,13 +15,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.danielhartman.startingstrength.model.Key;
 import me.danielhartman.startingstrength.model.Workout;
+import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.util.Schema;
 
 public class ViewWorkoutPresenter {
-    private static final String TAG = ViewWorkoutPresenter.class.getSimpleName() ;
+    private static final String TAG = ViewWorkoutPresenter.class.getSimpleName();
     DatabaseReference mDatabase;
     List<Workout> workoutResults = new ArrayList<>();
     LoginPresenter loginPresenter;
@@ -29,9 +31,11 @@ public class ViewWorkoutPresenter {
     public ViewWorkoutPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        adapter= new ViewWorkoutAdapter();
+        adapter = new ViewWorkoutAdapter();
     }
-    public void clear(){
+
+
+    public void clear() {
         mDatabase.removeEventListener(listener);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         workoutResults = new ArrayList<>();
@@ -46,18 +50,25 @@ public class ViewWorkoutPresenter {
         this.adapter = adapter;
     }
 
-    public void attachListner() {
-        workoutResults = new ArrayList<>();
-        createListener();
-        mDatabase.child(Schema.USERS).child(loginPresenter.getUser().getUid())
-                .child(Schema.WORKOUT).addChildEventListener(listener);
+    public void attachListner(Activity activity) {
+        if (loginPresenter.getUser() != null) {
+            workoutResults = new ArrayList<>();
+            createListener();
+            mDatabase.child(Schema.USERS).child(loginPresenter.getUser().getUid())
+                    .child(Schema.WORKOUT).addChildEventListener(listener);
+        } else {
+            Intent i = new Intent(activity.getApplicationContext(), AccountActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(i);
+        }
     }
-    public void detatchListener(){
+
+    public void detatchListener() {
         mDatabase.removeEventListener(listener);
     }
 
 
-    public ChildEventListener createListener(){
+    public ChildEventListener createListener() {
         listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -87,7 +98,8 @@ public class ViewWorkoutPresenter {
         };
         return listener;
     }
-    public void getWorkouts(String key){
+
+    public void getWorkouts(String key) {
         mDatabase.child(Schema.WORKOUT_TOP_LEVEL).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

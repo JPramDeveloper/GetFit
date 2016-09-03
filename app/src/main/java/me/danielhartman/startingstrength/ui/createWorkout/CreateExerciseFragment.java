@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 
 import javax.inject.Inject;
 
@@ -18,18 +17,16 @@ import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class CreateExerciseFragment extends Fragment {
 
+    private static final String TAG = CreateExerciseFragment.class.getSimpleName();
+    @Inject
+    public CreateWorkoutPresenter mPresenter;
     @BindView(R.id.addExerciseName)
     EditText exerciseName;
     @BindView(R.id.addExerciseWeight)
     EditText exerciseWeight;
     @BindView(R.id.addExerciseReps)
     EditText exerciseReps;
-    private static final String TAG = CreateExerciseFragment.class.getSimpleName();
     private View rootView;
-
-    @Inject
-    public CreateWorkoutPresenter mPresenter;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -40,15 +37,17 @@ public class CreateExerciseFragment extends Fragment {
     }
 
     @OnClick(R.id.addSetButton)
-    public void addSetButtonClick(){
-        mPresenter.addExerciseToDay(exerciseName.getText().toString(),exerciseWeight.getText().toString(),
+    public void addSetButtonClick() {
+        mPresenter.addExerciseToDay(exerciseName.getText().toString(), exerciseWeight.getText().toString(),
                 exerciseReps.getText().toString());
     }
 
     @OnClick(R.id.finishExerciseButton)
-    public void finishOnClick(){
+    public void finishOnClick() {
         exerciseName.setText("");
         exerciseReps.setText("");
         exerciseWeight.setText("");
+        View current = getActivity().getCurrentFocus();
+        if (current != null) current.clearFocus();
     }
 }

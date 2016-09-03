@@ -1,11 +1,11 @@
 package me.danielhartman.startingstrength.ui.accountManagement;
 
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-
 import android.support.annotation.NonNull;
 import android.util.Log;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 
@@ -18,11 +18,11 @@ public class LoginPresenter {
     public LoginPresenter() {
     }
 
-    public FirebaseAuth getmFirebaseAuth(){
-        if (mFirebaseAuth!=null){
+    public FirebaseAuth getmFirebaseAuth() {
+        if (mFirebaseAuth != null) {
             return mFirebaseAuth;
-        }else {
-            mFirebaseAuth=FirebaseAuth.getInstance();
+        } else {
+            mFirebaseAuth = FirebaseAuth.getInstance();
             return mFirebaseAuth;
         }
     }
@@ -38,17 +38,18 @@ public class LoginPresenter {
     public void createAccount(String email, String password, LoginCallback callback) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener((task)-> {
-                    if (task.isSuccessful()){
-                        signIn(email,password);
+                .addOnCompleteListener((task) -> {
+                    if (task.isSuccessful()) {
+                        signIn(email, password);
                         Log.d("login", "createAccount: success");
-                    }else {
+                    } else {
                         //add error catching eventually
                     }
                 });
     }
-    public void attachUserListener(LoginCallback callback){
-        mFirebaseAuth=FirebaseAuth.getInstance();
+
+    public void attachUserListener(LoginCallback callback) {
+        mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
@@ -58,13 +59,14 @@ public class LoginPresenter {
                     callback.successfulLogin();
                 } else {
                     setUser(null);
-                   callback.failedLogin("No user is signed in");
+                    callback.failedLogin("No user is signed in");
                 }
             }
         };
         mFirebaseAuth.addAuthStateListener(mAuthListener);
     }
-    public void detatchUserListener(){
+
+    public void detatchUserListener() {
         getmFirebaseAuth();
         mFirebaseAuth.removeAuthStateListener(mAuthListener);
     }
@@ -73,13 +75,14 @@ public class LoginPresenter {
     public void signIn(String email, String password) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener((task)-> {
-                        if (!task.isSuccessful()) {}
+                .addOnCompleteListener((task) -> {
+                    if (!task.isSuccessful()) {
+                    }
                 });
     }
 
 
-    public void logout () {
+    public void logout() {
         getmFirebaseAuth();
         mFirebaseAuth.signOut();
     }
