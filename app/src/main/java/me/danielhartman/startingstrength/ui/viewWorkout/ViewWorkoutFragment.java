@@ -3,6 +3,7 @@ package me.danielhartman.startingstrength.ui.viewWorkout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,18 +30,21 @@ public class ViewWorkoutFragment extends Fragment {
         View v = inflater.inflate(R.layout.view_workout_fragment, container, false);
         ButterKnife.bind(this, v);
         DaggerHolder.getInstance().component().inject(this);
+        if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
+            //noinspection ConstantConditions
+            ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("VIew Workouts");
+        }
         return v;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        presenter.attachListner(getActivity());
+        presenter.onResume(getActivity());
         recyclerViewSetup();
     }
 
     public void recyclerViewSetup() {
-        presenter.getAdapter().setContext(getActivity().getApplicationContext());
         mRecyclerView.setAdapter(presenter.getAdapter());
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
     }

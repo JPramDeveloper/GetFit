@@ -17,6 +17,7 @@ import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
 public class Login_Fragment extends Fragment {
 
+    private static final String TAG = Login_Fragment.class.getSimpleName();
     @Inject
     LoginPresenter mLoginPresenter;
     @BindView(R.id.userName)
@@ -42,6 +43,7 @@ public class Login_Fragment extends Fragment {
         getActivity().getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.container, new CreateAccountFragment(), null)
+                .addToBackStack(TAG)
                 .commit();
     }
 }

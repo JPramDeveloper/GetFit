@@ -26,7 +26,6 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback 
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, new Login_Fragment())
-                .addToBackStack(null)
                 .commit();
         mLoginPresenter.attachUserListener(this);
     }
@@ -35,7 +34,6 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback 
     public void successfulLogin() {
         Log.d(TAG, "successfulLogin: ");
         Intent i = new Intent(this, MainActivity.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(i);
     }
 
@@ -46,7 +44,12 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback 
 
     @Override
     protected void onPause() {
-        mLoginPresenter.detatchUserListener();
         super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        mLoginPresenter.detatchUserListener();
+        super.onStop();
     }
 }

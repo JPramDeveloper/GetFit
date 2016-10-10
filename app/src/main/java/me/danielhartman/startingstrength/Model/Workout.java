@@ -1,13 +1,37 @@
 package me.danielhartman.startingstrength.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
-public class Workout {
+public class Workout implements Parcelable {
+    public static final Creator<Workout> CREATOR = new Creator<Workout>() {
+        @Override
+        public Workout createFromParcel(Parcel in) {
+            return new Workout(in);
+        }
+
+        @Override
+        public Workout[] newArray(int size) {
+            return new Workout[size];
+        }
+    };
     String name;
     String id;
     List<Day> days;
     String description;
     User createdBy;
+
+
+    protected Workout(Parcel in) {
+        name = in.readString();
+        id = in.readString();
+        description = in.readString();
+    }
+
+    public Workout() {
+    }
 
     public String getId() {
         return id;
@@ -49,6 +73,15 @@ public class Workout {
         this.createdBy = createdBy;
     }
 
-    public Workout() {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(name);
+        parcel.writeString(id);
+        parcel.writeString(description);
     }
 }

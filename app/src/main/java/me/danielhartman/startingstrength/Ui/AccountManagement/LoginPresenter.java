@@ -8,14 +8,17 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
+import me.danielhartman.startingstrength.util.AlertUtil;
 
 public class LoginPresenter {
+    private static final String TAG = LoginPresenter.class.getSimpleName();
     private FirebaseUser user;
     private FirebaseAuth mFirebaseAuth;
-    private Boolean loginSuccess;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private AlertUtil alertUtil;
 
-    public LoginPresenter() {
+    public LoginPresenter(AlertUtil alertUtil) {
+        this.alertUtil = alertUtil;
     }
 
     public FirebaseAuth getmFirebaseAuth() {
@@ -35,15 +38,20 @@ public class LoginPresenter {
         this.user = user;
     }
 
-    public void createAccount(String email, String password, LoginCallback callback) {
+    public void createAccount(String email, String password, AccountActivity activity, LoginCallback callback) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
+                        callback.successfulLogin();
                         signIn(email, password);
                         Log.d("login", "createAccount: success");
                     } else {
-                        //add error catching eventually
+                        if (task.getException() != null) {
+                            callback.failedLogin("");
+                            Log.d(TAG, task.getException().toString());
+                            alertUtil.showErrorAlert(activity, task.getException().toString()).show();
+                        }
                     }
                 });
     }

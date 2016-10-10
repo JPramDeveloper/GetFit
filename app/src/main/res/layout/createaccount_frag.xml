@@ -1,70 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_centerHorizontal="true"
     android:background="#fff"
     android:gravity="center"
     android:orientation="vertical">
+    <LinearLayout
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:orientation="vertical"
+        android:layout_height="match_parent">
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/emailTextInput"
+        android:layout_width="250dp"
+        android:gravity="center"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/username"
-        android:layout_width="200dp"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:gravity="center"
-        android:hint="Username" />
+        android:hint="@string/email" />
+    </android.support.design.widget.TextInputLayout>
 
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/passwordTextInput"
+        android:layout_width="250dp"
+        android:gravity="center"
+        android:layout_height="wrap_content">
     <EditText
         android:id="@+id/password"
-        android:layout_width="200dp"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginBottom="20dp"
+        android:hint="@string/password" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/confirmPasswordTextInput"
+        android:layout_width="250dp"
         android:gravity="center"
-        android:hint="Password" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="Email must be a valid format"
-            android:textStyle="italic" />
-
-        <ImageView
-            android:id="@+id/verifyUsernameImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/check" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:gravity="center">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="5dp"
-            android:gravity="center"
-            android:text="Password must be 6 characters or longer"
-            android:textStyle="italic" />
-
-        <ImageView
-            android:id="@+id/verifyPasswordImage"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:background="@drawable/check" />
-    </LinearLayout>
+        android:layout_height="wrap_content">
+        <EditText
+            android:id="@+id/passwordConfirmation"
+            android:layout_width="match_parent"
+            android:inputType="textPassword"
+            android:layout_height="50dp"
+            android:hint="@string/confirm_password" />
+    </android.support.design.widget.TextInputLayout>
 
     <Button
         android:id="@+id/btnSignIn"
@@ -74,12 +58,19 @@
         android:layout_marginBottom="16dp"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
-        android:text="Sign in"
+        android:text="@string/create_account"
         android:textColor="@android:color/white"
         android:textSize="15sp"
         android:visibility="visible"
-
         />
+    </LinearLayout>
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_width="75dp"
+        android:layout_height="75dp" />
 
 
-</LinearLayout>
+</RelativeLayout>

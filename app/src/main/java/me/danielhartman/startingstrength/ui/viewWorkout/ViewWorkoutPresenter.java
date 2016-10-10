@@ -34,6 +34,11 @@ public class ViewWorkoutPresenter {
         adapter = new ViewWorkoutAdapter();
     }
 
+    public void onResume(Activity activity) {
+        workoutResults = new ArrayList<>();
+        attachListener(activity);
+        getAdapter().setContext(activity.getApplicationContext());
+    }
 
     public void clear() {
         mDatabase.removeEventListener(listener);
@@ -50,9 +55,10 @@ public class ViewWorkoutPresenter {
         this.adapter = adapter;
     }
 
-    public void attachListner(Activity activity) {
+    public void attachListener(Activity activity) {
         if (loginPresenter.getUser() != null) {
             workoutResults = new ArrayList<>();
+            adapter.setData(new ArrayList<>());
             createListener();
             mDatabase.child(Schema.USERS).child(loginPresenter.getUser().getUid())
                     .child(Schema.WORKOUT).addChildEventListener(listener);
@@ -106,7 +112,7 @@ public class ViewWorkoutPresenter {
                 Workout w = dataSnapshot.getValue(Workout.class);
                 workoutResults.add(w);
                 Log.d(TAG, "onDataChange: Workout Size = " + String.valueOf(workoutResults.size()));
-                adapter.setData(workoutResults);
+                adapter.addWorkout(w);
             }
 
             @Override

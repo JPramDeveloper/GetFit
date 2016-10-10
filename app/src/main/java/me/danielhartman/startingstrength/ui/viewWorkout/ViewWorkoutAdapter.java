@@ -69,6 +69,11 @@ public class ViewWorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         notifyDataSetChanged();
     }
 
+    public void addWorkout(Workout w) {
+        this.data.add(w);
+        notifyItemInserted(this.data.size() - 1);
+    }
+
     public Integer getNumberOfExercises(int position) {
         Integer exerciseCount = 0;
         Workout w = data.get(position);

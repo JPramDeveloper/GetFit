@@ -2,12 +2,8 @@ package me.danielhartman.startingstrength.ui.createWorkout;
 
 
 import android.content.Context;
-import android.content.Intent;
-import android.database.Cursor;
 import android.net.Uri;
-import android.provider.MediaStore;
 import android.util.Log;
-import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -38,6 +34,11 @@ public class CreateWorkoutPresenter {
     private LoginPresenter loginPresenter;
     private CreateDayAdapter currentDayAdapter;
     private boolean isFirstRun;
+    private Uri imageUri;
+
+    public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
+        this.loginPresenter = loginPresenter;
+    }
 
     public boolean isFirstRun() {
         return isFirstRun;
@@ -45,10 +46,6 @@ public class CreateWorkoutPresenter {
 
     public void setFirstRun(boolean firstRun) {
         isFirstRun = firstRun;
-    }
-
-    public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
-        this.loginPresenter = loginPresenter;
     }
 
     public void setCurrentDayAdapter(CreateDayAdapter currentDayAdapter) {
@@ -78,22 +75,33 @@ public class CreateWorkoutPresenter {
         String userId = loginPresenter.getUser().getUid();
         if (workout != null) {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-            key = database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).push().getKey();
             database.child(Schema.WORKOUT_TOP_LEVEL).child(key).setValue(workout);
             database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).child(key).setValue(key, (databaseError, databaseReference) -> {
                 if (databaseError != null) {
-                    Log.d(TAG, "onComplete: " + databaseError.getMessage());
-                    callback.onError();
+                    Log.d(TAG, "onUploadComplete: " + databaseError.getMessage());
+                    callback.onWorkoutUploadError("Failed to Upload Workout");
                 } else {
                     Log.d(TAG, "commitWorkoutToFirebase: Created Successfully");
-                    callback.onComplete();
+                    callback.onUploadComplete();
                 }
             });
         }
     }
 
+    public String generateKey() {
+        DatabaseReference database = FirebaseDatabase.getInstance().getReference();
+        String userId = loginPresenter.getUser().getUid();
+        key = database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).push().getKey();
+        return key;
+
+    }
+
     public int getCurrentDay() {
         return currentDay;
+    }
+
+    public void setCurrentDay(int index) {
+        currentDay = index;
     }
 
     public List<Exercise> getExercisesForDay(int day) {
@@ -108,7 +116,7 @@ public class CreateWorkoutPresenter {
     public Workout initializeWorkout() {
         workout = new Workout();
         workout.setDays(new ArrayList<>());
-        for (int i = 0; i<=6;i++){
+        for (int i = 0; i <= 6; i++) {
             addDay(i);
             workout.getDays().get(i).setExercises(new ArrayList<>());
         }
@@ -144,10 +152,10 @@ public class CreateWorkoutPresenter {
     }
 
     public Exercise makeExercise(String exerciseName) {
-        return findExistingExercise(exerciseName)!=null ? findExistingExercise(exerciseName) : createNewExercise(exerciseName);
+        return findExistingExercise(exerciseName) != null ? findExistingExercise(exerciseName) : createNewExercise(exerciseName);
     }
 
-    public Exercise findExistingExercise(String exerciseName){
+    public Exercise findExistingExercise(String exerciseName) {
         for (Exercise e : getExercisesForDay(getCurrentDay())) {
             if (e.getName().equalsIgnoreCase(exerciseName)) {
                 Log.d(TAG, "makeExercise: Returning Exercise");
@@ -157,7 +165,7 @@ public class CreateWorkoutPresenter {
         return null;
     }
 
-    public Exercise createNewExercise(String exerciseName){
+    public Exercise createNewExercise(String exerciseName) {
         Exercise newExercise = new Exercise();
         newExercise.setName(exerciseName);
         newExercise.setSets(new ArrayList<>());
@@ -166,11 +174,11 @@ public class CreateWorkoutPresenter {
         return newExercise;
     }
 
-    public String getDayTitle(){
+    public String getDayTitle() {
         return getWorkout().getDays().get(getCurrentDay()).getName();
     }
 
-    public void uploadImage(Context context, Uri uri) throws FileNotFoundException {
+    public void uploadImage(Context context, Uri uri, CreateWorkoutCallback callback) throws FileNotFoundException {
         FirebaseStorage storage = FirebaseStorage.getInstance();
         StorageReference storageRef = storage.getReferenceFromUrl("gs://fitnessapp-1cb48.appspot.com/");
         StorageReference imagesRef = storageRef.child("images/" + key);
@@ -185,14 +193,26 @@ public class CreateWorkoutPresenter {
         }).addOnSuccessListener(taskSnapshot -> {
             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
             Uri downloadUrl = taskSnapshot.getDownloadUrl();
+            if (taskSnapshot.getMetadata() != null && taskSnapshot.getMetadata().getDownloadUrl() != null) {
+                workout.setId(taskSnapshot.getMetadata().getDownloadUrl().toString());
+            }
+            commitWorkoutToFirebase(callback);
+        }).addOnFailureListener(taskSnapshot -> {
+            workout.setId(null);
+            callback.onImageUploadError("Image Upload Failed");
+            commitWorkoutToFirebase(callback);
         });
     }
 
-    public void commitToFirebase(Context context, Uri uri, CreateWorkoutCallback callback) {
-       workout= pruneUnusedDays(workout);
-        commitWorkoutToFirebase(callback);
+    public void commitToFirebase(Context context, CreateWorkoutCallback callback) {
+        workout = pruneUnusedDays(workout);
+        generateKey();
         try {
-            uploadImage(context, uri);
+            if (imageUri != null) {
+                uploadImage(context, imageUri, callback);
+            } else {
+                commitWorkoutToFirebase(callback);
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -201,8 +221,8 @@ public class CreateWorkoutPresenter {
     public Workout pruneUnusedDays(Workout workout) {
         Workout w = workout;
         List<Day> daysWithExercises = new ArrayList<>();
-        for (Day day : w.getDays()){
-            if (day.getExercises().size()>=1){
+        for (Day day : w.getDays()) {
+            if (day.getExercises().size() >= 1) {
                 daysWithExercises.add(day);
             }
         }
@@ -210,7 +230,12 @@ public class CreateWorkoutPresenter {
         return w;
     }
 
-    public void setCurrentDay(int index) {
-        currentDay = index;
+    public void saveUri(Uri uri) {
+        imageUri = uri;
+    }
+
+    public void onPageSelected(CreateWorkoutDay currentDay) {
+        setCurrentDayAdapter(currentDay.getAdapter());
+        currentDayAdapter.setData(getSetsForGivenDay(getCurrentDay()));
     }
 }

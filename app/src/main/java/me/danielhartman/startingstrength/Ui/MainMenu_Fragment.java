@@ -18,6 +18,7 @@ import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
+import me.danielhartman.startingstrength.ui.startWorkout.StartWorkoutActivity;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutActivity;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutPresenter;
 
@@ -60,13 +61,15 @@ public class MainMenu_Fragment extends Fragment {
 
     @OnClick(R.id.createWorkout)
     public void workoutManager() {
-
+        Intent i = new Intent(getActivity().getApplicationContext(), StartWorkoutActivity.class);
+        startActivity(i);
     }
 
     @OnClick(R.id.logoutMenuButton)
     public void logoutClick() {
         loginPresenter.logout();
         Intent i = new Intent(getActivity().getApplicationContext(), AccountActivity.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         startActivity(i);
     }
 }

@@ -1,10 +1,34 @@
 package me.danielhartman.startingstrength.model;
 
-public class Set {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Set implements Parcelable {
+    public static final Creator<Set> CREATOR = new Creator<Set>() {
+        @Override
+        public Set createFromParcel(Parcel in) {
+            return new Set(in);
+        }
+
+        @Override
+        public Set[] newArray(int size) {
+            return new Set[size];
+        }
+    };
     String exerciseName;
     String reps;
     String weight;
     String description;
+
+    protected Set(Parcel in) {
+        exerciseName = in.readString();
+        reps = in.readString();
+        weight = in.readString();
+        description = in.readString();
+    }
+
+    public Set() {
+    }
 
     public String getExerciseName() {
         return exerciseName;
@@ -36,5 +60,18 @@ public class Set {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(exerciseName);
+        parcel.writeString(reps);
+        parcel.writeString(weight);
+        parcel.writeString(description);
     }
 }

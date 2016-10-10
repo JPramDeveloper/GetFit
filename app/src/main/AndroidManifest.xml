@@ -4,6 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:name=".ui.MyApplication"
@@ -12,19 +13,24 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity" />
-        <activity android:name=".ui.accountManagement.AccountActivity">
+        <activity
+            android:name=".ui.accountManagement.AccountActivity"
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".ui.createWorkout.CreateWorkoutActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
-        <activity android:name=".ui.viewWorkout.ViewWorkoutActivity"/>
-        <activity android:name=".ui.createWorkout.CreateWorkoutName"/>
-
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".ui.viewWorkout.ViewWorkoutActivity" />
+        <activity android:name=".ui.createWorkout.CreateWorkoutName" />
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:theme="@style/Base.Theme.AppCompat" />
+        <activity android:name=".ui.BaseActivity" />
+        <activity android:name=".ui.startWorkout.StartWorkoutActivity"></activity>
     </application>
 
 </manifest>

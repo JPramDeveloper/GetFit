@@ -99,8 +99,9 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
             public void onPageSelected(int index) {
                 presenter.setCurrentDay(index);
                 currentDay = VPAdapter.fragMap.get(index);
-                presenter.setCurrentDayAdapter(currentDay.getAdapter());
-                currentDay.getAdapter().setData(presenter.getSetsForGivenDay(presenter.getCurrentDay()));
+
+                presenter.onPageSelected(currentDay);
+
                 mExerciseFrame.setVisibility(View.GONE);
                 fab.setImageResource(R.drawable.ic_add_black_24dp);
 
@@ -149,7 +150,11 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
 
     @OnClick(R.id.fab)
     public void onFABClick() {
-        if (mExerciseFrame.getVisibility() == View.GONE) {
+        toggleFab(mExerciseFrame.getVisibility());
+    }
+
+    public void toggleFab(int visibility) {
+        if (visibility == View.GONE) {
             mExerciseFrame.setVisibility(View.VISIBLE);
             fab.setImageResource(R.drawable.ic_clear_black_24dp);
         } else {

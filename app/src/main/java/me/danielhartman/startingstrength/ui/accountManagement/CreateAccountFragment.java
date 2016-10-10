@@ -1,13 +1,14 @@
 package me.danielhartman.startingstrength.ui.accountManagement;
 
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -24,9 +25,6 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.ui.MyApplication;
 import rx.Observable;
 
-/**
- * Created by dphart9 on 10/12/2015.
- */
 public class CreateAccountFragment extends Fragment implements LoginCallback {
     @Inject
     LoginPresenter mLoginPresenter;
@@ -34,20 +32,24 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
     EditText username;
     @BindView(R.id.password)
     EditText password;
-    @BindView(R.id.verifyUsernameImage)
-    ImageView verifyUsernameImage;
-    @BindView(R.id.verifyPasswordImage)
-    ImageView verifyPasswordImage;
+    @BindView(R.id.passwordConfirmation)
+    EditText passwordConfirmation;
+    @BindView(R.id.emailTextInput)
+    TextInputLayout emailTextInput;
+    @BindView(R.id.passwordTextInput)
+    TextInputLayout passwordTextInput;
+    @BindView(R.id.confirmPasswordTextInput)
+    TextInputLayout confirmPasswordTextInput;
     @BindView(R.id.btnSignIn)
-    Button mSignInButton;
+    Button signInButton;
+    @BindView(R.id.progressBar)
+    ProgressBar progressBar;
 
-    private LoginCallback mLoginCallback;
-    private View rootView;
+    boolean validInputs;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.createaccount_frag, container, false);
+        View rootView = inflater.inflate(R.layout.createaccount_frag, container, false);
         ((MyApplication) getActivity().getApplication()).getViewWorkoutComponent().inject(this);
-        mLoginCallback = (LoginCallback) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -55,48 +57,70 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
     @Override
     public void onResume() {
         super.onResume();
-        mSignInButton.setVisibility(View.INVISIBLE);
-        mSignInButton.setEnabled(false);
-        checkInputs();
-
     }
 
     @OnClick(R.id.btnSignIn)
     public void signUpUser() {
-        mLoginPresenter.createAccount(username.getText().toString(), password.getText().toString(), mLoginCallback);
+        checkInputs();
+        if (validInputs) {
+            progressBar.setVisibility(View.VISIBLE);
+            mLoginPresenter.createAccount(username.getText().toString(), password.getText().toString(), (AccountActivity) getActivity(), this);
+        }
     }
 
     public void checkInputs() {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
-        Observable<Boolean> userNameValid = RxTextView.textChangeEvents(username)
+
+        Observable<Boolean> emailIsValid = RxTextView.textChangeEvents(username)
                 .map(r -> r.text())
                 .map(l -> pattern.matcher(l).matches());
-        userNameValid.distinctUntilChanged()
-                .map(b -> b ? R.drawable.check : R.drawable.cancel)
-                .subscribe(resource -> verifyUsernameImage.setBackgroundResource(resource));
-        Observable<Boolean> passwordValid = RxTextView.textChangeEvents(password)
-                .map(r -> r.text())
-                .map(l -> l.toString().length() >= 6);
-        passwordValid.distinctUntilChanged()
-                .map(b -> b ? R.drawable.check : R.drawable.cancel)
-                .subscribe(resource -> verifyPasswordImage.setBackgroundResource(resource));
-        Observable<Boolean> buttonEnabled = Observable.combineLatest(userNameValid, passwordValid, (a, b) -> a & b);
-        buttonEnabled.distinctUntilChanged()
-                .map(validInput -> validInput ? View.VISIBLE : View.INVISIBLE)
-                .subscribe(visibility -> mSignInButton.setVisibility(visibility));
-        buttonEnabled.distinctUntilChanged()
-                .subscribe(buttonStatus -> mSignInButton.setEnabled(buttonStatus));
+        Observable<Boolean> passwordIsValid = RxTextView.textChangeEvents(password)
+                .map(input -> input.text().toString())
+                .map(input -> input.length() >= 6);
+        Observable<Boolean> passwordsMatch = RxTextView.textChangeEvents(passwordConfirmation)
+                .map(input -> input.text().toString())
+                .map(input -> input.equalsIgnoreCase(password.getText().toString()));
+        emailIsValid.distinctUntilChanged()
+                .subscribe(validUsername -> {
+                    if (!validUsername) {
+                        emailTextInput.setError("Invalid email format");
+                    } else {
+                        emailTextInput.setError(null);
+                    }
+                });
+        passwordIsValid.distinctUntilChanged()
+                .subscribe(validPassword -> {
+                    if (!validPassword) {
+                        passwordTextInput.setError("Invalid email format");
+                    } else {
+                        passwordTextInput.setError(null);
+                    }
+                });
+        passwordsMatch.distinctUntilChanged()
+                .subscribe(validPassword -> {
+                    if (!validPassword) {
+                        confirmPasswordTextInput.setError("Passwords must match");
+                    } else {
+                        confirmPasswordTextInput.setError(null);
+                    }
+                });
+
+        Observable<Boolean> validEmailAndPassword = Observable.combineLatest(emailIsValid, passwordIsValid, (a, b) -> a & b);
+        Observable<Boolean> enabledButton = Observable.combineLatest(validEmailAndPassword, passwordsMatch, (a, b) -> a & b);
+        enabledButton.distinctUntilChanged()
+                .subscribe(enabled -> validInputs = (enabled));
     }
 
     @Override
     public void successfulLogin() {
-        Toast.makeText(getActivity().getApplicationContext(), "Success", Toast.LENGTH_LONG).show();
+        progressBar.setVisibility(View.GONE);
         getActivity().getSupportFragmentManager().popBackStack();
     }
 
     @Override
     public void failedLogin(String message) {
+        progressBar.setVisibility(View.GONE);
         Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
 
     }

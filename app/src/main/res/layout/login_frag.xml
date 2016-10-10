@@ -13,28 +13,27 @@
         android:layout_marginTop="40dp"
         android:background="@drawable/weights" />
 
-    <LinearLayout
-        android:layout_width="290dp"
-        android:layout_height="220dp"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <EditText
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/userName"
             android:layout_width="240dp"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:hint="Enter your Username"
+            android:hint="@string/enter_your_email"
             android:textSize="18sp" />
-
-        <EditText
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="250dp"
+        android:layout_height="wrap_content">
+        <android.support.design.widget.TextInputEditText
             android:id="@+id/password"
             android:layout_width="240dp"
             android:layout_height="50dp"
-            android:gravity="center"
-            android:hint="Enter your Password"
+            android:hint="@string/enter_your_password"
             android:inputType="textPassword"
             android:textSize="17sp" />
+    </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/login"
@@ -43,8 +42,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="20dp"
             android:background="@color/colorPrimary"
-            android:elevation="0dp"
-            android:text="login"
+            android:text="Sign in"
             android:textColor="#fff"
             android:textSize="18sp"
 
@@ -61,5 +59,3 @@
             android:textSize="12sp" />
     </LinearLayout>
 
-
-</LinearLayout>

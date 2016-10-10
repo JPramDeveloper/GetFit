@@ -3,12 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:gravity="center"
-
     android:orientation="vertical">
 
+    <LinearLayout
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <Button
         android:id="@+id/startWorkout"
+        android:layout_gravity="center"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,6 +20,7 @@
         android:textSize="18sp" />
 
     <Button
+        android:layout_gravity="center"
         android:id="@+id/viewWorkouts"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
@@ -24,6 +29,7 @@
         android:textSize="18sp" />
 
     <Button
+        android:layout_gravity="center"
         android:id="@+id/createWorkout"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
@@ -32,12 +38,14 @@
         android:textSize="18sp" />
 
     <Button
+        android:layout_gravity="center"
         android:id="@+id/logoutMenuButton"
         style="?android:attr/borderlessButtonStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Logout"
         android:textSize="18sp" />
+    </LinearLayout>
 
 
 </LinearLayout>

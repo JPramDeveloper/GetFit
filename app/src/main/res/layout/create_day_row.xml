@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="45dp"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/dayText"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryLightt"
-        android:gravity="center"
-        android:maxLines="1"
-        android:padding="5dp"
-        android:text="Bench Press 5x185"
-        android:textSize="24sp" />
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/dayText"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryLightt"
+            android:gravity="center"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:text="Bench Press 5x185"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/delete"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_clear_black_24dp"
+            android:visibility="gone" />
+    </RelativeLayout>
 
 
 </LinearLayout>

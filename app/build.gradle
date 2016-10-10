@@ -36,6 +36,7 @@ def rxBinding = "0.4.0"
 def butterknife = "8.0.1"
 def dagger2 = "2.2"
 def picasso = "2.5.2"
+def imageCropper = "2.3.+"
 
 dependencies {
     compile 'com.android.support:appcompat-v7:' + supportLibVersion
@@ -65,6 +66,12 @@ dependencies {
     compile 'com.google.firebase:firebase-storage:' + firebaseVersion
 
     compile 'com.android.support:support-v4:' + supportLibVersion
+
+    compile 'com.theartofdev.edmodo:android-image-cropper:' + imageCropper
+
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+
+    compile 'com.android.support:design:24.2.1'
 }
 apply plugin: 'com.google.gms.google-services'
 

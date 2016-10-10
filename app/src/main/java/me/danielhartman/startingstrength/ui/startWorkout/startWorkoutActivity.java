@@ -1,4 +1,4 @@
-package me.danielhartman.startingstrength.ui;
+package me.danielhartman.startingstrength.ui.startWorkout;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +8,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.R;
 
-public class MainActivity extends AppCompatActivity {
+public class StartWorkoutActivity extends AppCompatActivity {
 
     @BindView(R.id.toolbar)
     Toolbar toolbar;
@@ -20,10 +20,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         setSupportActionBar(toolbar);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new MainMenu_Fragment())
-                .addToBackStack(null)
+                .add(R.id.container, new ChooseWorkoutFragment())
                 .commit();
     }
-
-
 }
