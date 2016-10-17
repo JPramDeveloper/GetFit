@@ -25,7 +25,7 @@ public class AccountActivity extends AppCompatActivity implements LoginCallback 
         DaggerHolder.getInstance().component().inject(this);
         setContentView(R.layout.activity_main);
         getSupportFragmentManager().beginTransaction()
-                .add(R.id.container, new Login_Fragment())
+                .add(R.id.container, new LoginFragment())
                 .commit();
         mLoginPresenter.attachUserListener(this);
     }

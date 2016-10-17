@@ -1,9 +1,12 @@
 package me.danielhartman.startingstrength.dagger.module;
 
+import android.provider.ContactsContract;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.danielhartman.startingstrength.network.DataGetter;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragmentPresenter;
@@ -21,7 +24,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(){return new ChooseWorkoutFragmentPresenter();}
+    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(DataGetter dataGetter, LoginPresenter loginPresenter){
+        return new ChooseWorkoutFragmentPresenter(dataGetter, loginPresenter);}
 
 
     @Provides
@@ -32,14 +36,20 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ViewWorkoutPresenter getViewWorkoutPresenter(LoginPresenter loginPresenter) {
-        return new ViewWorkoutPresenter(loginPresenter);
+    ViewWorkoutPresenter getViewWorkoutPresenter(LoginPresenter loginPresenter, DataGetter dataGetter) {
+        return new ViewWorkoutPresenter(loginPresenter, dataGetter);
     }
 
     @Provides
     @Singleton
     AlertUtil getAlertUtil() {
         return new AlertUtil();
+    }
+
+    @Provides
+    @Singleton
+    DataGetter getDataGetter(){
+        return new DataGetter();
     }
 
 }

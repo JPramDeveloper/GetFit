@@ -17,19 +17,20 @@ import me.danielhartman.startingstrength.util.Schema;
 
 public class DataGetter implements WorkoutData {
 
-    ChildEventListener listener;
-    DatabaseReference mDatabase;
-    String TAG = DataGetter.class.getSimpleName();
-    DataGetterCallback getUserWorkoutsCallback;
-    List<Workout> workoutList;
+    private ChildEventListener listener;
+    private DatabaseReference mDatabase;
+    private String TAG = DataGetter.class.getSimpleName();
+    private DataGetterCallback getUserWorkoutsCallback;
+    private List<Workout> workoutList;
 
     @Override
     public void getUserWorkouts(DataGetterCallback callback, String uid) {
         initFirebaseDB();
         attachListener(createListener(),uid);
+        this.getUserWorkoutsCallback = callback;
     }
 
-    public ChildEventListener createListener() {
+     private ChildEventListener createListener() {
         listener = new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -56,7 +57,7 @@ public class DataGetter implements WorkoutData {
         return listener;
     }
 
-    public void getWorkouts(String key) {
+     private void getWorkouts(String key) {
         mDatabase.child(Schema.WORKOUT_TOP_LEVEL).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -72,17 +73,17 @@ public class DataGetter implements WorkoutData {
         });
     }
 
-    public void attachListener(ChildEventListener listener, String uid) {
+     private void attachListener(ChildEventListener listener, String uid) {
         mDatabase.child(Schema.USERS).child(uid)
                 .child(Schema.WORKOUT).addChildEventListener(listener);
     }
 
-    public void initFirebaseDB() {
+     private void initFirebaseDB() {
         mDatabase = FirebaseDatabase.getInstance().getReference();
         workoutList = new ArrayList<>();
     }
 
-    public void detachListener(ChildEventListener listener){
+    public void detachListener(){
         mDatabase.removeEventListener(listener);
         getUserWorkoutsCallback =null;
         listener = null;

@@ -15,9 +15,9 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
-public class Login_Fragment extends Fragment {
+public class LoginFragment extends Fragment {
 
-    private static final String TAG = Login_Fragment.class.getSimpleName();
+    private static final String TAG = LoginFragment.class.getSimpleName();
     @Inject
     LoginPresenter mLoginPresenter;
     @BindView(R.id.userName)

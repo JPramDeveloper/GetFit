@@ -7,5 +7,5 @@ import me.danielhartman.startingstrength.model.Workout;
 
 
 public interface WorkoutData {
-    public void getUserWorkouts(DataGetterCallback callback, String uid);
+     void getUserWorkouts(DataGetterCallback callback, String uid);
 }

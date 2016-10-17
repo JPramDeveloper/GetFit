@@ -3,6 +3,7 @@ package me.danielhartman.startingstrength.ui.viewWorkout;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.google.firebase.database.ChildEventListener;
@@ -16,22 +17,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.danielhartman.startingstrength.model.Workout;
+import me.danielhartman.startingstrength.network.DataGetter;
+import me.danielhartman.startingstrength.network.DataGetterCallback;
 import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.util.Schema;
 
-public class ViewWorkoutPresenter {
+public class ViewWorkoutPresenter implements DataGetterCallback {
     private static final String TAG = ViewWorkoutPresenter.class.getSimpleName();
     DatabaseReference mDatabase;
     List<Workout> workoutResults = new ArrayList<>();
     LoginPresenter loginPresenter;
     ViewWorkoutAdapter adapter;
     ChildEventListener listener;
+    DataGetter dataGetter;
 
-    public ViewWorkoutPresenter(LoginPresenter loginPresenter) {
+    public ViewWorkoutPresenter(LoginPresenter loginPresenter, DataGetter dataGetter) {
         this.loginPresenter = loginPresenter;
         mDatabase = FirebaseDatabase.getInstance().getReference();
         adapter = new ViewWorkoutAdapter();
+        this.dataGetter = dataGetter;
     }
 
     public void onResume(Activity activity) {
@@ -59,9 +64,8 @@ public class ViewWorkoutPresenter {
         if (loginPresenter.getUser() != null) {
             workoutResults = new ArrayList<>();
             adapter.setData(new ArrayList<>());
-            createListener();
-            mDatabase.child(Schema.USERS).child(loginPresenter.getUser().getUid())
-                    .child(Schema.WORKOUT).addChildEventListener(listener);
+            dataGetter.getUserWorkouts(this, loginPresenter.getUser().getUid());
+
         } else {
             Intent i = new Intent(activity.getApplicationContext(), AccountActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -69,56 +73,13 @@ public class ViewWorkoutPresenter {
         }
     }
 
+    @Override
     public void detatchListener() {
-        mDatabase.removeEventListener(listener);
+        dataGetter.detachListener();
     }
 
-
-    public ChildEventListener createListener() {
-        listener = new ChildEventListener() {
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                Log.d(TAG, "onChildAdded: " + dataSnapshot.getKey());
-                getWorkouts(dataSnapshot.getKey());
-            }
-
-            @Override
-            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        };
-        return listener;
-    }
-
-    public void getWorkouts(String key) {
-        mDatabase.child(Schema.WORKOUT_TOP_LEVEL).child(key).addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Workout w = dataSnapshot.getValue(Workout.class);
-                workoutResults.add(w);
-                Log.d(TAG, "onDataChange: Workout Size = " + String.valueOf(workoutResults.size()));
-                adapter.addWorkout(w);
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.d(TAG, "onCancelled: ");
-            }
-        });
+    @Override
+    public void returnWorkoutList(List<Workout> list) {
+        adapter.setData(list);
     }
 }

@@ -1,6 +1,9 @@
 package me.danielhartman.startingstrength.ui.accountManagement;
 
 
+import android.app.Activity;
+import android.app.IntentService;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -93,5 +96,15 @@ public class LoginPresenter {
     public void logout() {
         getmFirebaseAuth();
         mFirebaseAuth.signOut();
+    }
+
+    public String getUserUID(Activity activity){
+        if (getUser()!=null){
+            return getUser().getUid();
+        }else{
+            Intent i = new Intent(activity.getApplicationContext(), AccountActivity.class);
+            activity.startActivity(i);
+            return null;
+        }
     }
 }
