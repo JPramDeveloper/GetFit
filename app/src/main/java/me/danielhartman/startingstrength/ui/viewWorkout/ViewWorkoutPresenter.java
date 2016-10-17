@@ -2,16 +2,12 @@ package me.danielhartman.startingstrength.ui.viewWorkout;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.provider.ContactsContract;
-import android.util.Log;
+import android.support.v4.app.Fragment;
 
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,38 +17,30 @@ import me.danielhartman.startingstrength.network.DataGetter;
 import me.danielhartman.startingstrength.network.DataGetterCallback;
 import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
-import me.danielhartman.startingstrength.util.Schema;
 
-public class ViewWorkoutPresenter implements DataGetterCallback {
+import static android.R.attr.fragment;
+
+public class ViewWorkoutPresenter implements DataGetterCallback, ViewWorkoutAdapter.Callback {
     private static final String TAG = ViewWorkoutPresenter.class.getSimpleName();
-    DatabaseReference mDatabase;
-    List<Workout> workoutResults = new ArrayList<>();
-    LoginPresenter loginPresenter;
-    ViewWorkoutAdapter adapter;
-    ChildEventListener listener;
-    DataGetter dataGetter;
+    private DatabaseReference mDatabase;
+    private LoginPresenter loginPresenter;
+    private ViewWorkoutAdapter adapter;
+    private DataGetter dataGetter;
 
-    public ViewWorkoutPresenter(LoginPresenter loginPresenter, DataGetter dataGetter) {
+    public ViewWorkoutPresenter(LoginPresenter loginPresenter, DataGetter dataGetter, Context context) {
         this.loginPresenter = loginPresenter;
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        adapter = new ViewWorkoutAdapter();
+        adapter = new ViewWorkoutAdapter(this, context);
         this.dataGetter = dataGetter;
     }
 
     public void onResume(Activity activity) {
-        workoutResults = new ArrayList<>();
         attachListener(activity);
         getAdapter().setContext(activity.getApplicationContext());
     }
 
-    public void clear() {
-        mDatabase.removeEventListener(listener);
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        workoutResults = new ArrayList<>();
-        adapter = null;
-    }
 
-    public ViewWorkoutAdapter getAdapter() {
+    ViewWorkoutAdapter getAdapter() {
         return adapter;
     }
 
@@ -60,9 +48,8 @@ public class ViewWorkoutPresenter implements DataGetterCallback {
         this.adapter = adapter;
     }
 
-    public void attachListener(Activity activity) {
+    void attachListener(Activity activity) {
         if (loginPresenter.getUser() != null) {
-            workoutResults = new ArrayList<>();
             adapter.setData(new ArrayList<>());
             dataGetter.getUserWorkouts(this, loginPresenter.getUser().getUid());
 
@@ -81,5 +68,10 @@ public class ViewWorkoutPresenter implements DataGetterCallback {
     @Override
     public void returnWorkoutList(List<Workout> list) {
         adapter.setData(list);
+    }
+
+    @Override
+    public void onClick(Workout workout) {
+
     }
 }

@@ -12,11 +12,12 @@ import me.danielhartman.startingstrength.network.DataGetter;
 import me.danielhartman.startingstrength.network.DataGetterCallback;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.base.Presenter;
+import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
 
-public class ChooseWorkoutFragmentPresenter extends Presenter implements DataGetterCallback{
+public class ChooseWorkoutFragmentPresenter extends Presenter implements DataGetterCallback, ViewWorkoutAdapter.Callback{
 
     private ChooseWorkoutFragmentBinding binding;
-    private ChooseWorkoutAdapter adapter;
+    private ViewWorkoutAdapter adapter;
     private Fragment fragment;
     private DataGetter dataGetter;
     private LoginPresenter loginPresenter;
@@ -55,14 +56,15 @@ public class ChooseWorkoutFragmentPresenter extends Presenter implements DataGet
     }
 
     void setupRecycler() {
-        adapter = new ChooseWorkoutAdapter();
+        adapter = new ViewWorkoutAdapter(this, fragment.getContext());
         binding.recyclerView.setAdapter(adapter);
         GridLayoutManager layoutManager = new GridLayoutManager(fragment.getActivity().getApplicationContext(), 1);
         binding.recyclerView.setLayoutManager(layoutManager);
     }
 
-    void updateData(List<Workout> list) {
+    ViewWorkoutAdapter updateData(List<Workout> list) {
         adapter.setData(list);
+        return adapter;
     }
 
 
@@ -74,5 +76,10 @@ public class ChooseWorkoutFragmentPresenter extends Presenter implements DataGet
     @Override
     public void detatchListener() {
         dataGetter.detachListener();
+    }
+
+    @Override
+    public void onClick(Workout workout) {
+
     }
 }

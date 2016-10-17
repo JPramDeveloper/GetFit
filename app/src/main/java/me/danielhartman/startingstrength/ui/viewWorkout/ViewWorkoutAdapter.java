@@ -24,9 +24,12 @@ public class ViewWorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     List<Workout> data;
     Context context;
+    Callback callback;
 
-    public ViewWorkoutAdapter() {
+    public ViewWorkoutAdapter(ViewWorkoutAdapter.Callback callback, Context context) {
         this.data = new ArrayList<>();
+        this.callback = callback;
+        this.context = context;
     }
 
     public void setContext(Context context) {
@@ -95,6 +98,10 @@ public class ViewWorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             numberOfExercises = (TextView) itemView.findViewById(R.id.numberOfExercises);
             workoutImage = (ImageView) itemView.findViewById(R.id.workoutImage);
         }
+    }
+
+    public interface Callback{
+        void onClick(Workout workout);
     }
 
 }
