@@ -1,6 +1,7 @@
 package me.danielhartman.startingstrength.ui.startWorkout;
 
 
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,10 +45,11 @@ public class ChooseWorkoutAdapter extends RecyclerView.Adapter<ChooseWorkoutAdap
     }
 
     protected class ChooseWorkoutHolder extends RecyclerView.ViewHolder
-
     {
+
         public ChooseWorkoutHolder(View itemView) {
             super(itemView);
+
         }
     }
 }

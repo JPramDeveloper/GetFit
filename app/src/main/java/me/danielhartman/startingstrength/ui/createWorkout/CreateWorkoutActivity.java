@@ -33,6 +33,8 @@ import me.danielhartman.startingstrength.ui.MainActivity;
 
 public class CreateWorkoutActivity extends AppCompatActivity implements CreateWorkoutCallback {
 
+    final int FIRST_DAY = 0;
+
     private static final String TAG = CreateWorkoutActivity.class.getSimpleName();
     @BindView(R.id.exerciseFrame)
     FrameLayout mExerciseFrame;
@@ -48,7 +50,7 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
     ProgressBar progressBar;
     CreateWorkoutVPAdapter VPAdapter;
     CreateWorkoutDay currentDay;
-    private boolean isRequestSending;
+    private boolean isRequestPending;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +60,19 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
         DaggerHolder.getInstance().component().inject(this);
         getSupportFragmentManager().beginTransaction().add(R.id.exerciseFrame, new CreateExerciseFragment()).commit();
         setSupportActionBar(toolbar);
-        VPAdapter = new CreateWorkoutVPAdapter(getSupportFragmentManager());
-        viewPager.setAdapter(VPAdapter);
-        setViewPagerEvents();
-        presenter.setCurrentDay(0);
+        setupViewpager();
+        presenter.setCurrentDay(FIRST_DAY);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(presenter.getWorkout().getName());
         }
         presenter.setFirstRun(true);
+        presenter.setExerciseFrameAndButton(mExerciseFrame, fab);
+    }
+
+    public void setupViewpager() {
+        VPAdapter = new CreateWorkoutVPAdapter(getSupportFragmentManager());
+        viewPager.setAdapter(VPAdapter);
+        setViewPagerEvents();
     }
 
     @Override
@@ -77,56 +84,48 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (isRequestSending) {
-            return true;
-        }
+        if (isRequestPending) return true;
+
         if (item.getItemId() == R.id.action_finish) {
             progressBar.setVisibility(View.VISIBLE);
             presenter.commitToFirebase(this, this);
-            isRequestSending = true;
+            isRequestPending = true;
         }
         return true;
     }
 
     public void setViewPagerEvents() {
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
-            }
-
-            @Override
-            public void onPageSelected(int index) {
-                presenter.setCurrentDay(index);
-                currentDay = VPAdapter.fragMap.get(index);
-
-                presenter.onPageSelected(currentDay);
-
-                mExerciseFrame.setVisibility(View.GONE);
-                fab.setImageResource(R.drawable.ic_add_black_24dp);
-
-                Log.d(TAG, "onPageSelected: " + String.valueOf(index));
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
+            }
 
+            @Override
+            public void onPageSelected(int index) {
+                currentDay = VPAdapter.fragMap.get(index);
+                presenter.onPageSelected(currentDay, index);
+                Log.d(TAG, "onPageSelected: " + String.valueOf(index));
             }
         });
     }
 
     @Override
     public void onBackPressed() {
-        if (mExerciseFrame.getVisibility() == View.GONE) {
+        if (presenter.getExerciseFrameVisiblity() == View.GONE) {
             super.onBackPressed();
         } else {
-            mExerciseFrame.setVisibility(View.GONE);
+            presenter.hideExerciseFrame();
         }
     }
 
     @Override
     public void onUploadComplete() {
-        isRequestSending = false;
+        isRequestPending = false;
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this, "Workout Created Successfully", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, MainActivity.class);
@@ -136,34 +135,27 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
 
     @Override
     public void onImageUploadError(String message) {
-        isRequestSending = false;
+        isRequestPending = false;
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onWorkoutUploadError(String message) {
-        isRequestSending = false;
+        isRequestPending = false;
         progressBar.setVisibility(View.GONE);
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
     }
 
     @OnClick(R.id.fab)
     public void onFABClick() {
-        toggleFab(mExerciseFrame.getVisibility());
-    }
-
-    public void toggleFab(int visibility) {
-        if (visibility == View.GONE) {
-            mExerciseFrame.setVisibility(View.VISIBLE);
-            fab.setImageResource(R.drawable.ic_clear_black_24dp);
-        } else {
-            mExerciseFrame.setVisibility(View.GONE);
-            fab.setImageResource(R.drawable.ic_add_black_24dp);
-        }
+        presenter.onFabClick();
     }
 
     protected class CreateWorkoutVPAdapter extends FragmentStatePagerAdapter {
+
+        private final int NUMBER_OF_DAY = 7;
+
         public HashMap<Integer, CreateWorkoutDay> fragMap = new HashMap<>();
 
         public CreateWorkoutVPAdapter(FragmentManager fm) {
@@ -177,7 +169,7 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
 
         @Override
         public int getCount() {
-            return 7;
+            return NUMBER_OF_DAY;
         }
 
         @Override

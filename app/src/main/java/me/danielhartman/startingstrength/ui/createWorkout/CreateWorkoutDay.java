@@ -22,22 +22,21 @@ import me.danielhartman.startingstrength.dagger.DaggerHolder;
 public class CreateWorkoutDay extends Fragment {
     private static final String TAG = CreateWorkoutDay.class.getSimpleName();
     public static String BUNDLED_DAY = "currentDay";
+
     @BindView(R.id.recycler_view)
     RecyclerView mRecyclerView;
 
-    FrameLayout mExerciseFrame;
-
     @Inject
-    CreateWorkoutPresenter mPresenter;
+    CreateWorkoutPresenter presenter;
 
     CreateDayAdapter adapter;
 
     public static CreateWorkoutDay newInstance(int i) {
-        CreateWorkoutDay c = new CreateWorkoutDay();
+        CreateWorkoutDay fragment = new CreateWorkoutDay();
         Bundle b = new Bundle();
         b.putInt(BUNDLED_DAY, i);
-        c.setArguments(b);
-        return c;
+        fragment.setArguments(b);
+        return fragment;
     }
 
     @Override
@@ -55,11 +54,11 @@ public class CreateWorkoutDay extends Fragment {
         adapter = new CreateDayAdapter(new ArrayList<>());
         Bundle b = getArguments();
         if (b != null) {
-            adapter.setData(mPresenter.getSetsForGivenDay(b.getInt(BUNDLED_DAY)));
-            if (b.getInt(BUNDLED_DAY) == 0 && mPresenter.isFirstRun()) {
+            adapter.setData(presenter.getSetsForGivenDay(b.getInt(BUNDLED_DAY)));
+            if (b.getInt(BUNDLED_DAY) == 0 && presenter.isFirstRun()) {
                 //sets adapter in presenter since onScroll in activity hasn't been hit
-                mPresenter.setCurrentDayAdapter(getAdapter());
-                mPresenter.setFirstRun(false);
+                presenter.setCurrentDayAdapter(getAdapter());
+                presenter.setFirstRun(false);
             }
         }
     }

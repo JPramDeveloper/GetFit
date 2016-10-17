@@ -6,6 +6,7 @@ import dagger.Module;
 import dagger.Provides;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
+import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragmentPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutPresenter;
 import me.danielhartman.startingstrength.util.AlertUtil;
 
@@ -17,6 +18,11 @@ public class ApplicationModule {
     CreateWorkoutPresenter getWorkoutPresenter(LoginPresenter loginPresenter) {
         return new CreateWorkoutPresenter(loginPresenter);
     }
+
+    @Provides
+    @Singleton
+    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(){return new ChooseWorkoutFragmentPresenter();}
+
 
     @Provides
     @Singleton

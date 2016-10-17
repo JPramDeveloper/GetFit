@@ -3,7 +3,10 @@ package me.danielhartman.startingstrength.ui.createWorkout;
 
 import android.content.Context;
 import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
@@ -18,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.danielhartman.startingstrength.Interfaces.CreateWorkoutCallback;
+import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
 import me.danielhartman.startingstrength.model.Set;
@@ -35,6 +39,8 @@ public class CreateWorkoutPresenter {
     private CreateDayAdapter currentDayAdapter;
     private boolean isFirstRun;
     private Uri imageUri;
+    private FrameLayout exerciseFrame;
+    private FloatingActionButton fab;
 
     public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
         this.loginPresenter = loginPresenter;
@@ -234,8 +240,45 @@ public class CreateWorkoutPresenter {
         imageUri = uri;
     }
 
-    public void onPageSelected(CreateWorkoutDay currentDay) {
-        setCurrentDayAdapter(currentDay.getAdapter());
+    public void onPageSelected(CreateWorkoutDay currentFragment, int currentDay) {
+        setCurrentDay(currentDay);
+        setCurrentDayAdapter(currentFragment.getAdapter());
         currentDayAdapter.setData(getSetsForGivenDay(getCurrentDay()));
+        displayViewIfNoExercises(currentDay);
+    }
+
+    public void displayViewIfNoExercises(int currentDay) {
+        if (getExercisesForDay(currentDay).size() <= 0) {
+            displayExerciseFrame();
+        } else {
+            hideExerciseFrame();
+        }
+    }
+
+    public void displayExerciseFrame() {
+        exerciseFrame.setVisibility(View.VISIBLE);
+        fab.setImageResource(R.drawable.ic_clear_black_24dp);
+    }
+
+    public void hideExerciseFrame() {
+        exerciseFrame.setVisibility(View.GONE);
+        fab.setImageResource(R.drawable.ic_add_black_24dp);
+    }
+
+    public void onFabClick() {
+        if (exerciseFrame.getVisibility() == View.VISIBLE) {
+            hideExerciseFrame();
+        } else {
+            displayExerciseFrame();
+        }
+    }
+
+    public void setExerciseFrameAndButton(FrameLayout exerciseFrame, FloatingActionButton fab) {
+        this.exerciseFrame = exerciseFrame;
+        this.fab = fab;
+    }
+
+    public int getExerciseFrameVisiblity() {
+        return exerciseFrame.getVisibility();
     }
 }

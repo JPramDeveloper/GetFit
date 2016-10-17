@@ -6,12 +6,14 @@ apply plugin: 'com.getkeepsafe.dexcount'
 
 android {
     compileSdkVersion 24
-    buildToolsVersion "24.0.1"
+    buildToolsVersion "24.0.3"
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    dataBinding {
+        enabled = true
+    }
     defaultConfig {
         applicationId "me.danielhartman.startingstrength"
         minSdkVersion 19
@@ -28,8 +30,8 @@ android {
         }
     }
 }
-def supportLibVersion = "24.2.0"
-def firebaseVersion = "9.4.0"
+def supportLibVersion = "24.2.1"
+def firebaseVersion = "9.6.1"
 def rxJava = "1.1.6"
 def rxAndroid = "1.2.1"
 def rxBinding = "0.4.0"
