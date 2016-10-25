@@ -25,9 +25,11 @@ public class DataGetter implements WorkoutData {
 
     @Override
     public void getUserWorkouts(DataGetterCallback callback, String uid) {
-        initFirebaseDB();
-        attachListener(createListener(),uid);
         this.getUserWorkoutsCallback = callback;
+        listener = createListener();
+        initFirebaseDB();
+        attachListener(listener,uid);
+
     }
 
      private ChildEventListener createListener() {
@@ -40,6 +42,8 @@ public class DataGetter implements WorkoutData {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Log.d(TAG, "onChildChanged: " + dataSnapshot.getKey());
+
             }
 
             @Override
