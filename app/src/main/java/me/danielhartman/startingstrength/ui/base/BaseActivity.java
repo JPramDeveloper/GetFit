@@ -13,7 +13,6 @@ import me.danielhartman.startingstrength.databinding.BaseActivityBinding;
 public abstract class BaseActivity extends AppCompatActivity {
 
     BaseActivityBinding binding;
-    boolean displayFab = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +24,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if (!displayFab) hideFab();
+        if (!displayFab()) hideFab();
     }
 
     public boolean displayFab(){
-        return displayFab;
+        return false;
     }
 
     private void hideFab(){

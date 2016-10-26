@@ -3,6 +3,7 @@ package me.danielhartman.startingstrength.ui.viewWorkout;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,12 +14,13 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 import me.danielhartman.startingstrength.databinding.ViewWorkoutDetailsFragmentBinding;
 import me.danielhartman.startingstrength.ui.base.BaseFragment;
+import me.danielhartman.startingstrength.ui.base.BasePresenter;
 import me.danielhartman.startingstrength.ui.base.Presenter;
 
-public class ViewWorkoutDetailsFragment extends BaseFragment {
+public class ViewWorkoutDetailsFragment extends Fragment {
 
-    @Inject
-    ViewWorkoutDetailsPresenter presenter;
+//    @Inject
+//    ViewWorkoutDetailsPresenter presenter;
 
     ViewWorkoutDetailsFragmentBinding binding;
 
@@ -30,18 +32,4 @@ public class ViewWorkoutDetailsFragment extends BaseFragment {
 
     }
 
-    @Override
-    public void initDagger() {
-        DaggerHolder.getInstance().component().inject(this);
-    }
-
-    @Override
-    public void presentViews() {
-
-    }
-
-    @Override
-    public Presenter getPresenter() {
-        return presenter;
-    }
 }

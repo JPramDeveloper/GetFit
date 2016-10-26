@@ -1,7 +1,6 @@
 package me.danielhartman.startingstrength.dagger.module;
 
 import android.content.Context;
-import android.provider.ContactsContract;
 
 import javax.inject.Singleton;
 
@@ -10,7 +9,7 @@ import dagger.Provides;
 import me.danielhartman.startingstrength.network.DataGetter;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
-import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragmentPresenter;
+import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragmentPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutDetailsPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutPresenter;
 import me.danielhartman.startingstrength.util.AlertUtil;

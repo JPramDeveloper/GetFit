@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.R;
+import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragment;
 
 public class StartWorkoutActivity extends AppCompatActivity {
 

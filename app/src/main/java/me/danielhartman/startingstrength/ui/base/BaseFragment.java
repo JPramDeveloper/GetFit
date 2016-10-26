@@ -1,10 +1,11 @@
 package me.danielhartman.startingstrength.ui.base;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment<V> extends Fragment{
 
     @Override
     public void onResume() {
@@ -21,6 +22,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         initDagger();
+        getPresenter().present(getContractView());
         super.onCreate(savedInstanceState);
     }
 
@@ -32,9 +34,16 @@ public abstract class BaseFragment extends Fragment {
 
     public abstract void initDagger();
 
-    public abstract void presentViews();
+    public abstract BasePresenter getPresenter();
 
-    public abstract Presenter getPresenter();
+    public Context getContext(){
+        return getActivity().getApplicationContext();
+    }
+
+    public abstract V getContractView();
+
+
+
 
 
 }

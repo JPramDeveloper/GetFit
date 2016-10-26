@@ -60,6 +60,10 @@ public class ViewWorkoutAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         } else {
             Picasso.with(context).load(R.drawable.lifting_man).fit().centerInside().into(h.workoutImage);
         }
+
+        h.workoutImage.setOnClickListener(v -> {
+            callback.onClick(w);
+        });
     }
 
     @Override

@@ -7,23 +7,21 @@ import android.support.v7.widget.Toolbar;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.danielhartman.startingstrength.R;
+import me.danielhartman.startingstrength.ui.base.BaseActivity;
 
-public class MainActivity extends AppCompatActivity {
-
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+public class MainActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        setSupportActionBar(toolbar);
         getSupportFragmentManager().beginTransaction()
                 .add(R.id.container, new MainMenu_Fragment())
                 .addToBackStack(null)
                 .commit();
     }
 
-
+    @Override
+    public boolean displayFab() {
+        return true;
+    }
 }

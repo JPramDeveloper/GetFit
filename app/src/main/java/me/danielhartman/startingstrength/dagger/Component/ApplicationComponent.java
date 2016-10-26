@@ -12,7 +12,7 @@ import me.danielhartman.startingstrength.ui.createWorkout.CreateExerciseFragment
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutDay;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
-import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment;
+import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragment;
 import me.danielhartman.startingstrength.ui.startWorkout.StartWorkoutActivity;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutDetailsFragment;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutFragment;

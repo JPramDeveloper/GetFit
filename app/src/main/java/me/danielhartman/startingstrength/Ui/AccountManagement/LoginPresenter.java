@@ -98,12 +98,10 @@ public class LoginPresenter {
         mFirebaseAuth.signOut();
     }
 
-    public String getUserUID(Activity activity){
+    public String getUserUID(){
         if (getUser()!=null){
             return getUser().getUid();
         }else{
-            Intent i = new Intent(activity.getApplicationContext(), AccountActivity.class);
-            activity.startActivity(i);
             return null;
         }
     }
