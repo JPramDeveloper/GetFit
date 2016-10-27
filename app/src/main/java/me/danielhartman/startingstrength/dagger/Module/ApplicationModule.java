@@ -6,7 +6,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import me.danielhartman.startingstrength.network.DataGetter;
+import me.danielhartman.startingstrength.network.WorkoutDataStore;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragmentPresenter;
@@ -36,8 +36,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(DataGetter dataGetter, LoginPresenter loginPresenter){
-        return new ChooseWorkoutFragmentPresenter(dataGetter, loginPresenter);}
+    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(WorkoutDataStore workoutDataStore, LoginPresenter loginPresenter){
+        return new ChooseWorkoutFragmentPresenter(workoutDataStore, loginPresenter);}
 
 
     @Provides
@@ -48,8 +48,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ViewWorkoutPresenter getViewWorkoutPresenter(LoginPresenter loginPresenter, DataGetter dataGetter, Context context) {
-        return new ViewWorkoutPresenter(loginPresenter, dataGetter, context);
+    ViewWorkoutPresenter getViewWorkoutPresenter(LoginPresenter loginPresenter, WorkoutDataStore workoutDataStore, Context context) {
+        return new ViewWorkoutPresenter(loginPresenter, workoutDataStore, context);
     }
 
     @Provides
@@ -60,8 +60,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    DataGetter getDataGetter(){
-        return new DataGetter();
+    WorkoutDataStore getDataGetter(){
+        return new WorkoutDataStore();
     }
 
     @Provides

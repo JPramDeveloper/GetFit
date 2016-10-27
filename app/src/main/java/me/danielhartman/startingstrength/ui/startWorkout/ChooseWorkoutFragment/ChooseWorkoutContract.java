@@ -4,8 +4,6 @@ import java.util.List;
 
 import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.ui.base.BasePresenter;
-import me.danielhartman.startingstrength.ui.base.BaseView;
-import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
 
 public class ChooseWorkoutContract {
 

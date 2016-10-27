@@ -30,7 +30,7 @@ android {
         }
     }
 }
-def supportLibVersion = "25.0.0"
+def supportLibVersion = "24.2.1"
 def firebaseVersion = "9.6.1"
 def rxJava = "1.1.6"
 def rxAndroid = "1.2.1"

@@ -32,10 +32,6 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".ui.base.BaseActivity" />
         <activity android:name=".ui.startWorkout.StartWorkoutActivity" />
-        <activity
-            android:name=".ui.base.BaseDrawerActivity"
-            android:label="@string/title_activity_base_drawer"
-            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

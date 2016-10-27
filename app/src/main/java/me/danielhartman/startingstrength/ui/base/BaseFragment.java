@@ -3,21 +3,10 @@ package me.danielhartman.startingstrength.ui.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
 
 
 public abstract class BaseFragment<V> extends Fragment{
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getPresenter().onResume();
-    }
-
-    @Override
-    public void onPause() {
-        getPresenter().onPause();
-        super.onPause();
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -42,8 +31,7 @@ public abstract class BaseFragment<V> extends Fragment{
 
     public abstract V getContractView();
 
-
-
-
-
+    public ActionBar getActionBar(){
+        return ((BaseActivity)(getActivity())).getActionbar();
+    }
 }

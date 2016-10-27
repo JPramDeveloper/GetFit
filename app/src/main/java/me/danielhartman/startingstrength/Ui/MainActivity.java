@@ -19,9 +19,4 @@ public class MainActivity extends BaseActivity {
                 .addToBackStack(null)
                 .commit();
     }
-
-    @Override
-    public boolean displayFab() {
-        return true;
-    }
 }

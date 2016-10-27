@@ -15,11 +15,11 @@ import java.util.List;
 import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.util.Schema;
 
-public class DataGetter implements WorkoutData {
+public class WorkoutDataStore implements WorkoutData {
 
     private ChildEventListener listener;
     private DatabaseReference mDatabase;
-    private String TAG = DataGetter.class.getSimpleName();
+    private String TAG = WorkoutDataStore.class.getSimpleName();
     private DataGetterCallback getUserWorkoutsCallback;
     private List<Workout> workoutList;
 
