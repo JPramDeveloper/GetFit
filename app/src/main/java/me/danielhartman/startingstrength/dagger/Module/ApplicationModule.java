@@ -8,6 +8,7 @@ import dagger.Module;
 import dagger.Provides;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName.CWNPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
 import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragmentPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutDetailsPresenter;
@@ -70,4 +71,9 @@ public class ApplicationModule {
         return new ViewWorkoutDetailsPresenter();
     }
 
+    @Provides
+    @Singleton
+    CWNPresenter getCWNPresenter(){
+        return new CWNPresenter();
+    }
 }

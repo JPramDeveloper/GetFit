@@ -22,8 +22,8 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 
-public class CreateWorkoutName extends AppCompatActivity {
-    private static final String TAG = CreateWorkoutName.class.getSimpleName();
+public class CreateWorkoutNameActivity extends AppCompatActivity {
+    private static final String TAG = CreateWorkoutNameActivity.class.getSimpleName();
     final int SELECT_PICTURE = 1;
     Uri imageUri;
 

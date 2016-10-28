@@ -11,7 +11,8 @@ import me.danielhartman.startingstrength.ui.accountManagement.LoginFragment;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateExerciseFragment;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutActivity;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutDay;
-import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName.CWNPresenter;
+import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutNameActivity;
 import me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment.ChooseWorkoutFragment;
 import me.danielhartman.startingstrength.ui.startWorkout.StartWorkoutActivity;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutDetailsFragment;
@@ -19,7 +20,7 @@ import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutFragment;
 
 @Singleton
 @Component(modules = {ApplicationModule.class})
-public interface ApplicationComponent {
+public interface ApplicationComponent extends BaseComponent{
 
     void inject(LoginFragment fragment);
 
@@ -35,7 +36,7 @@ public interface ApplicationComponent {
 
     void inject(ViewWorkoutFragment fragment);
 
-    void inject(CreateWorkoutName fragment);
+    void inject(CreateWorkoutNameActivity fragment);
 
     void inject(CreateWorkoutActivity activity);
 
@@ -44,5 +45,7 @@ public interface ApplicationComponent {
     void inject(StartWorkoutActivity activity);
 
     void inject(ViewWorkoutDetailsFragment fragment);
+
+    CWNPresenter getCWNPresenter();
 
 }

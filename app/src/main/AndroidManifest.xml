@@ -26,7 +26,7 @@
             android:name=".ui.createWorkout.CreateWorkoutActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.viewWorkout.ViewWorkoutActivity" />
-        <activity android:name=".ui.createWorkout.CreateWorkoutName" />
+        <activity android:name=".ui.createWorkout.CreateWorkoutNameActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
