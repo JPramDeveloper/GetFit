@@ -6,20 +6,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
-
-import javax.inject.Inject;
+import android.widget.Toast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.network.LoginManager;
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LoginManager.LoginCallback {
 
     private static final String TAG = LoginFragment.class.getSimpleName();
-    @Inject
-    LoginPresenter mLoginPresenter;
+//    @Inject
+//    LoginPresenter mLoginPresenter;
+
+    LoginManager.Login loginManger;
     @BindView(R.id.userName)
     EditText userName;
     @BindView(R.id.password)
@@ -29,13 +31,13 @@ public class LoginFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.login_frag, container, false);
         ButterKnife.bind(this, rootView);
-        DaggerHolder.getInstance().component().inject(this);
+        loginManger = DaggerHolder.getInstance().component().getLoginManager();
         return rootView;
     }
 
     @OnClick(R.id.login)
     public void clickLogin() {
-        mLoginPresenter.signIn(userName.getText().toString(), password.getText().toString());
+        loginManger.login(this, userName.getText().toString(), password.getText().toString());
     }
 
     @OnClick(R.id.newAccount)
@@ -45,5 +47,21 @@ public class LoginFragment extends Fragment {
                 .replace(R.id.container, new CreateAccountFragment(), null)
                 .addToBackStack(TAG)
                 .commit();
+    }
+
+    @Override
+    public void successfulLogin() {
+        Toast.makeText(getActivity().getApplicationContext(), "Successful login", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void failedLogin(String error) {
+        Toast.makeText(getActivity().getApplicationContext(), "Successful Fail", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void loggedOut() {
+
     }
 }

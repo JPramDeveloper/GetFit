@@ -59,7 +59,7 @@ public class FirebaseLoginManager implements LoginManager.Login {
             } else {
                 setUser(null);
                 LoginCallback.failedLogin("Failed");
-                detatchUserListener();
+//                detatchUserListener();
             }
         };
         mFirebaseAuth.addAuthStateListener(mAuthListener);

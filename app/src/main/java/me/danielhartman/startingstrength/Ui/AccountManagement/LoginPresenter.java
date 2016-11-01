@@ -1,9 +1,6 @@
 package me.danielhartman.startingstrength.ui.accountManagement;
 
 
-import android.app.Activity;
-import android.app.IntentService;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -48,7 +45,7 @@ public class LoginPresenter {
                     if (task.isSuccessful()) {
                         callback.successfulLogin();
                         signIn(email, password);
-                        Log.d("login", "createAccount: success");
+                        Log.d("login", "createNewAccount: success");
                     } else {
                         if (task.getException() != null) {
                             callback.failedLogin("");
@@ -91,7 +88,6 @@ public class LoginPresenter {
                     }
                 });
     }
-
 
     public void logout() {
         getmFirebaseAuth();

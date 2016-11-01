@@ -6,7 +6,11 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import me.danielhartman.startingstrength.network.FirebaseLoginManager;
+import me.danielhartman.startingstrength.network.FirebaseWorkoutSaver;
+import me.danielhartman.startingstrength.network.LoginManager;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
+import me.danielhartman.startingstrength.network.WorkoutSaver;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName.CWNPresenter;
 import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutPresenter;
@@ -75,5 +79,17 @@ public class ApplicationModule {
     @Singleton
     CWNPresenter getCWNPresenter(){
         return new CWNPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public LoginManager.Login getLoginManager() {
+        return new FirebaseLoginManager();
+    }
+
+    @Provides
+    @Singleton
+    WorkoutSaver.Saver getWorkoutSaver(LoginManager.Login login) {
+        return new FirebaseWorkoutSaver(login);
     }
 }
