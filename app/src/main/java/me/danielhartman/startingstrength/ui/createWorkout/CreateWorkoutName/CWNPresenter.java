@@ -1,6 +1,6 @@
 package me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutName;
 
-import me.danielhartman.startingstrength.ui.createWorkout.CreateWorkoutNameActivity;
+import android.net.Uri;
 
 
 public class CWNPresenter implements CWNContract.Presenter {
@@ -12,6 +12,10 @@ public class CWNPresenter implements CWNContract.Presenter {
 
     @Override
     public void onDestroy() {
+
+    }
+
+    void saveUri(Uri imageUri) {
 
     }
 }
