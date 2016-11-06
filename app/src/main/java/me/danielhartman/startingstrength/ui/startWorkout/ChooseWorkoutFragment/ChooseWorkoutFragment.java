@@ -3,7 +3,6 @@ package me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 import me.danielhartman.startingstrength.databinding.ChooseWorkoutFragmentBinding;
 import me.danielhartman.startingstrength.model.Workout;
-import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginActivity;
 import me.danielhartman.startingstrength.ui.base.BaseFragment;
 import me.danielhartman.startingstrength.ui.base.BasePresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
@@ -26,19 +25,16 @@ import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
 
 public class ChooseWorkoutFragment extends BaseFragment<ChooseWorkoutContract.View> implements ChooseWorkoutContract.View, ViewWorkoutAdapter.Callback{
 
-    @Inject
     ChooseWorkoutFragmentPresenter presenter;
 
     ChooseWorkoutFragmentBinding binding;
 
     ViewWorkoutAdapter adapter;
-    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater, R.layout.choose_workout_fragment,container,false);
-        DaggerHolder.getInstance().component().inject(this);
-//        getActivity().getsupportac
+        presenter = DaggerHolder.getInstance().component().getChooseWorkoutFragmentPresenter();
         setupRecyclerView();
         return binding.getRoot();
     }
@@ -71,7 +67,7 @@ public class ChooseWorkoutFragment extends BaseFragment<ChooseWorkoutContract.Vi
 
     @Override
     public void noUserIdFound() {
-        Intent i = new Intent(getContext(), AccountActivity.class);
+        Intent i = new Intent(getContext(), LoginActivity.class);
         getActivity().startActivity(i);
     }
 
@@ -82,6 +78,7 @@ public class ChooseWorkoutFragment extends BaseFragment<ChooseWorkoutContract.Vi
 
     @Override
     public void onResume() {
+        super.onResume();
         presenter.loadWorkouts();
     }
 }

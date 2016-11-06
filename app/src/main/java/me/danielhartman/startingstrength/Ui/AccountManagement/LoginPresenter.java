@@ -38,7 +38,7 @@ public class LoginPresenter {
         this.user = user;
     }
 
-    public void createAccount(String email, String password, AccountActivity activity, LoginCallback callback) {
+    public void createAccount(String email, String password, LoginActivity activity, LoginCallback callback) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((task) -> {

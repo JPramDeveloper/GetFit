@@ -30,18 +30,16 @@ public class FirebaseLoginManager implements LoginManager.Login {
         this.user = user;
     }
 
-    private void createNewAccount(String email, String password,
-                                  LoginManager.CreateAccountCallback callback) {
+    private void createNewAccount(String email, String password) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener((task) -> {
                     if (task.isSuccessful()) {
-                        callback.successfulAccountCreation();
-                        signIn(email, password);
+                        signIn(email, password, null);
                         Log.d("login", "createNewAccount: success");
                     } else {
                         if (task.getException() != null) {
-                            callback.failedAccountCreation("");
+                            //// TODO: 11/5/2016 Add message for users to know what the error was 
                             Log.d(TAG, task.getException().toString());
                         }
                     }
@@ -58,8 +56,6 @@ public class FirebaseLoginManager implements LoginManager.Login {
                 detatchUserListener();
             } else {
                 setUser(null);
-                LoginCallback.failedLogin("Failed");
-//                detatchUserListener();
             }
         };
         mFirebaseAuth.addAuthStateListener(mAuthListener);
@@ -71,19 +67,21 @@ public class FirebaseLoginManager implements LoginManager.Login {
     }
 
 
-    private void signIn(String email, String password) {
+    private void signIn(String email, String password, LoginManager.FailedLoginCallback callback) {
         mFirebaseAuth = getmFirebaseAuth();
         mFirebaseAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener((task) -> {
                     if (!task.isSuccessful()) {
+                        if (callback!=null) {
+                            callback.failedLogin(task.getException().toString());
+                        }
                     }
                 });
     }
 
     @Override
-    public void login(LoginManager.LoginCallback LoginCallback, String email, String password) {
-        attachUserListener(LoginCallback);
-        signIn(email, password);
+    public void login(String email, String password, LoginManager.FailedLoginCallback callback) {
+        signIn(email, password, callback);
     }
 
     @Override
@@ -96,13 +94,18 @@ public class FirebaseLoginManager implements LoginManager.Login {
     }
 
     @Override
-    public void logOut(LoginManager.LoginCallback LoginCallback) {
+    public void logOut() {
         getmFirebaseAuth();
         mFirebaseAuth.signOut();
     }
 
     @Override
-    public void createAccount(LoginManager.CreateAccountCallback callback, String email, String password) {
-        createNewAccount(email, password, callback);
+    public void createAccount(String email, String password) {
+        createNewAccount(email, password);
+    }
+
+    @Override
+    public void checkIfUserLoggedIn(LoginManager.LoginCallback callback) {
+        attachUserListener(callback);
     }
 }

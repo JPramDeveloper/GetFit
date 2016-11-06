@@ -14,7 +14,7 @@ import java.util.List;
 import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
 import me.danielhartman.startingstrength.network.DataGetterCallback;
-import me.danielhartman.startingstrength.ui.accountManagement.AccountActivity;
+import me.danielhartman.startingstrength.ui.accountManagement.LoginActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 
 public class ViewWorkoutPresenter implements DataGetterCallback, ViewWorkoutAdapter.Callback {
@@ -51,7 +51,7 @@ public class ViewWorkoutPresenter implements DataGetterCallback, ViewWorkoutAdap
             workoutDataStore.getUserWorkouts(this, loginPresenter.getUser().getUid());
 
         } else {
-            Intent i = new Intent(activity.getApplicationContext(), AccountActivity.class);
+            Intent i = new Intent(activity.getApplicationContext(), LoginActivity.class);
             i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivity(i);
         }

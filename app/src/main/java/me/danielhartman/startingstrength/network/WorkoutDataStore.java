@@ -88,7 +88,9 @@ public class WorkoutDataStore implements WorkoutData {
     }
 
     public void detachListener(){
-        mDatabase.removeEventListener(listener);
+        if (mDatabase!=null) {
+            mDatabase.removeEventListener(listener);
+        }
         getUserWorkoutsCallback =null;
         listener = null;
     }

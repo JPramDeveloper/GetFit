@@ -4,6 +4,7 @@ import java.util.List;
 
 import me.danielhartman.startingstrength.databinding.ChooseWorkoutFragmentBinding;
 import me.danielhartman.startingstrength.model.Workout;
+import me.danielhartman.startingstrength.network.LoginManager;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
 import me.danielhartman.startingstrength.network.DataGetterCallback;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
@@ -12,12 +13,12 @@ import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
 public class ChooseWorkoutFragmentPresenter implements ChooseWorkoutContract.Presenter, DataGetterCallback, ViewWorkoutAdapter.Callback{
 
     private WorkoutDataStore workoutDataStore;
-    private LoginPresenter loginPresenter;
+    private LoginManager.Login loginManager;
     private ChooseWorkoutContract.View view;
 
-    public ChooseWorkoutFragmentPresenter(WorkoutDataStore workoutDataStore, LoginPresenter loginPresenter) {
+    public ChooseWorkoutFragmentPresenter(WorkoutDataStore workoutDataStore, LoginManager.Login loginManager) {
         this.workoutDataStore = workoutDataStore;
-        this.loginPresenter = loginPresenter;
+        this.loginManager = loginManager;
     }
 
 
@@ -47,7 +48,7 @@ public class ChooseWorkoutFragmentPresenter implements ChooseWorkoutContract.Pre
 
     @Override
     public void loadWorkouts() {
-        String uid = loginPresenter.getUserUID();
+        String uid = loginManager.getUserId();
         if (uid!=null) {
             workoutDataStore.getUserWorkouts(this,uid);
         }else{

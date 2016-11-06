@@ -41,8 +41,8 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(WorkoutDataStore workoutDataStore, LoginPresenter loginPresenter){
-        return new ChooseWorkoutFragmentPresenter(workoutDataStore, loginPresenter);}
+    ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(WorkoutDataStore workoutDataStore, LoginManager.Login loginManager){
+        return new ChooseWorkoutFragmentPresenter(workoutDataStore, loginManager);}
 
 
     @Provides

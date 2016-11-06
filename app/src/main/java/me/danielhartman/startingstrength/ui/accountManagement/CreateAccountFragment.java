@@ -22,12 +22,14 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.R;
+import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.network.LoginManager;
 import me.danielhartman.startingstrength.ui.MyApplication;
 import rx.Observable;
 
-public class CreateAccountFragment extends Fragment implements LoginCallback {
-    @Inject
-    LoginPresenter mLoginPresenter;
+public class CreateAccountFragment extends Fragment {
+
+    LoginManager.Login loginManager;
     @BindView(R.id.username)
     EditText username;
     @BindView(R.id.password)
@@ -49,7 +51,7 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.createaccount_frag, container, false);
-        ((MyApplication) getActivity().getApplication()).getViewWorkoutComponent().inject(this);
+       loginManager = DaggerHolder.getInstance().component().getLoginManager();
         ButterKnife.bind(this, rootView);
         return rootView;
     }
@@ -64,7 +66,7 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
         checkInputs();
         if (validInputs) {
             progressBar.setVisibility(View.VISIBLE);
-            mLoginPresenter.createAccount(username.getText().toString(), password.getText().toString(), (AccountActivity) getActivity(), this);
+            loginManager.createAccount(username.getText().toString(), password.getText().toString());
         }
     }
 
@@ -110,18 +112,5 @@ public class CreateAccountFragment extends Fragment implements LoginCallback {
         Observable<Boolean> enabledButton = Observable.combineLatest(validEmailAndPassword, passwordsMatch, (a, b) -> a & b);
         enabledButton.distinctUntilChanged()
                 .subscribe(enabled -> validInputs = (enabled));
-    }
-
-    @Override
-    public void successfulLogin() {
-        progressBar.setVisibility(View.GONE);
-        getActivity().getSupportFragmentManager().popBackStack();
-    }
-
-    @Override
-    public void failedLogin(String message) {
-        progressBar.setVisibility(View.GONE);
-        Toast.makeText(getActivity().getApplicationContext(), "Failed", Toast.LENGTH_LONG).show();
-
     }
 }

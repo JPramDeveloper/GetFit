@@ -2,13 +2,15 @@ package me.danielhartman.startingstrength.network;
 
 public class LoginManager {
     public interface Login {
-        void login(LoginCallback LoginCallback, String email, String password);
+        void login(String email, String password, FailedLoginCallback callback);
 
         String getUserId();
 
-        void logOut(LoginCallback LoginCallback);
+        void logOut();
 
-        void createAccount(CreateAccountCallback callback, String email, String password);
+        void createAccount(String email, String password);
+
+        void checkIfUserLoggedIn(LoginCallback callback);
     }
 
     public interface LoginCallback {
@@ -16,7 +18,6 @@ public class LoginManager {
 
         void failedLogin(String error);
 
-        void loggedOut();
     }
 
     public interface CreateAccountCallback {
@@ -25,5 +26,8 @@ public class LoginManager {
         void failedAccountCreation(String error);
     }
 
+    public interface FailedLoginCallback {
+        void failedLogin(String error);
+    }
 
 }
