@@ -19,6 +19,7 @@ import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import java.io.FileNotFoundException;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -88,7 +89,11 @@ public class CreateWorkoutActivity extends AppCompatActivity implements CreateWo
 
         if (item.getItemId() == R.id.action_finish) {
             progressBar.setVisibility(View.VISIBLE);
-            presenter.commitToFirebase(this, this);
+            try {
+                presenter.commitToFirebase(this, this);
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
             isRequestPending = true;
         }
         return true;

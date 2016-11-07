@@ -15,16 +15,16 @@ import java.util.List;
 import me.danielhartman.startingstrength.model.Workout;
 import me.danielhartman.startingstrength.util.Schema;
 
-public class WorkoutDataStore implements WorkoutData {
+public class WorkoutDataStore implements DatabaseManager.WorkoutData {
 
     private ChildEventListener listener;
     private DatabaseReference mDatabase;
     private String TAG = WorkoutDataStore.class.getSimpleName();
-    private DataGetterCallback getUserWorkoutsCallback;
+    private DatabaseManager.DataGetterCallback getUserWorkoutsCallback;
     private List<Workout> workoutList;
 
     @Override
-    public void getUserWorkouts(DataGetterCallback callback, String uid) {
+    public void getUserWorkouts(DatabaseManager.DataGetterCallback callback, String uid) {
         this.getUserWorkoutsCallback = callback;
         listener = createListener();
         initFirebaseDB();

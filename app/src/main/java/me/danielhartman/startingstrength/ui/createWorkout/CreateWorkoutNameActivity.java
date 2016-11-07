@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -36,8 +35,6 @@ public class CreateWorkoutNameActivity extends AppCompatActivity {
     @BindView(R.id.workoutNameEditText)
     EditText workoutName;
 
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,8 +42,6 @@ public class CreateWorkoutNameActivity extends AppCompatActivity {
         setContentView(R.layout.create_workout_name_constraint_layout);
         DaggerHolder.getInstance().component().inject(this);
         ButterKnife.bind(this);
-        toolbar.setTitle("Create Workout");
-        setSupportActionBar(toolbar);
     }
 
     @OnClick(R.id.findImageButton)

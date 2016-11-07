@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import me.danielhartman.startingstrength.model.Workout;
+import me.danielhartman.startingstrength.network.DatabaseManager;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
-import me.danielhartman.startingstrength.network.DataGetterCallback;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginActivity;
 import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 
-public class ViewWorkoutPresenter implements DataGetterCallback, ViewWorkoutAdapter.Callback {
+public class ViewWorkoutPresenter implements DatabaseManager.DataGetterCallback, ViewWorkoutAdapter.Callback {
     private static final String TAG = ViewWorkoutPresenter.class.getSimpleName();
     private DatabaseReference mDatabase;
     private LoginPresenter loginPresenter;

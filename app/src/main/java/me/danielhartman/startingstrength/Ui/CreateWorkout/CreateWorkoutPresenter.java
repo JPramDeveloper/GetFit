@@ -26,24 +26,27 @@ import me.danielhartman.startingstrength.model.Day;
 import me.danielhartman.startingstrength.model.Exercise;
 import me.danielhartman.startingstrength.model.Set;
 import me.danielhartman.startingstrength.model.Workout;
-import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
+import me.danielhartman.startingstrength.network.LoginManager;
+import me.danielhartman.startingstrength.network.WorkoutSaver;
 import me.danielhartman.startingstrength.util.Schema;
 
-public class CreateWorkoutPresenter {
+public class CreateWorkoutPresenter implements WorkoutSaver.ImageSaverCallback{
     private static final String TAG = CreateWorkoutPresenter.class.getSimpleName();
     private Workout workout;
     private int currentDay = 0;
     private Boolean isAddFrameDisplayed;
     private String key;
-    private LoginPresenter loginPresenter;
+    private LoginManager.Login loginPresenter;
     private CreateDayAdapter currentDayAdapter;
     private boolean isFirstRun;
     private Uri imageUri;
     private FrameLayout exerciseFrame;
     private FloatingActionButton fab;
+    private WorkoutSaver.Saver workoutSaver;
 
-    public CreateWorkoutPresenter(LoginPresenter loginPresenter) {
+    public CreateWorkoutPresenter(LoginManager.Login loginPresenter, WorkoutSaver.Saver saver) {
         this.loginPresenter = loginPresenter;
+        this.workoutSaver = saver;
     }
 
     public boolean isFirstRun() {
@@ -78,7 +81,7 @@ public class CreateWorkoutPresenter {
     }
 
     public void commitWorkoutToFirebase(CreateWorkoutCallback callback) {
-        String userId = loginPresenter.getUser().getUid();
+        String userId = loginPresenter.getUserId();
         if (workout != null) {
             DatabaseReference database = FirebaseDatabase.getInstance().getReference();
             database.child(Schema.WORKOUT_TOP_LEVEL).child(key).setValue(workout);
@@ -96,7 +99,7 @@ public class CreateWorkoutPresenter {
 
     public String generateKey() {
         DatabaseReference database = FirebaseDatabase.getInstance().getReference();
-        String userId = loginPresenter.getUser().getUid();
+        String userId = loginPresenter.getUserId();
         key = database.child(Schema.USERS).child(userId).child(Schema.WORKOUT).push().getKey();
         return key;
 
@@ -210,18 +213,26 @@ public class CreateWorkoutPresenter {
         });
     }
 
-    public void commitToFirebase(Context context, CreateWorkoutCallback callback) {
+    public void commitToFirebase(Context context, CreateWorkoutCallback callback) throws FileNotFoundException {
         workout = pruneUnusedDays(workout);
         generateKey();
-        try {
-            if (imageUri != null) {
-                uploadImage(context, imageUri, callback);
-            } else {
-                commitWorkoutToFirebase(callback);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
+        InputStream stream;
+
+        if (imageUri!=null){
+            stream = context.getContentResolver().openInputStream(imageUri);
+            workoutSaver.saveImageAndWorkout(workout,this,key,stream);
+        }  else {
+            workoutSaver.saveWorkout(workout, null, key);
         }
+//        try {
+//            if (imageUri != null) {
+//                uploadImage(context, imageUri, callback);
+//            } else {
+//                commitWorkoutToFirebase(callback);
+//            }
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
     }
 
     public Workout pruneUnusedDays(Workout workout) {
@@ -280,5 +291,10 @@ public class CreateWorkoutPresenter {
 
     public int getExerciseFrameVisiblity() {
         return exerciseFrame.getVisibility();
+    }
+
+    @Override
+    public void uploadComplete(boolean imageSuccess) {
+        Log.d(TAG, "uploadComplete: " + imageSuccess);
     }
 }

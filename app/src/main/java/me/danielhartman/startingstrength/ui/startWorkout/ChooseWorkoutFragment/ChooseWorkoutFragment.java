@@ -11,8 +11,6 @@ import android.widget.Toast;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
 import me.danielhartman.startingstrength.databinding.ChooseWorkoutFragmentBinding;
@@ -34,10 +32,10 @@ public class ChooseWorkoutFragment extends BaseFragment<ChooseWorkoutContract.Vi
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding= DataBindingUtil.inflate(inflater, R.layout.choose_workout_fragment,container,false);
-        presenter = DaggerHolder.getInstance().component().getChooseWorkoutFragmentPresenter();
         setupRecyclerView();
         return binding.getRoot();
     }
+
 
     public void setupRecyclerView() {
         adapter = new ViewWorkoutAdapter(this, getContext());
@@ -47,7 +45,7 @@ public class ChooseWorkoutFragment extends BaseFragment<ChooseWorkoutContract.Vi
 
     @Override
     public void initDagger() {
-        DaggerHolder.getInstance().component().inject(this);
+        presenter = DaggerHolder.getInstance().component().getChooseWorkoutFragmentPresenter();
     }
 
     @Override

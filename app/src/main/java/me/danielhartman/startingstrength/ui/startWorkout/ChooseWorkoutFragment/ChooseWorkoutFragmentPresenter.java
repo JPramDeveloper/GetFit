@@ -2,15 +2,13 @@ package me.danielhartman.startingstrength.ui.startWorkout.ChooseWorkoutFragment;
 
 import java.util.List;
 
-import me.danielhartman.startingstrength.databinding.ChooseWorkoutFragmentBinding;
 import me.danielhartman.startingstrength.model.Workout;
+import me.danielhartman.startingstrength.network.DatabaseManager;
 import me.danielhartman.startingstrength.network.LoginManager;
 import me.danielhartman.startingstrength.network.WorkoutDataStore;
-import me.danielhartman.startingstrength.network.DataGetterCallback;
-import me.danielhartman.startingstrength.ui.accountManagement.LoginPresenter;
 import me.danielhartman.startingstrength.ui.viewWorkout.ViewWorkoutAdapter;
 
-public class ChooseWorkoutFragmentPresenter implements ChooseWorkoutContract.Presenter, DataGetterCallback, ViewWorkoutAdapter.Callback{
+public class ChooseWorkoutFragmentPresenter implements ChooseWorkoutContract.Presenter, DatabaseManager.DataGetterCallback, ViewWorkoutAdapter.Callback {
 
     private WorkoutDataStore workoutDataStore;
     private LoginManager.Login loginManager;

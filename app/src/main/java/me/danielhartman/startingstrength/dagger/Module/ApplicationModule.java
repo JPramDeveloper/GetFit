@@ -35,15 +35,14 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    CreateWorkoutPresenter getWorkoutPresenter(LoginPresenter loginPresenter) {
-        return new CreateWorkoutPresenter(loginPresenter);
+    CreateWorkoutPresenter getWorkoutPresenter(LoginManager.Login loginPresenter, WorkoutSaver.Saver saver) {
+        return new CreateWorkoutPresenter(loginPresenter, saver);
     }
 
     @Provides
     @Singleton
     ChooseWorkoutFragmentPresenter getChooseWorkoutPresenter(WorkoutDataStore workoutDataStore, LoginManager.Login loginManager){
         return new ChooseWorkoutFragmentPresenter(workoutDataStore, loginManager);}
-
 
     @Provides
     @Singleton
@@ -83,7 +82,7 @@ public class ApplicationModule {
 
     @Provides
     @Singleton
-    public LoginManager.Login getLoginManager() {
+    LoginManager.Login getLoginManager() {
         return new FirebaseLoginManager();
     }
 
