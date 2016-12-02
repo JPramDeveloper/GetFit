@@ -13,18 +13,17 @@ public abstract class BaseFragment<V> extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         initDagger();
-        try {
+        if (getPresenter()!=null) {
             getPresenter().present(getContractView());
-        } catch (NullPointerException npe) {
-            Log.e(TAG, "Null Pointer. Presenter must be set in InitDagger();", npe);
-            throw npe;
         }
         super.onCreate(savedInstanceState);
     }
 
     @Override
     public void onDestroy() {
-        getPresenter().onDestroy();
+        if (getPresenter()!=null) {
+            getPresenter().onDestroy();
+        }
         super.onDestroy();
     }
 

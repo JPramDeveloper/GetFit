@@ -13,7 +13,7 @@ import me.danielhartman.startingstrength.ui.base.BaseActivity;
 
 public class LoginActivity extends BaseActivity implements LoginManager.LoginCallback{
 
-    private static final String TAG = LoginActivity.class.getSimpleName();
+    public static final String TAG = LoginActivity.class.getSimpleName();
     LoginManager.Login loginManager;
 
     @Override

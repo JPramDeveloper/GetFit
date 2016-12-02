@@ -29,18 +29,15 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             case 0:
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.create_day_row_title, parent, false);
-                RecyclerView.ViewHolder titleViewHolder = new TitleViewHolder(v);
-                return titleViewHolder;
+                return new TitleViewHolder(v);
             case 1:
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.create_day_row, parent, false);
-                RecyclerView.ViewHolder setViewHolder = new SetViewHolder(v);
-                return setViewHolder;
+                return new SetViewHolder(v);
             case 2:
                 v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.create_day_title, parent, false);
-                RecyclerView.ViewHolder dayViewHolder = new DayViewHolder(v);
-                return dayViewHolder;
+                return new DayViewHolder(v);
             default:
                 return null;
         }
@@ -59,7 +56,6 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         }
     }
 
-
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder.getItemViewType() == 0) {
@@ -69,12 +65,11 @@ public class CreateDayAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         } else if (holder.getItemViewType() == 1) {
             Set s = (Set) mData.get(position);
             SetViewHolder setVH = (SetViewHolder) holder;
-            StringBuilder sb = new StringBuilder()
-                    .append(String.valueOf(s.getReps()))
-                    .append(" Reps at ")
-                    .append(s.getWeight())
-                    .append(" lbs");
-            setVH.text.setText(sb.toString());
+            String sb = String.valueOf(s.getReps()) +
+                    " Reps at " +
+                    s.getWeight() +
+                    " lbs";
+            setVH.text.setText(sb);
         } else if (holder.getItemViewType() == 2) {
             Day d = (Day) mData.get(position);
             DayViewHolder dayVH = (DayViewHolder) holder;

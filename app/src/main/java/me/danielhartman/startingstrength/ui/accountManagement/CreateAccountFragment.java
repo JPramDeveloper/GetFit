@@ -1,5 +1,6 @@
 package me.danielhartman.startingstrength.ui.accountManagement;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
@@ -12,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.jakewharton.rxbinding.widget.RxTextView;
+import com.jakewharton.rxbinding.widget.TextViewTextChangeEvent;
 
 import java.util.regex.Pattern;
 
@@ -23,88 +25,75 @@ import butterknife.OnClick;
 import me.danielhartman.startingstrength.Interfaces.LoginCallback;
 import me.danielhartman.startingstrength.R;
 import me.danielhartman.startingstrength.dagger.DaggerHolder;
+import me.danielhartman.startingstrength.databinding.CreateaccountFragBinding;
 import me.danielhartman.startingstrength.network.LoginManager;
 import me.danielhartman.startingstrength.ui.MyApplication;
+import me.danielhartman.startingstrength.ui.base.BaseFragment;
+import me.danielhartman.startingstrength.ui.base.BasePresenter;
 import rx.Observable;
 
-public class CreateAccountFragment extends Fragment {
+public class CreateAccountFragment extends BaseFragment {
 
     LoginManager.Login loginManager;
-    @BindView(R.id.username)
-    EditText username;
-    @BindView(R.id.password)
-    EditText password;
-    @BindView(R.id.passwordConfirmation)
-    EditText passwordConfirmation;
-    @BindView(R.id.emailTextInput)
-    TextInputLayout emailTextInput;
-    @BindView(R.id.passwordTextInput)
-    TextInputLayout passwordTextInput;
-    @BindView(R.id.confirmPasswordTextInput)
-    TextInputLayout confirmPasswordTextInput;
-    @BindView(R.id.btnSignIn)
-    Button signInButton;
-    @BindView(R.id.progressBar)
-    ProgressBar progressBar;
 
     boolean validInputs;
 
+    CreateaccountFragBinding binding;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.createaccount_frag, container, false);
-       loginManager = DaggerHolder.getInstance().component().getLoginManager();
-        ButterKnife.bind(this, rootView);
-        return rootView;
+        binding = DataBindingUtil.inflate(inflater, R.layout.createaccount_frag, container, false);
+        setSignupOnClick();
+        return binding.getRoot();
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-    }
-
-    @OnClick(R.id.btnSignIn)
     public void signUpUser() {
         checkInputs();
         if (validInputs) {
-            progressBar.setVisibility(View.VISIBLE);
-            loginManager.createAccount(username.getText().toString(), password.getText().toString());
+            binding.progressBar.setVisibility(View.VISIBLE);
+            loginManager.createAccount(binding.username.getText().toString(), binding.password.getText().toString());
         }
+    }
+
+    public void setSignupOnClick(){
+        binding.btnSignIn.setOnClickListener(v -> signUpUser());
     }
 
     public void checkInputs() {
         String regex = "^(.+)@(.+)$";
         Pattern pattern = Pattern.compile(regex);
 
-        Observable<Boolean> emailIsValid = RxTextView.textChangeEvents(username)
-                .map(r -> r.text())
+        Observable<Boolean> emailIsValid = RxTextView.textChangeEvents(binding.username)
+                .map(TextViewTextChangeEvent::text)
                 .map(l -> pattern.matcher(l).matches());
-        Observable<Boolean> passwordIsValid = RxTextView.textChangeEvents(password)
+        Observable<Boolean> passwordIsValid = RxTextView.textChangeEvents(binding.password)
                 .map(input -> input.text().toString())
                 .map(input -> input.length() >= 6);
-        Observable<Boolean> passwordsMatch = RxTextView.textChangeEvents(passwordConfirmation)
+        Observable<Boolean> passwordsMatch = RxTextView.textChangeEvents(binding.passwordConfirmation)
                 .map(input -> input.text().toString())
-                .map(input -> input.equalsIgnoreCase(password.getText().toString()));
+                .map(input -> input.equalsIgnoreCase(binding.password.getText().toString()));
         emailIsValid.distinctUntilChanged()
                 .subscribe(validUsername -> {
                     if (!validUsername) {
-                        emailTextInput.setError("Invalid email format");
+                        binding.emailTextInput.setError("Invalid email format");
                     } else {
-                        emailTextInput.setError(null);
+                        binding.emailTextInput.setError(null);
                     }
                 });
         passwordIsValid.distinctUntilChanged()
                 .subscribe(validPassword -> {
                     if (!validPassword) {
-                        passwordTextInput.setError("Invalid email format");
+                        binding.passwordTextInput.setError("Invalid email format");
                     } else {
-                        passwordTextInput.setError(null);
+                        binding.passwordTextInput.setError(null);
                     }
                 });
+
         passwordsMatch.distinctUntilChanged()
                 .subscribe(validPassword -> {
-                    if (!validPassword) {
-                        confirmPasswordTextInput.setError("Passwords must match");
+                    if (validPassword) {
+                        binding.confirmPasswordTextInput.setError(null);
                     } else {
-                        confirmPasswordTextInput.setError(null);
+                        binding.confirmPasswordTextInput.setError("Passwords must match");
                     }
                 });
 
@@ -112,5 +101,20 @@ public class CreateAccountFragment extends Fragment {
         Observable<Boolean> enabledButton = Observable.combineLatest(validEmailAndPassword, passwordsMatch, (a, b) -> a & b);
         enabledButton.distinctUntilChanged()
                 .subscribe(enabled -> validInputs = (enabled));
+    }
+
+    @Override
+    public void initDagger() {
+        loginManager = DaggerHolder.getInstance().component().getLoginManager();
+    }
+
+    @Override
+    public BasePresenter getPresenter() {
+        return null;
+    }
+
+    @Override
+    public Object getContractView() {
+        return null;
     }
 }

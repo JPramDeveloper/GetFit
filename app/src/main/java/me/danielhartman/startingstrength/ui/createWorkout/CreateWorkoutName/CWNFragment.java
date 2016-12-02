@@ -85,6 +85,5 @@ public class CWNFragment extends BaseFragment<CWNContract.View> implements CWNCo
                 .setAutoZoomEnabled(true)
                 .setAspectRatio(16, 10)
                 .start(getActivity());
-
     }
 }
